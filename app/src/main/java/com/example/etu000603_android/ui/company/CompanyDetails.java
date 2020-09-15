@@ -26,11 +26,12 @@ import com.example.etu000603_android.R;
 import com.example.etu000603_android.data.model.Company;
 import com.example.etu000603_android.data.model.Contact;
 import com.example.etu000603_android.ui.company.fragment.ContactFragment;
+import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.utils.Session;
 
 import java.util.List;
 
-public class CompanyDetails extends AppCompatActivity {
+public class CompanyDetails extends ActivityWithNavigation {
 
     private WebView videoWeb;
     private LinearLayout content=null;
@@ -40,8 +41,9 @@ public class CompanyDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.saveInstance=savedInstanceState;
-        setContentView(R.layout.activity_company_details);
-
+        setContentView(R.layout.activity_company_details_drawer);
+        this.configureBottomNavigationView(R.id.action_home);
+        this.configureDrawer();
         videoWeb =  findViewById(R.id.video);
         content=findViewById(R.id.content);
         initYoutubeVideo();

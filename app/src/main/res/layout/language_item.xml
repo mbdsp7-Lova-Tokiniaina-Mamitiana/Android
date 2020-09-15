@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:clipToPadding="false"
+    android:layout_marginLeft="25dp"
+    android:layout_marginBottom="17dp"
+    android:background="@android:color/transparent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/img_flag"
+            android:elevation="30dp"
+            android:src="@drawable/france_rounded"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+    <TextView
+        android:id="@+id/text_language"
+        android:layout_toRightOf="@id/img_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textSize="13sp"
+        android:layout_marginLeft="22dp"
+        android:fontFamily="@font/sfrprodisplay_regular"
+        android:text="Francais"
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorBlack"
+        />
+</RelativeLayout>

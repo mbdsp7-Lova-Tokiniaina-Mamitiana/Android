@@ -38,6 +38,7 @@ import com.example.etu000603_android.data.repository.CompanyRepository;
 import com.example.etu000603_android.ui.company.fragment.PagerFragment;
 import com.example.etu000603_android.ui.company.fragment.VerticalCompanyFragment;
 import com.example.etu000603_android.ui.company.fragment.VerticalPagerFragment;
+import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.utils.Session;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 
 
-public class SearchCompany extends AppCompatActivity {
+public class SearchCompany extends ActivityWithNavigation {
 
     private CardView content=null;
     private EditText searchView=null;
@@ -82,7 +83,7 @@ public class SearchCompany extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         this.instance=savedInstanceState;
-        setContentView(R.layout.activity_search_society);
+        setContentView(R.layout.activity_search_society_drawer);
         activity=this;
         searchView=this.findViewById(R.id.searchView);
         search_button=findViewById(R.id.search_button);
@@ -118,6 +119,7 @@ public class SearchCompany extends AppCompatActivity {
         repository=new CompanyRepository();
 
         this.configureSearchView();
+        configureDrawer();
         repository.getCompanies(activity);
 
     }
@@ -143,6 +145,7 @@ public class SearchCompany extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
     }
     public void getCompaniesWebservice( List<Company> list) {
+        this.liste=list;
         getCompanies(list,true);
 
     }
@@ -219,7 +222,7 @@ public class SearchCompany extends AppCompatActivity {
 
             content.removeAllViews();
             List<Company> list=sortList(listNotSorted);
-            this.liste=list;
+
             if(horizontal){
 
                 RelativeLayout relativeLayout=new RelativeLayout(getBaseContext());

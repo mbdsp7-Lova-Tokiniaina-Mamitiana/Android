@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:elevation="0dp"
+    android:id="@+id/drawer_menu"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@android:color/transparent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:elevation="0dp"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+  <ImageView
+      android:layout_marginLeft="15dp"
+      android:layout_gravity="left"
+        android:layout_marginTop="20dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/logo_company"
+      android:background="@drawable/img_rounded2"
+      />
+    <TextView
+
+        android:id="@+id/company_name"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:text="Editus Luxembourg SA"
+        android:fontFamily="@font/mosk_bold_700"
+        android:textColor="@android:color/white" />
+
+        <TextView
+
+            android:id="@+id/company_adress"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+
+            android:fontFamily="@font/open_sans"
+            android:text="208 rue de Noertzange
+3670 Kayl, Luxembourg"
+            android:textColor="@android:color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/white"
+        android:visibility="gone" />
+
+
+
+
+    <View
+    android:layout_marginTop="100dp"
+    android:layout_marginLeft="20dp"
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@color/colorWhite" />
+     <LinearLayout
+         android:orientation="horizontal"
+         android:layout_marginLeft="20dp"
+         android:layout_marginTop="10dp"
+         android:layout_width="match_parent"
+
+         android:gravity="center"
+         android:layout_height="60dp">
+
+
+
+             <Button
+                 android:layout_marginTop="2dp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/condition"
+                 android:text="Conditions d'utilisations"
+                 android:layout_gravity="center"
+                 android:textSize="12sp"
+                 android:padding="5dp"
+
+                 android:fontFamily="@font/open_sans_semibold"
+                 android:textAllCaps="false"
+                 android:textColor="@color/colorWhite"
+                 android:background="@drawable/radius_button_black"
+                 ></Button>
+
+
+     </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorWhite" />
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+            app:cardBackgroundColor="@android:color/transparent"
+            android:layout_width="wrap_content"
+            app:cardElevation="0dp"
+            android:elevation="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="25dp"
+            >
+            <LinearLayout
+                android:id="@+id/language_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+
+                    android:id="@+id/img_flag"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+
+                    android:src="@drawable/france_rounded"
+
+                    >
+
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/language_spinner_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:popupBackground="@color/colorWhite"
+
+                    android:text="Bouton"
+                    android:textAllCaps="false"
+
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+                <ImageView
+
+                    android:layout_marginLeft="3dp"
+                    android:layout_gravity="center"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+
+                    android:src="@drawable/arrow_down_white"
+
+                    >
+
+
+                </ImageView>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp"
+            android:elevation="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/logout_button2"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp"
+                    android:text="@string/logout"
+                    >
+                </TextView>
+            </LinearLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

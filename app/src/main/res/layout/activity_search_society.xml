@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/side_content"
+
+    android:background="@color/colorWhiteOpaque"
+    android:padding="0dp"
+    tools:context=".ui.company.SearchCompany">
+    <ProgressBar
+        android:id="@+id/loading"
+        android:visibility="visible"
+        android:elevation="50dp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp"
+            android:id="@+id/content_blur"
+            android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+
+                android:layout_width="match_parent"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginTop="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/mosk_medium_500"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/choose"
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="30sp"
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_weight="3"
+                android:id="@+id/card_trame"
+                android:layout_height="0dp">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent" android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/your_company"
+                        android:fontFamily="@font/mosk_bold_700"
+                        android:textSize="30sp"
+                        android:textColor="@color/colorBlack2"
+
+                        android:textStyle="bold"
+                        android:layout_marginTop="-5dp"
+
+                        >
+                    </TextView>
+
+
+
+                    <RelativeLayout
+                        android:background="@android:color/transparent"
+
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <EditText
+                                android:id="@+id/searchView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                android:background="@drawable/rouded_search_edittext"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/open_sans"
+                                android:hint="@string/research_company"
+                                android:imeOptions="actionSearch"
+                                android:textColor="@color/colorBlack2"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="14dp"
+                                android:paddingVertical="12dp"
+                                android:singleLine="true" >
+
+                            </EditText>
+                            <ImageButton
+                                android:id="@+id/search_button"
+                                android:layout_width="43dp"
+                                android:layout_height="43dp"
+                                android:layout_marginBottom="-7dp"
+
+                                android:layout_alignRight="@id/searchView"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/search_ico"
+                                android:background="@null"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="0dp"
+                                android:text="Button"/>
+
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/content"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        app:cardElevation="0dp"
+                        app:cardPreventCornerOverlap="false">
+
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardPreventCornerOverlap="false"
+                android:layout_width="match_parent"
+                app:cardElevation="0dp"
+                android:layout_weight="0.45"
+                android:layout_height="0dp">
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/company_not_found"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans"
+                        android:gravity="center"
+                        android:text="@string/company_not_found"
+                        android:textColorLink="@color/colorGreen">
+
+                    </TextView>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+</RelativeLayout>

@@ -46,6 +46,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -116,12 +117,19 @@ public class SearchCompany extends ActivityWithNavigation {
 
         CardView cardTrame=findViewById(R.id.card_trame);
         cardTrame.setBackgroundResource(R.drawable.trame);
+
         repository=new CompanyRepository();
+        content.post(new Runnable() {
+            @Override
+            public void run() {
+                repository.getCompanies(activity);
+
+            }
+        });
 
         this.configureSearchView();
         configureDrawer();
-        repository.getCompanies(activity);
-
+        configureSpinnerLanguage();
     }
 
 
@@ -144,7 +152,7 @@ public class SearchCompany extends ActivityWithNavigation {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
     }
-    public void getCompaniesWebservice( List<Company> list) {
+    public void getCompaniesWebservice(final List<Company> list) {
         this.liste=list;
         getCompanies(list,true);
 
@@ -218,45 +226,45 @@ public class SearchCompany extends ActivityWithNavigation {
 //            }
         }
     }
-    private void getCompanies(List<Company> listNotSorted,boolean horizontal){
+    private void getCompanies(List<Company> listNotSorted, boolean horizontal){
 
-            content.removeAllViews();
-            List<Company> list=sortList(listNotSorted);
+        content.removeAllViews();
+        List<Company> list=sortList(listNotSorted);
+        if(horizontal){
 
-            if(horizontal){
+            RelativeLayout relativeLayout=new RelativeLayout(getBaseContext());
+            RelativeLayout.LayoutParams lpRelative=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            content.addView(relativeLayout,lpRelative);
+            int width = content.getWidth();
+            int padding = width*15/100;
+            System.out.println("padding:"+padding);
+            final ViewPager2 viewPager=new ViewPager2(getBaseContext());
 
-                RelativeLayout relativeLayout=new RelativeLayout(getBaseContext());
-                RelativeLayout.LayoutParams lpRelative=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-                content.addView(relativeLayout,lpRelative);
-                int width = content.getWidth();
-                int padding = width*15/100;
-                final ViewPager2 viewPager=new ViewPager2(getBaseContext());
+            viewPager.setClipToPadding(false);
+            viewPager.setClipChildren(false);
+            viewPager.setOffscreenPageLimit(3);
+            viewPager.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
+            viewPager.setPadding(padding,0,padding,0);
+            // viewPager.setPageTransformer(new PageTrans(viewPager,list.size()));
 
-                viewPager.setClipToPadding(false);
-                viewPager.setClipChildren(false);
-                viewPager.setOffscreenPageLimit(3);
-                viewPager.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
-                viewPager.setPadding(padding,0,padding,0);
-               // viewPager.setPageTransformer(new PageTrans(viewPager,list.size()));
+            RelativeLayout.LayoutParams lpViewPager=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            lpViewPager.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 
-                RelativeLayout.LayoutParams lpViewPager=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-                lpViewPager.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+            FragmentStateAdapter  pagerAdapter = new ScreenSlidePagerAdapter(this,list);
+            viewPager.setAdapter(pagerAdapter);
 
-                FragmentStateAdapter pagerAdapter = new ScreenSlidePagerAdapter(this,list);
-                viewPager.setAdapter(pagerAdapter);
+            CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+            compositePageTransformer.addTransformer(new MarginPageTransformer(padding/2));
 
-                CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-                compositePageTransformer.addTransformer(new MarginPageTransformer(padding/2));
+            viewPager.setPageTransformer(compositePageTransformer);
 
-                viewPager.setPageTransformer(compositePageTransformer);
-
-                relativeLayout.addView(viewPager,lpViewPager);
-
-
-            }else {
+            relativeLayout.addView(viewPager,lpViewPager);
 
 
-                //Ajout du scrollView
+        }else {
+
+
+            //Ajout du scrollView
                 /*ScrollView scrollView = new ScrollView(content.getContext());
                 ViewGroup.LayoutParams lpScrol = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 content.addView(scrollView, lpScrol);
@@ -273,37 +281,37 @@ public class SearchCompany extends ActivityWithNavigation {
                     View view=fragment.onCreateView(getLayoutInflater(),linearLayout,this.instance);
                     linearLayout.addView(view);
                 }*/
-                RelativeLayout relativeLayout=new RelativeLayout(getBaseContext());
-                RelativeLayout.LayoutParams lpRelative=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-                content.addView(relativeLayout,lpRelative);
-                System.out.println("Content width:"+content.getWidth()+"Content height:"+content.getHeight());
-                ViewPager2 viewPager=new ViewPager2(getBaseContext());
-                viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
-                viewPager.setClipToPadding(false);
-                viewPager.setOnDragListener(new View.OnDragListener() {
-                    @Override
-                    public boolean onDrag(View v, DragEvent event) {
-                        System.out.println("drag");
-                        return true;
-                    }
-                });
-
-                RelativeLayout.LayoutParams lpViewPager=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    viewPager.setForegroundGravity(Gravity.CENTER);
+            RelativeLayout relativeLayout=new RelativeLayout(getBaseContext());
+            RelativeLayout.LayoutParams lpRelative=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            content.addView(relativeLayout,lpRelative);
+            System.out.println("Content width:"+content.getWidth()+"Content height:"+content.getHeight());
+            ViewPager2 viewPager=new ViewPager2(getBaseContext());
+            viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
+            viewPager.setClipToPadding(false);
+            viewPager.setOnDragListener(new View.OnDragListener() {
+                @Override
+                public boolean onDrag(View v, DragEvent event) {
+                    System.out.println("drag");
+                    return true;
                 }
-                lpViewPager.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-                viewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
-                FragmentStateAdapter pagerAdapter = new ScreenVerticalPagerAdapter(this,list);
-                viewPager.setAdapter(pagerAdapter);
-                relativeLayout.addView(viewPager,lpViewPager);
+            });
 
+            RelativeLayout.LayoutParams lpViewPager=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                viewPager.setForegroundGravity(Gravity.CENTER);
             }
+            lpViewPager.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+            viewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
+            FragmentStateAdapter  pagerAdapter = new ScreenVerticalPagerAdapter(this,list);
+            viewPager.setAdapter(pagerAdapter);
+            relativeLayout.addView(viewPager,lpViewPager);
 
+        }
 
 
 
     }
+
 
     private List<Company> getCompanyList(String companyName){
         companyName=companyName.trim();

@@ -48,6 +48,7 @@ public class CompanyDetails extends ActivityWithNavigation {
         content=findViewById(R.id.content);
         initYoutubeVideo();
         initContact();
+        configureSpinnerLanguage();
 
     }
     private void initContact(){

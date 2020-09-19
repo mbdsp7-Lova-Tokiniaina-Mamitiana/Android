@@ -117,12 +117,12 @@ public class SearchCompany extends ActivityWithNavigation {
 
         CardView cardTrame=findViewById(R.id.card_trame);
         cardTrame.setBackgroundResource(R.drawable.trame);
-
+        final String uid=getUid();
         repository=new CompanyRepository();
         content.post(new Runnable() {
             @Override
             public void run() {
-                repository.getCompanies(activity);
+                repository.getCompanies(activity,uid);
 
             }
         });

@@ -2,10 +2,12 @@ package com.example.etu000603_android.data.model;
 
 import android.graphics.drawable.Drawable;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
-
+@IgnoreExtraProperties
 public class Company {
     private int id;
     private String name;

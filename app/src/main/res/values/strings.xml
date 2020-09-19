@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyBusinness</string>
+    <string name="app_name">HervéBusinness</string>
     <string name="title_activity_login">"Log in "</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -67,7 +67,7 @@
     <string name="research_info">Researchs infos</string>
     <string name="research_direct_gmb"> Customers find your listing by searching for the name or address of your business</string>
     <string name="research_discover_gmb">Customers find your listing by searching for a category, product or service</string>
-    <string name="research_brand_gmb" >Customers find your listing by searching for a brand related to your business</string>
+    <string name="research_brand_gmb">Customers find your listing by searching for a brand related to your business</string>
     <string name="research_editus">Editus.lu</string>
     <string name="research_directgmb_label">Direct Research GMB</string>
     <string name="research_discorver_gmb_label">Discover GMB</string>

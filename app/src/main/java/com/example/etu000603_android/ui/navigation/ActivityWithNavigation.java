@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.ui.authstate.FirebaseAuthState;
 import com.example.etu000603_android.ui.company.CompanyDetails;
 import com.example.etu000603_android.ui.company.SearchCompany;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
@@ -40,7 +41,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import jp.wasabeef.blurry.Blurry;
 
-public class ActivityWithNavigation extends ActivityWithLanguage {
+public class ActivityWithNavigation extends FirebaseAuthState {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private int idselected=0;
     private  boolean stop=false;
@@ -225,6 +226,7 @@ public class ActivityWithNavigation extends ActivityWithLanguage {
                         if(x>=decoX &&x<=decoX+decoview.getWidth()&& y>=decoY && y<=decoY+decoview.getHeight() ){
                             System.out.println("deco");
                             stop=true;
+                            logout();
 
                         }else{
                             System.out.println("click not good");

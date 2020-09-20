@@ -126,7 +126,7 @@ public class PagerFragment extends Fragment {
                                 imageView.setAdjustViewBounds(true);
                                 imageView.setImageDrawable(drawable);
 
-                                imageView.setPadding(55, 55, 55, 55);
+                                imageView.setPadding(28, 28, 28, 28);
                                 company.setLogo_drawable(drawable);
 
 

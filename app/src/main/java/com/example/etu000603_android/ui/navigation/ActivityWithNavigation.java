@@ -1,8 +1,12 @@
 package com.example.etu000603_android.ui.navigation;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -14,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +26,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.ui.authstate.FirebaseAuthState;
 import com.example.etu000603_android.ui.company.CompanyDetails;
@@ -28,12 +36,14 @@ import com.example.etu000603_android.ui.company.SearchCompany;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.example.etu000603_android.ui.language.LanguageItem;
 import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
+import com.example.etu000603_android.utils.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -53,6 +63,59 @@ public class ActivityWithNavigation extends FirebaseAuthState {
         instance=savedInstanceState;
 
 
+    }
+    public void configureDrawerInformation(){
+
+        TextView companyName=findViewById(R.id.company_name);
+        TextView companyAdress=findViewById(R.id.company_adress);
+        final ImageView imageView=findViewById(R.id.logo_company);
+
+        if(Session.selected_company!=null) {
+            System.out.println("company selected:" + Session.selected_company);
+            companyName.setText(Session.selected_company.getName());
+            companyName.setTextIsSelectable(true);
+            companyAdress.setText(Session.selected_company.getAddress().toString());
+            companyAdress.setTextIsSelectable(true);
+            imageView.setAdjustViewBounds(true);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            if (Session.selected_company.getLogo_drawable() != null) {
+                imageView.setImageDrawable(Session.selected_company.getLogo_drawable());
+            } else {
+                Glide.with(getBaseContext())
+                        .asBitmap().centerCrop()
+                        .load(Session.selected_company.getUrl_logo())
+                        .centerCrop()
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                Drawable drawable = new BitmapDrawable(getResources(), resource);
+
+
+                                imageView.setAdjustViewBounds(true);
+                                imageView.setImageDrawable(drawable);
+
+                                Session.selected_company.setLogo_drawable(drawable);
+
+
+                            }
+                        });
+            }
+            imageView.setAdjustViewBounds(true);
+            // imageView.setBackgroundResource(R.drawable.img_rounded2);
+            Display display = getWindowManager().getDefaultDisplay();
+
+            Point size = new Point();
+            display.getSize(size);
+            int height = size.y;
+            int paddingImg = 25 * height / 1369;
+            imageView.setPadding(paddingImg, paddingImg, paddingImg, paddingImg);
+
+        }else{
+            companyAdress.setVisibility(View.INVISIBLE);
+            companyName.setVisibility(View.INVISIBLE);
+            imageView.setVisibility(View.INVISIBLE);
+        }
+        setOnclickListener();
     }
     public void configureBottomNavigationView(final int id){
 
@@ -129,8 +192,7 @@ public class ActivityWithNavigation extends FirebaseAuthState {
         //ActivityFunction.configureDrawerLayout(this,drawerLayout,decoview,decoview2,content);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        final int width = displayMetrics.widthPixels;
+
         // decoview2.setVisibility(CardView.INVISIBLE);
 
        /* decoview.setElevation(10);
@@ -286,10 +348,31 @@ public class ActivityWithNavigation extends FirebaseAuthState {
             setLocale("de", init);
         }
 
-        setOnclickListener();
+
         selected_language=languageItem;
     }
     private  void setOnclickListener(){
+        Button condition=findViewById(R.id.condition);
+        condition.setText(getBaseContext().getResources().getString(R.string.conditions));
+        condition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Uri uri = Uri.parse("https://www.doubs.cci.fr/sites/default/files/doubs/Dev_votre_entrep/commerce/numerique/cles-num-2016/07-Modele-CGU.pdf"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+    }
+    public   void changeLogo(){
+        final BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);
+
+        ImageView imageView=findViewById(R.id.image_tiers);
+        if(Session.selected_company!=null) {
+            if (Session.selected_company.getLogo_drawable() != null)
+                imageView.setImageDrawable(Session.selected_company.getLogo_drawable());
+        }
+
 
     }
     public void configureSpinnerLanguage(){
@@ -455,14 +538,22 @@ public class ActivityWithNavigation extends FirebaseAuthState {
     }
     private void showBottomNavigationView(){
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
+        final ImageView tiers=findViewById(R.id.image_tiers);
         if(bottomNavigationView!=null){
             bottomNavigationView.setVisibility(View.VISIBLE);
+        }
+        if(tiers!=null){
+            tiers.setVisibility(View.VISIBLE);
         }
     }
     private void hideBottomNavigationView(){
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
+        final ImageView tiers=findViewById(R.id.image_tiers);
         if(bottomNavigationView!=null){
             bottomNavigationView.setVisibility(View.GONE);
+        }
+        if(tiers!=null){
+            tiers.setVisibility(View.GONE);
         }
     }
 

@@ -36,8 +36,9 @@ public class FirebaseAuthState extends ActivityWithLanguage {
     }
     public void redirectToLogin(){
 
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+
+        finish();
         startActivity(intent);
     }
     public void logout(){

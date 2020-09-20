@@ -80,22 +80,20 @@
          android:layout_height="60dp">
 
 
+         <Button
+             android:layout_marginTop="2dp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/condition"
+             android:text="@string/conditions"
+             android:layout_gravity="center"
+             android:textSize="12sp"
+             android:padding="5dp"
 
-             <Button
-                 android:layout_marginTop="2dp"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/condition"
-                 android:text="Conditions d'utilisations"
-                 android:layout_gravity="center"
-                 android:textSize="12sp"
-                 android:padding="5dp"
-
-                 android:fontFamily="@font/open_sans_semibold"
-                 android:textAllCaps="false"
-                 android:textColor="@color/colorWhite"
-                 android:background="@drawable/radius_button_black"
-                 ></Button>
+             android:fontFamily="@font/open_sans_semibold"
+             android:textAllCaps="false"
+             android:textColor="@color/colorWhite"
+             android:background="@drawable/radius_button_black" />
 
 
      </LinearLayout>

@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/open_sans"
                         android:textColor="@color/colorBlack2"
-                        android:text="Conseiller Marketing"
+                        android:text="@string/commercial"
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>

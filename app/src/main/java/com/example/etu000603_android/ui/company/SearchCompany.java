@@ -64,7 +64,6 @@ public class SearchCompany extends ActivityWithNavigation {
     private EditText searchView=null;
     private CompanyRepository repository=null;
     public Bundle instance=null;
-    private PopupWindow popUpEditus=null;
     SearchCompany activity=null;
     private List<Company> liste=null;
     private ProgressBar progressBar=null;
@@ -76,7 +75,7 @@ public class SearchCompany extends ActivityWithNavigation {
         super.onResume();
 
         enableSearchView();
-        progressBar.setVisibility(View.GONE);
+       // progressBar.setVisibility(View.GONE);
 
     }
     @Override
@@ -119,6 +118,7 @@ public class SearchCompany extends ActivityWithNavigation {
         cardTrame.setBackgroundResource(R.drawable.trame);
         final String uid=getUid();
         repository=new CompanyRepository();
+        progressBar.setVisibility(View.VISIBLE);
         content.post(new Runnable() {
             @Override
             public void run() {
@@ -129,6 +129,7 @@ public class SearchCompany extends ActivityWithNavigation {
 
         this.configureSearchView();
         configureDrawer();
+        configureDrawerInformation();
         configureSpinnerLanguage();
     }
 
@@ -157,14 +158,7 @@ public class SearchCompany extends ActivityWithNavigation {
         getCompanies(list,true);
 
     }
-    private void logoutWait(int duration){
-        try {
-            Thread.sleep(duration);
-            logout();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+
     private int getIminList(int i ,List<Company> liste){
         int imin=i;
         for(int j=i;j<liste.size();j++){
@@ -196,35 +190,6 @@ public class SearchCompany extends ActivityWithNavigation {
             }
         }
         return newList;
-    }
-    private class PageTrans implements ViewPager2.PageTransformer {
-        private ViewPager2 viewPager2=null;
-        private int n=0;
-
-        public PageTrans(ViewPager2 viewPager2, int n) {
-            this.viewPager2 = viewPager2;
-            this.n = n;
-        }
-
-        @Override
-        public void transformPage(@NonNull View page, float position) {
-//            View viewShadow=page.findViewById(R.id.card_company_shadow);
-//            View viewShadow2=page.findViewById(R.id.card_company_shadow2);
-//           // System.out.println("position:"+position);
-//            if(position==0){
-//                int i=viewPager2.getCurrentItem()+1;
-//                if(i!=n)
-//                viewShadow.setVisibility(View.VISIBLE);
-//                if(i!=1)
-//                viewShadow2.setVisibility(View.VISIBLE);
-//            }else {
-//
-//
-//                    viewShadow.setVisibility(View.GONE);
-//                    viewShadow2.setVisibility(View.GONE);
-//
-//            }
-        }
     }
     private void getCompanies(List<Company> listNotSorted, boolean horizontal){
 
@@ -309,6 +274,7 @@ public class SearchCompany extends ActivityWithNavigation {
         }
 
 
+        progressBar.setVisibility(View.GONE);
 
     }
 

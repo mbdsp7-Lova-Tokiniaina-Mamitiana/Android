@@ -8,74 +8,28 @@
     <string name="choose">"Wählen Sie "</string>
     <string name="your_company">" Ihr Unternehmen"</string>
     <string name="contact_us">Kontaktieren uns!</string>
-    <string name="informations">Informationen</string>
-    <string name="contents">Inhalt</string>
-    <string name="client_area">Kundenbereich</string>
-    <string name="my_profile">Mein Profil</string>
     <string name="logout">Abmelden</string>
     <string name="commercial">Marketing-Berater</string>
     <string name="account_manager">Kundenbetreuer</string>
-    <string name="less_details">Weniger Details?</string>
-    <string name="research">Suchanfragen</string>
-    <string name="views">Aufrufe</string>
-    <string name="actions">Aktionen</string>
     <string name="phone_number">Telefon</string>
     <string name="call">"Anrufen "</string>
     <string name="write">Schreiben</string>
-    <string name="compare_last_period">Im Vergleich zum vorhergehenden Zeitraum</string>
-    <string name="figures">Die Zahlen entsprechen den folgenden Daten:</string>
     <string name="prompt_email">E-mail</string>
-    <string name="tooltip_research">Die Anzahl der Suchanfragen basiert auf den über Editus.lu und Google (Angebot One) zu Ihrem Eintrag durchgeführten Aktionen</string>
-    <string name="tooltip_view">Die Anzahl der Aufrufe basiert auf den über Editus.lu und Google (Angebot One) zu Ihrem Eintrag durchgeführten Aktionen</string>
-    <string name="tooltip_action">Die Anzahl der Aktionen basiert auf den über Editus.lu, Google und Google Maps (Angebot One) zu Ihrem Eintrag durchgeführten Aktionen wie Anrufe, Weiterleitungen zur Website usw.</string>
-    <string name="last_month">Letzter Monat</string>
-    <string name="six_last_months">Letzte 6 Monate</string>
-    <string name="last_days">Letzte 31 Tage</string>
-    <string name="twelve_last_months">Letzte 12 Monate</string>
-    <string name="more_details">Mehr Details?</string>
-    <string name="directs">Direkte Suchanfragen</string>
-    <string name="brand">Markenbezogene Suchanfragen</string>
-    <string name="discoveries">Indirekte Suchanfragen</string>
-    <string name="research_direct_gmb">Kunden, die Ihren Eintrag über die Suche nach dem Namen oder der Adresse Ihres Unternehmens gefunden haben</string>
-    <string name="research_discover_gmb">Kunden, die Ihren Eintrag über die Suche nach einer Kategorie, einem Produkte oder einer Dienstleistung gefunden haben</string>
-    <string name="research_brand_gmb" >Kunden, die Ihren Eintrag über die Suche nach einer mit Ihrem Unternehmen in Verbindung stehende Marke gefunden haben</string>
-    <string name="rangedate">Die verfügbaren Statistiken reichen von April 2019 bis D-5</string>
-    <string name="numbergoogle">Die Zahlen beinhalten in unserem One-Angebot die Daten Ihres Google-Eintrags</string>
-    <string name="view_google_sheet">Aufrufe Eintrag</string>
-    <string name="views_editus">Kunden, die Ihren Eintrag auf Editus und Google aufrufen</string>
-    <string name="views_map">Kunden, die Ihren Eintrag auf Google Maps aufrufen</string>
 
-    <string name="reservations">Reservations</string>
-    <string name="social_network">Social networks</string>
-    <string name="calls">Anrufe</string>
-    <string name="contact_request">Kontaktanfragen</string>
-    <string name="website_visits">Website-Besuche</string>
-    <string name="route_request">Wegbeschreibung abgerufen</string>
-    <string name="information_sheets">Eintrag</string>
-    <string name="summary">Per E-Mail meine monatliche Statistikübersicht erhalten</string>
-    <string name="actions_social_network_label">In den sozialen Medien folgen</string>
-    <string name="actions_social_network">Kunden, die Ihnen in den sozialen Medien folgen</string>
-    <string name="actions_call">Kunden, die Ihre Telefonnummer aufgerufen oder Ihr Unternehmen angerufen haben</string>
-    <string name="actions_website_visit">Kunden, die Ihre Website aufgerufen haben</string>
-    <string name="actions_contact">Kunden, die Ihnen ein Kontaktformular geschickt haben</string>
-    <string name="actions_path">Wegbeschreibung abgerufen: Kunden, die die Wegbeschreibung zu Ihrem Unternehmen abgerufen </string>
-    <string name="actions_bookme">Kunden, die bei Ihnen einen Tisch reserviert haben</string>
-
-    <string name="data_protect">Datenschutz</string>
-    <string name="url_data_protect">https://webfiles.luxweb.com/files/gdpr/politique-vie-privee.pdf</string>
-    <string name="general_condition">Nutzungsbedingungen und Konditionen</string>
     <string name="url_general_condition">https://webfiles.luxweb.com/files/gdpr/mybusiness/cgu.pdf</string>
 
-    <string name="presentation">Präsentation</string>
 
-    <string name="url_drawer">https://mybusiness.editus.lu/de/</string>
-    <string name="bad_connection">Schlechte Verbindung.</string>
-    <string name="bad_connection_exp">Das Surferlebnis kann beeinträchtigt sein.</string>
-
-
-    <string name="bad_api1">Derzeit tritt ein</string>
-    <string name="bad_api2"> technisches Problem auf.</string>
-    <string name="bad_api3">Sie können auf unsere Webversion </string>
-    <string name="bad_api4">hier surfen. </string>
     <string name="not_editus">Als Editus-Benutzer können Sie die Anwendung nicht verwenden, kein Konto erstellen oder die Website mit Ihrem Windows-Konto nutzen.</string>
+    <string name="name_video">So führen Sie Ihr Unternehmen</string>
+    <string name="url_video">https://www.youtube.com/embed/3riSxRXLVEU</string>
+    <string name="contacts">Kontakte</string>
+    <string name="copy">"Kopieren "</string>
+    <string name="no">Nein</string>
+    <string name="yes">Ja</string>
+    <string name="text_phone_permisson">Wollen Sie das wirklich anrufen?</string>
+    <string name="login_error">" x Die eingegebene E-Mail-Adresse oder das eingegebene Passwort ist falsch"</string>
+    <string name="username">"Nutzername "</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="welcome">" Willkommen bei HervéBusiness! Bitte melden Sie sich an"</string>
+    <string name="conditions">Nutzungsbedingungen</string>
 </resources>

@@ -23,11 +23,12 @@ public class ActivityWithLanguage extends AppCompatActivity {
 
 
     private String SHARED_PREFERENCES_NAME="Toky_businnes";
-    private String LANGUAGE="Toky_businnes";
+    private String LANGUAGE="Toky_businness_language";
 
     public boolean loading=false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         checkLanguage();
 
@@ -58,7 +59,6 @@ public class ActivityWithLanguage extends AppCompatActivity {
     public void setLocale(String lang,boolean init) {
         Locale myLocale = new Locale(lang);
         Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         onConfigurationChanged(conf);

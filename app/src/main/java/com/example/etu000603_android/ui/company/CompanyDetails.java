@@ -40,42 +40,47 @@ public class CompanyDetails extends ActivityWithNavigation {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.saveInstance=savedInstanceState;
         setContentView(R.layout.activity_company_details_drawer);
+        this.saveInstance=savedInstanceState;
         this.configureBottomNavigationView(R.id.action_home);
         this.configureDrawer();
         videoWeb =  findViewById(R.id.video);
+
         content=findViewById(R.id.content);
+
         initYoutubeVideo();
         initContact();
+        changeLogo();
         configureSpinnerLanguage();
+        configureDrawerInformation();
 
     }
     private void initContact(){
         Company selected= Session.selected_company;
+        CompanyDetails activity=this;
+        checkLanguage();
         if(selected!=null){
             List<Contact> listContact=selected.getListeDesContacts();
             int n=0;
             if(listContact!=null){
                 n=listContact.size();
             }
-            LayoutInflater inflater=getLayoutInflater();
             for(int i=0;i<n;i++){
-                ContactFragment contactFragment=new ContactFragment(listContact.get(i),this);
-                View view=contactFragment.onCreateView(inflater,content,this.saveInstance);
+                ContactFragment contactFragment=new ContactFragment(listContact.get(i),activity);
+                View view=contactFragment.onCreateView(getLayoutInflater(),content,null);
                 content.addView(view);
             }
 
         }
     }
     private void initYoutubeVideo(){
-
+        checkLanguage();
         videoWeb.getSettings().setJavaScriptEnabled(true);
         videoWeb.setWebChromeClient(new WebChromeClient() {
 
         } );
        // String videoUrl="<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/eWEF1Zrmdow\" frameborder=\"0\" allowfullscreen></iframe>";
-        String videoUrl="<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/BqhVVp2OiBE\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";
+        String videoUrl="<iframe width=\"100%\" height=\"100%\" src=\""+getBaseContext().getResources().getString(R.string.url_video)+"\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";
 
         videoWeb.loadData( videoUrl, "text/html" , "utf-8" );
 

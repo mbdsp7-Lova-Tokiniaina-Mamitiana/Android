@@ -66,7 +66,7 @@ public class ContactFragment extends Fragment {
         Button btn_call = view.findViewById(R.id.btn_call);
         String type="CEM";
         if (contact.getRole() == Contact.ContactType.ACCOUNT_MANAGER) {
-            textrole.setText(view.getResources().getString(R.string.account_manager));
+            textrole.setText(activity.getResources().getString(R.string.account_manager));
             imageView.setImageResource(R.drawable.ico_role2);
 
 

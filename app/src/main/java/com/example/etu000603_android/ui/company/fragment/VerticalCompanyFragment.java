@@ -91,7 +91,7 @@ public class VerticalCompanyFragment extends Fragment {
         cardCompany.setBackgroundResource(R.drawable.circle_cardview);
         //cardCompany.setPadding(15,15,15,15);
         final ImageView imageView=new ImageView(activity.getBaseContext());
-        final int scaleHeight=16*heigthRoot/144;
+        final int scaleHeight=20*heigthRoot/144;
         if(company.getLogo_drawable()==null){
             System.out.println("glide");
             Glide.with(activity.getBaseContext())

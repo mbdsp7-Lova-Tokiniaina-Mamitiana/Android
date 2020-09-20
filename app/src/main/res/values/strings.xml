@@ -3,121 +3,36 @@
     <string name="title_activity_login">"Log in "</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Log in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="welcome">Welcome to HervéBusiness !Please sign in first</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="username">Username</string>
-    <string name="forgot_password">forgot password?</string>
     <string name="contact_us">Contact us !</string>
-    <string name="no_user">no user ?</string>
-    <string name="research">Searches</string>
-    <string name="views">Views</string>
-    <string name="actions">Actions</string>
+
     <string name="phone_number">Phone </string>
     <string name="call">Call</string>
-    <string name="send">Send</string>
-    <string name="figures">The figures correspond to the following dates:</string>
+
     <string name="choose">"Choose "</string>
     <string name="research_company">Search for a company</string>
     <string name="company_not_found"> Can\'t find the company you\'re looking for?</string>
     <string name="your_company">your company</string>
-    <string name="informations">Information</string>
-    <string name="contents">Content</string>
-    <string name="client_area" translatable="false">Client space</string>
-    <string name="my_profile">My profile</string>
     <string name="logout">Log off</string>
-    <string name="reservations">Reservations</string>
-    <string name="social_network">Social networks</string>
-    <string name="calls">Calls</string>
-    <string name="contact_request">Contact Requests</string>
-    <string name="website_visits">Website visits</string>
-    <string name="route_request">Direction requests</string>
-    <string name="information_sheets">Profile</string>
-    <string name="summary">Receive a monthly summary of my statistics by email</string>
-
-    <string name="directs">Direct</string>
-    <string name="brand">Branded</string>
-    <string name="discoveries">Discovery</string>
-
-    <string name="more_details">More details ?</string>
-    <string name="title_activity_drawer2">DrawerActivity2</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-
-    <string name="home_second">Home Second</string>
-    <string name="welcome_sub"></string>
 
     <string name="login_error">" x Username or password incorrect"</string>
-    <string name="compare_last_period">compared with the previous period</string>
     <string name="write">Write</string>
-    <string name="less_details">Less detail  ?</string>
     <string name="commercial">"Marketing consultant "</string>
     <string name="account_manager">Account Manager</string>
-    <string name="research_info">Researchs infos</string>
-    <string name="research_direct_gmb"> Customers find your listing by searching for the name or address of your business</string>
-    <string name="research_discover_gmb">Customers find your listing by searching for a category, product or service</string>
-    <string name="research_brand_gmb">Customers find your listing by searching for a brand related to your business</string>
-    <string name="research_editus">Editus.lu</string>
-    <string name="research_directgmb_label">Direct Research GMB</string>
-    <string name="research_discorver_gmb_label">Discover GMB</string>
-    <string name="research_brandgmb_label">Brand gmb</string>
-    <string name="research_editus_label">Research Editus</string>
-    <string name="actions_info">Views info</string>
-    <string name="actions_call">Customers that displayed your telephone number or called your business</string>
-    <string name="actions_website_visit">Customers who visited your website</string>
-    <string name="actions_contact">Customers who sent you a contact form</string>
-    <string name="actions_path">Customers looking for directions to your business</string>
-    <string name="bookmee">BookMe</string>
-    <string name="actions_bookme">Customers who made table bookings with your business</string>
-    <string name="actions_social_network">Customers who follow you on social media</string>
-    <string name="views_gmb_label">Views  GMB</string>
-    <string name="view_map_label">View google</string>
-    <string name="view_editus_label">View editus</string>
-    <string name="views_gmb">Views gmb</string>
-    <string name="views_map">Customers visiting your profile on Google </string>
-    <string name="views_editus">Customers visiting your profile on Editus and Google</string>
-    <string name="views_editus_label">View editus</string>
-    <string name="actions_social_network_label">Follow on social media</string>
-    <string name="tooltip_research">The number of searches is based on the actions performed on your listing via Editus.lu and Google (ONE package)</string>
-    <string name="tooltip_view">The number of views is based on the actions performed on your listing via Editus.lu, Google and Google Maps (ONE package)</string>
-    <string name="tooltip_action">The number of actions is based on the actions performed on your listing via Editus.lu, Google and Google Maps (ONE package) such as calls, redirections to websites, etc.</string>
     <string name="text_phone_permisson">Do yout want to use phone?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="copy">copy</string>
 
-    <string name="last_month">Last month</string>
-    <string name="six_last_months">Last 6 months</string>
-    <string name="last_days">Last 31 days</string>
-    <string name="twelve_last_months">Last 12 months</string>
-    <string name="rangedate">Available statistics range from April 2019 to D-5</string>
-    <string name="numbergoogle">The figures include data from your Google listing with our ONE package</string>
-    <string name="view_google_sheet">Profile views</string>
-    <string name="data_protect">Data protection</string>
-    <string name="url_data_protect">https://webfiles.luxweb.com/files/gdpr/politique-vie-privee.pdf</string>
-    <string name="general_condition">Terms and conditions of use</string>
     <string name="url_general_condition">https://webfiles.luxweb.com/files/gdpr/mybusiness/cgu.pdf</string>
 
-    <string name="presentation">Presentation</string>
-    <string name="url_drawer">https://mybusiness.editus.lu/en/</string>
-
-    <string name="bad_connection">Bad connection.</string>
-    <string name="bad_connection_exp">The browsing experience may be degraded</string>
-
-    <string name="bad_api1">We are currently encountering a</string>
-    <string name="bad_api2"> technical problem.</string>
-    <string name="bad_api3">You can browse our web version by </string>
-    <string name="bad_api4">clicking here </string>
     <string name="not_editus">As an Editus user you cannot use the application, create an account or use the site with your windows account. </string>
+    <string name="url_video">https://www.youtube.com/embed/z_8TyanJ_PA</string>
+    <string name="name_video">How to manage you company</string>
+    <string name="contacts">Contacts</string>
+    <string name="conditions">Conditions of use</string>
 </resources>

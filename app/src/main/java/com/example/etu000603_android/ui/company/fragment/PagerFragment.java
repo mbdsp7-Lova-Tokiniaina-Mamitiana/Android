@@ -56,7 +56,7 @@ public class PagerFragment extends Fragment {
         float width = displayMetrics.widthPixels;
         float height= displayMetrics.heightPixels;
 
-        System.out.println("height screen:"+height+" vs "+content.getHeight()) ;
+      //  System.out.println("height screen:"+height+" vs "+content.getHeight()) ;
         TextView textCompany=view.findViewById(R.id.text_company);
         textCompany.setText(company.getName());
 

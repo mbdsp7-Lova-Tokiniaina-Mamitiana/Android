@@ -202,7 +202,7 @@ public class SearchCompany extends ActivityWithNavigation {
             content.addView(relativeLayout,lpRelative);
             int width = content.getWidth();
             int padding = width*15/100;
-            System.out.println("padding:"+padding);
+          //  System.out.println("padding:"+padding);
             final ViewPager2 viewPager=new ViewPager2(getBaseContext());
 
             viewPager.setClipToPadding(false);
@@ -249,14 +249,14 @@ public class SearchCompany extends ActivityWithNavigation {
             RelativeLayout relativeLayout=new RelativeLayout(getBaseContext());
             RelativeLayout.LayoutParams lpRelative=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
             content.addView(relativeLayout,lpRelative);
-            System.out.println("Content width:"+content.getWidth()+"Content height:"+content.getHeight());
+           // System.out.println("Content width:"+content.getWidth()+"Content height:"+content.getHeight());
             ViewPager2 viewPager=new ViewPager2(getBaseContext());
             viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
             viewPager.setClipToPadding(false);
             viewPager.setOnDragListener(new View.OnDragListener() {
                 @Override
                 public boolean onDrag(View v, DragEvent event) {
-                    System.out.println("drag");
+                 //   System.out.println("drag");
                     return true;
                 }
             });

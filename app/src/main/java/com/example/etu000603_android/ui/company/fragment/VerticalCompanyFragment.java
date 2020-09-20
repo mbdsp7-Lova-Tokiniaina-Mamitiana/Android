@@ -49,7 +49,7 @@ public class VerticalCompanyFragment extends Fragment {
     public View createView(){
         int scale=heigth/970;
         final int heigthRoot=(heigth/5)-15;
-        System.out.println("heightRoot:"+heigthRoot+" widthRoot:"+width);
+      //  System.out.println("heightRoot:"+heigthRoot+" widthRoot:"+width);
         RelativeLayout relativeLayout=new RelativeLayout(activity.getBaseContext());
         RelativeLayout.LayoutParams lpRelative=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,heigthRoot );
         relativeLayout.setBackgroundColor(relativeLayout.getResources().getColor(android.R.color.transparent));
@@ -93,7 +93,7 @@ public class VerticalCompanyFragment extends Fragment {
         final ImageView imageView=new ImageView(activity.getBaseContext());
         final int scaleHeight=20*heigthRoot/144;
         if(company.getLogo_drawable()==null){
-            System.out.println("glide");
+          //  System.out.println("glide");
             Glide.with(activity.getBaseContext())
                     .asBitmap()
                     .centerCrop()
@@ -114,7 +114,7 @@ public class VerticalCompanyFragment extends Fragment {
                         }
                     });
         }else{
-            System.out.println("not glide");
+           // System.out.println("not glide");
             imageView.setAdjustViewBounds(true);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);imageView.setPadding(scaleHeight,scaleHeight,scaleHeight,scaleHeight);
 

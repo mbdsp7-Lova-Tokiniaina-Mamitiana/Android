@@ -193,12 +193,6 @@ public class ActivityWithNavigation extends FirebaseAuthState {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        // decoview2.setVisibility(CardView.INVISIBLE);
-
-       /* decoview.setElevation(10);
-        decoview2.setElevation(10);
-        decoview.bringToFront();
-        decoview2.bringToFront();*/
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             private float scaleFactorX = 3f;
             private float scaleFactorY = 3f;
@@ -206,7 +200,7 @@ public class ActivityWithNavigation extends FirebaseAuthState {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
 
-                System.out.println("SlideOffset:"+slideOffset);
+              //  System.out.println("SlideOffset:"+slideOffset);
                 //  System.out.println(drawerView.getId()+"  d:"+drawerLayout.getId()+" c:"+content.getId());
                 super.onDrawerSlide(drawerView, slideOffset);
                 if(stop){
@@ -245,7 +239,7 @@ public class ActivityWithNavigation extends FirebaseAuthState {
                     //deco.setX(200);
                     decoview2.setVisibility(CardView.VISIBLE);
                     // decoview2.setElevation(50);
-                    System.out.println("elevation : "+decoview2.getElevation()+" vs "+ drawerLayout.getElevation()+" vs" +content.getElevation());
+                  //  System.out.println("elevation : "+decoview2.getElevation()+" vs "+ drawerLayout.getElevation()+" vs" +content.getElevation());
                     decoview.setVisibility(CardView.INVISIBLE);
 
                     configureOnTouchLister();
@@ -286,12 +280,12 @@ public class ActivityWithNavigation extends FirebaseAuthState {
                         // System.out.println("("+x+","+""+y+")");
 
                         if(x>=decoX &&x<=decoX+decoview.getWidth()&& y>=decoY && y<=decoY+decoview.getHeight() ){
-                            System.out.println("deco");
+                           // System.out.println("deco");
                             stop=true;
                             logout();
 
                         }else{
-                            System.out.println("click not good");
+                         //   System.out.println("click not good");
                         }
 
                         break;
@@ -324,7 +318,7 @@ public class ActivityWithNavigation extends FirebaseAuthState {
 
     private void setSelectedItem(LanguageItem languageItem,boolean init){
         String language=languageItem.getLanguage();
-        System.out.println("Language selected:"+language);
+        //System.out.println("Language selected:"+language);
         ImageView imageView=findViewById(R.id.img_flag);
         TextView languageSpinner2=findViewById(R.id.language_spinner_text);
         languageSpinner2.setText(languageItem.getLanguage());

@@ -1,6 +1,5 @@
-package com.example.etu000603_android.ui.company;
+package com.example.etu000603_android.ui.pari;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -13,41 +12,33 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.data.model.Company;
-import com.example.etu000603_android.data.repository.CompanyRepository;
-import com.example.etu000603_android.ui.company.fragment.PagerFragment;
-import com.example.etu000603_android.ui.company.fragment.VerticalCompanyFragment;
-import com.example.etu000603_android.ui.company.fragment.VerticalPagerFragment;
+import com.example.etu000603_android.data.model.Pari;
+import com.example.etu000603_android.data.repository.PariRepository;
+import com.example.etu000603_android.ui.pari.fragment.PagerFragment;
+import com.example.etu000603_android.ui.pari.fragment.VerticalCompanyFragment;
+import com.example.etu000603_android.ui.pari.fragment.VerticalPagerFragment;
 import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.utils.Session;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -58,14 +49,14 @@ import androidx.viewpager2.widget.ViewPager2;
 
 
 
-public class SearchCompany extends ActivityWithNavigation {
+public class PariActvity extends ActivityWithNavigation {
 
     private CardView content=null;
     private EditText searchView=null;
-    private CompanyRepository repository=null;
+    private PariRepository repository=null;
     public Bundle instance=null;
-    SearchCompany activity=null;
-    private List<Company> liste=null;
+    PariActvity activity=null;
+    private List<Pari> liste=null;
     private ProgressBar progressBar=null;
     private  ImageButton search_button;
 
@@ -90,39 +81,18 @@ public class SearchCompany extends ActivityWithNavigation {
         content=this.findViewById(R.id.content);
         progressBar=findViewById(R.id.loading);
 
-        TextView textView=findViewById(R.id.company_not_found);
-        String companynotfound=getResources().getString(R.string.company_not_found);
-        String contact=getResources().getString(R.string.contact_us);
-        String text=companynotfound+" "+contact;
-        SpannableString spannable=new SpannableString(text);
-        spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorGreen)),companynotfound.length(),text.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-
-                sendEmail("tokiniainaherve.andrianarison@gmail.com");
-            }
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-            }
-        };
-        spannable.setSpan(clickableSpan,companynotfound.length(),text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setText(spannable,TextView.BufferType.SPANNABLE);
 
 
 
         CardView cardTrame=findViewById(R.id.card_trame);
         cardTrame.setBackgroundResource(R.drawable.trame);
         final String uid=getUid();
-        repository=new CompanyRepository();
+        repository=new PariRepository();
         progressBar.setVisibility(View.VISIBLE);
         content.post(new Runnable() {
             @Override
             public void run() {
-                repository.getCompanies(activity,uid);
+                repository.getPariDisponibles(activity);
 
             }
         });
@@ -142,8 +112,8 @@ public class SearchCompany extends ActivityWithNavigation {
 
 
 
-    public void redirectToInfo(Company company){
-        Session.selected_company=company;
+    public void redirectToInfo(Pari pari){
+        Session.selected_pari=pari;
        Intent intent=new Intent(getBaseContext(), CompanyDetails.class);
 
         startActivity(intent);
@@ -153,48 +123,17 @@ public class SearchCompany extends ActivityWithNavigation {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
     }
-    public void getCompaniesWebservice(final List<Company> list) {
+    public void getPariDisponibles(final List<Pari> list) {
         this.liste=list;
-        getCompanies(list,true);
+        getParis(list,true);
 
     }
 
-    private int getIminList(int i ,List<Company> liste){
-        int imin=i;
-        for(int j=i;j<liste.size();j++){
-            Company min=liste.get(imin);
-            Company c=liste.get(j);
-            if(c.lesserThan(min)){
-                imin=j;
 
-            }
-        }
-        return imin;
-    }
-    private List<Company> sortList(List<Company> liste){
-        List<Company> newList=new ArrayList<>();
-        for(Company c:liste){
-            newList.add(c);
-         //   newList.add(c);
-        }
-        int n=newList.size();
-        if(n>0){
 
-            for(int i=0;i<n;i++){
-                Company c=newList.get(i);
-                int imin=getIminList(i,newList);
-                Company min=newList.get(imin);
-                newList.set(i,min);
-                newList.set(imin,c);
-
-            }
-        }
-        return newList;
-    }
-    private void getCompanies(List<Company> listNotSorted, boolean horizontal){
+    private void getParis(List<Pari> list, boolean horizontal){
 
         content.removeAllViews();
-        List<Company> list=sortList(listNotSorted);
         if(horizontal){
 
             RelativeLayout relativeLayout=new RelativeLayout(getBaseContext());
@@ -279,16 +218,16 @@ public class SearchCompany extends ActivityWithNavigation {
     }
 
 
-    private List<Company> getCompanyList(String companyName){
+    private List<Pari> getCompanyList(String companyName){
         companyName=companyName.trim();
         if(companyName.isEmpty()){
             return liste;
         }
-        List<Company> newList=new ArrayList<>();
-        for(Company c:liste){
-            if(c.contains(companyName)){
+        List<Pari> newList=new ArrayList<>();
+        for(Pari c:liste){
+
                 newList.add(c);
-            }
+
         }
         return  newList;
     }
@@ -297,14 +236,14 @@ public class SearchCompany extends ActivityWithNavigation {
 
 
       //  progressBar.setVisibility(View.VISIBLE);
-        List<Company> list=getCompanyList(query);
+        List<Pari> list=getCompanyList(query);
 
         if(query.trim().isEmpty()){
 
-            getCompanies(list,true);
+            getParis(list,true);
         }else{
 
-            getCompanies(list,false);
+            getParis(list,false);
         }
     }
     private void configureSearchView(){
@@ -385,9 +324,9 @@ public class SearchCompany extends ActivityWithNavigation {
         search_button.setEnabled(true);
     }
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
-        private List<Company> liste=null;
-        private SearchCompany activity;
-        public ScreenSlidePagerAdapter(SearchCompany fa, List<Company> liste) {
+        private List<Pari> liste=null;
+        private PariActvity activity;
+        public ScreenSlidePagerAdapter(PariActvity fa, List<Pari> liste) {
             super(fa);
             activity=fa;
             this.liste=liste;
@@ -404,8 +343,8 @@ public class SearchCompany extends ActivityWithNavigation {
         }
     }
     private class ScreenVerticalPagerAdapter extends FragmentStateAdapter {
-        private List<Company> liste=null;
-        public ScreenVerticalPagerAdapter(SearchCompany fa, List<Company> liste) {
+        private List<Pari> liste=null;
+        public ScreenVerticalPagerAdapter(PariActvity fa, List<Pari> liste) {
             super(fa);
             this.liste=liste;
         }
@@ -422,8 +361,8 @@ public class SearchCompany extends ActivityWithNavigation {
         }
     }
     private class HorizontalAdapter extends FragmentStateAdapter {
-        private List<Company> liste=null;
-        public HorizontalAdapter(SearchCompany fa, List<Company> liste) {
+        private List<Pari> liste=null;
+        public HorizontalAdapter(PariActvity fa, List<Pari> liste) {
             super(fa);
             this.liste=liste;
         }

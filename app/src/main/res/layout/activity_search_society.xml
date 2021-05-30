@@ -8,7 +8,7 @@
 
     android:background="@color/colorWhiteOpaque"
     android:padding="0dp"
-    tools:context=".ui.company.SearchCompany">
+    tools:context=".ui.pari.PariActvity">
     <ProgressBar
         android:id="@+id/loading"
         android:visibility="visible"
@@ -156,20 +156,7 @@
                     android:orientation="vertical"
                     android:paddingLeft="40dp"
                     android:paddingRight="40dp"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/company_not_found"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/open_sans"
-                        android:gravity="center"
-                        android:text="@string/company_not_found"
-                        android:textColorLink="@color/colorGreen">
-
-                    </TextView>
-
-                </LinearLayout>
+                    android:layout_height="match_parent"/>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>

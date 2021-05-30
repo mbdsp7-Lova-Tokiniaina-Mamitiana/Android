@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class FirebaseAuthState extends ActivityWithLanguage {
+public class AuthState extends ActivityWithLanguage {
     private FirebaseAuth authState;
 
 
@@ -53,6 +53,6 @@ public class FirebaseAuthState extends ActivityWithLanguage {
     @Override
     public void onStart() {
         super.onStart();
-        checkAuthstate();
+//       / checkAuthstate();
     }
 }

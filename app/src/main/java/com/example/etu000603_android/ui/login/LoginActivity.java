@@ -1,23 +1,20 @@
 package com.example.etu000603_android.ui.login;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.etu000603_android.R;
-import com.example.etu000603_android.ui.company.SearchCompany;
+import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -48,7 +45,7 @@ public class LoginActivity extends ActivityWithLanguage {
     private void checkUser(){
         FirebaseUser user=authState.getCurrentUser();
         if(user!=null){
-            startActivity(new Intent(getBaseContext(),SearchCompany.class));
+            startActivity(new Intent(getBaseContext(), PariActvity.class));
             finish();
         }
     }
@@ -88,7 +85,7 @@ public class LoginActivity extends ActivityWithLanguage {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()){
-                           startActivity(new Intent(getBaseContext(), SearchCompany.class));
+                           startActivity(new Intent(getBaseContext(), PariActvity.class));
                            finish();
                        }else {
                            System.out.println("failed");

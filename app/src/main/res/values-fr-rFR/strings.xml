@@ -13,10 +13,10 @@
     <string name="phone_number">Téléphone</string>
     <string name="call">Appeler</string>
     <string name="choose">Choisissez</string>
-    <string name="research_company">Rechercher une société</string>
+    <string name="research_company">Rechercher un pari</string>
     <string name="company_not_found">Vous ne trouvez pas la société que vous recherchez ?</string>
     <string name="logout">Déconnexion</string>
-    <string name="your_company">votre société</string>
+    <string name="your_company">votre pari</string>
     <string name="login_error">x L\'adresse e-mail ou le mot de passe indiqué est incorrect</string>
     <string name="write">Ecrire</string>
     <string name="commercial">Conseiller Marketing</string>
@@ -33,4 +33,5 @@
     <string name="name_video">Bien gérer son entreprise</string>
     <string name="contacts">Contacts</string>
     <string name="conditions">Conditions d\'utilisations</string>
+    <string name="parier">Parier</string>
 </resources>

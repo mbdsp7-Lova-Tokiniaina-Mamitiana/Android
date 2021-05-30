@@ -27,6 +27,44 @@
             android:paddingStart="35dp"
             android:paddingEnd="35dp"
             android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/text_equipe1"
+                    android:layout_width="wrap_content"
+
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack2"
+                    android:fontFamily="@font/mosk_bold_700"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Equipe">
+
+                </TextView>
+
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/text_equipe2"
+                    android:layout_width="wrap_content"
+
+                    android:textSize="18sp"
+                    android:textColor="@color/colorBlack2"
+                    android:fontFamily="@font/mosk_bold_700"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Equipe">
+
+                </TextView>
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -84,43 +122,6 @@
 
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
-
-            <RelativeLayout
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/text_equipe1"
-                    android:layout_width="wrap_content"
-
-                    android:textSize="18sp"
-                    android:textColor="@color/colorBlack2"
-                    android:fontFamily="@font/mosk_bold_700"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Equipe">
-
-                </TextView>
-
-
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/text_equipe2"
-                    android:layout_width="wrap_content"
-
-                    android:textSize="18sp"
-                    android:textColor="@color/colorBlack2"
-                    android:fontFamily="@font/mosk_bold_700"
-                    android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="Equipe">
-
-                </TextView>
-            </RelativeLayout>
             <RelativeLayout
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
@@ -134,7 +135,7 @@
                     android:textSize="66dp"
                     android:textColor="@color/colorBlack2"
                     android:fontFamily="@font/mosk_bold_700"
-                    android:layout_marginTop="20dp"
+
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="2">
@@ -150,31 +151,46 @@
                     android:textSize="66dp"
                     android:textColor="@color/colorBlack2"
                     android:fontFamily="@font/mosk_bold_700"
-                    android:layout_marginTop="20dp"
+
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="1">
 
                 </TextView>
             </RelativeLayout>
-            <Button
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
 
-                android:elevation="25dp"
-                android:id="@+id/btn_call"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum"
+                android:textStyle="italic"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
 
-                android:background="@drawable/radius"
-                android:fontFamily="@font/open_sans"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textAllCaps="false"
-                android:text="@string/parier"
+                    android:elevation="25dp"
+                    android:id="@+id/btn_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                   android:layout_marginBottom="45dp"
+                    android:background="@drawable/radius"
+                    android:fontFamily="@font/open_sans"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textAllCaps="false"
+                    android:text="@string/parier"
 
-                >
+                    >
 
-            </Button>
+                </Button>
+            </RelativeLayout>
+
 
 
       

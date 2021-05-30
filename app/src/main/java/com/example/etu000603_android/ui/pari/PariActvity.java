@@ -98,6 +98,8 @@ public class PariActvity extends ActivityWithNavigation {
         });
 
         this.configureSearchView();
+        this.configureBottomNavigationView(R.id.action_home);
+        this.configureDrawer();
         configureDrawer();
         configureDrawerInformation();
         configureSpinnerLanguage();

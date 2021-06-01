@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -61,6 +62,7 @@ public class PariActvity extends ActivityWithNavigation {
     private  ImageButton search_button;
 
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -80,6 +82,7 @@ public class PariActvity extends ActivityWithNavigation {
         search_button=findViewById(R.id.search_button);
         content=this.findViewById(R.id.content);
         progressBar=findViewById(R.id.loading);
+
 
 
 
@@ -106,7 +109,12 @@ public class PariActvity extends ActivityWithNavigation {
     }
 
 
+    public void parier(Pari pari){
+        Session.selected_pari=pari;
+        Intent intent=new Intent(getBaseContext(), PariFormActivity.class);
 
+        startActivity(intent);
+    }
     public void logout() {
 
 

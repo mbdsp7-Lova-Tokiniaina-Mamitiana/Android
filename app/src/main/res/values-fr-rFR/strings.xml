@@ -34,4 +34,6 @@
     <string name="contacts">Contacts</string>
     <string name="conditions">Conditions d\'utilisations</string>
     <string name="parier">Parier</string>
+    <string name="montant">Montant</string>
+    <string name="parier_ici">Parier Ici!</string>
 </resources>

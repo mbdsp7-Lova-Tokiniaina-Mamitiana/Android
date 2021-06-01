@@ -36,4 +36,7 @@
     <string name="contacts">Contacts</string>
     <string name="conditions">Conditions of use</string>
     <string name="parier">Bet</string>
+    <string name="montant">Value</string>
+    <string name="choix_equipe">Please choose a team by clicking on the logo</string>
+    <string name="parier_ici">Bet here!</string>
 </resources>

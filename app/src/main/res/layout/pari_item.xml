@@ -172,7 +172,7 @@
                 <Button
 
                     android:elevation="25dp"
-                    android:id="@+id/btn_call"
+                    android:id="@+id/btn_pari"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_gravity="center"

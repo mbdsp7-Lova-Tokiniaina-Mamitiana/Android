@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -201,6 +202,13 @@ public class VerticalCompanyFragment extends Fragment {
         textEquipe2.setText(pari.getMatch().getExterieur().getName());
         scoreEquipe1.setText(""+pari.getScoreDomicile());
         scoreEquipe2.setText(pari.getScoreExterieur()+"");
+        Button pariButton =view.findViewById(R.id.btn_pari);
+        pariButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.parier(pari);
+            }
+        });
 
         CardView card1=view.findViewById(R.id.card_equipe_1);
         CardView card2=view.findViewById(R.id.card_equipe_2);

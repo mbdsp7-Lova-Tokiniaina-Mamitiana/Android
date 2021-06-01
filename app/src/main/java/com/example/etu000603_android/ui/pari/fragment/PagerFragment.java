@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +34,7 @@ public class PagerFragment extends Fragment {
     private int position=0;
     private int pageCount=0;
     private PariActvity activity;
+
     public PagerFragment(){
 
     }
@@ -65,7 +67,13 @@ public class PagerFragment extends Fragment {
         scoreEquipe1.setText(""+pari.getScoreDomicile());
         scoreEquipe2.setText(pari.getScoreExterieur()+"");
 
-
+        Button pariButton =view.findViewById(R.id.btn_pari);
+        pariButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.parier(pari);
+            }
+        });
 
         TextView textPage=view.findViewById(R.id.pagination);
 

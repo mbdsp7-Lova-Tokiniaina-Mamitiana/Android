@@ -99,9 +99,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="-"
-                        android:textSize="20dp"
+                        android:text="vs"
+                        android:textSize="16dp"
                         android:textStyle="bold"
+                        android:fontFamily="@font/mosk_normal_400"
+                        android:textColor="@color/colorRed"
                         android:layout_height="wrap_content"/>
                     <androidx.cardview.widget.CardView
                         android:layout_marginTop="25dp"
@@ -127,75 +129,27 @@
 
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/cote_equipe1"
-                        android:layout_width="wrap_content"
-                        android:textStyle="bold"
-                        android:textSize="16dp"
-                        android:textColor="@color/colorBlack2"
-                        android:fontFamily="@font/mosk_bold_700"
 
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="(0.2)">
-
-                    </TextView>
 
 
                     <TextView
                         android:gravity="center"
-                        android:id="@+id/cote_equipe2"
+                        android:id="@+id/cote"
                         android:layout_width="wrap_content"
                         android:textStyle="bold"
-                        android:textSize="16dp"
+                        android:textSize="46dp"
                         android:textColor="@color/colorBlack2"
                         android:fontFamily="@font/mosk_bold_700"
 
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="(0.1)">
-
-                    </TextView>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/score_equipe1"
-                        android:layout_width="wrap_content"
-                        android:textStyle="bold"
-                        android:textSize="66dp"
-                        android:textColor="@color/colorBlack2"
-                        android:fontFamily="@font/mosk_bold_700"
-
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="2">
-
-                    </TextView>
-
-
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/score_equipe2"
-                        android:layout_width="wrap_content"
-                        android:textStyle="bold"
-                        android:textSize="66dp"
-                        android:textColor="@color/colorBlack2"
-                        android:fontFamily="@font/mosk_bold_700"
-
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="1">
+                        android:layout_centerInParent="true"
+                        android:text="(0.5)">
 
                     </TextView>
                 </RelativeLayout>
@@ -203,7 +157,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="26dp"
                     android:gravity="center"
+                    android:id="@+id/description_pari"
                     android:fontFamily="@font/mosk_normal_400"
                     android:textStyle="italic"
                     android:text="@string/choix_equipe"
@@ -231,7 +189,7 @@
                 <Button
                     android:layout_marginTop="25dp"
                     android:elevation="25dp"
-                    android:id="@+id/btn_call"
+                    android:id="@+id/btn_pari"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_gravity="center"

@@ -60,12 +60,12 @@ public class PagerFragment extends Fragment {
       //  System.out.println("height screen:"+height+" vs "+content.getHeight()) ;
         TextView textEquipe1=view.findViewById(R.id.text_equipe1);
         TextView textEquipe2=view.findViewById(R.id.text_equipe2);
-        TextView scoreEquipe1=view.findViewById(R.id.score_equipe1);
-        TextView scoreEquipe2=view.findViewById(R.id.score_equipe2);
+        TextView textDescription = view.findViewById(R.id.description_pari);
+
         textEquipe1.setText(pari.getMatch().getDomicile().getName());
         textEquipe2.setText(pari.getMatch().getExterieur().getName());
-        scoreEquipe1.setText(""+pari.getScoreDomicile());
-        scoreEquipe2.setText(pari.getScoreExterieur()+"");
+        textDescription.setText(pari.getDescription());
+
 
         Button pariButton =view.findViewById(R.id.btn_pari);
         pariButton.setOnClickListener(new View.OnClickListener() {

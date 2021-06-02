@@ -34,8 +34,8 @@ public class PariRepository {
             match.setExterieur(new Equipe("domicile"+i,"","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRARu6vDD55MzDzZh6CaANLfVnNBt4x1Gu4Lwh3ZvIzkb8jGvFZCWtMXTS8nD2drq3nnfM&usqp=CAU"));
             Pari pari =new Pari();
             pari.setMatch(match);
-            pari.setScoreDomicile(2);
-            pari.setScoreExterieur(1);
+            pari.setDescription("Chelsea va gagner 2 - 0 ");
+            pari.setCote(2.5);
 
             list.add(pari);
             activity.getPariDisponibles(list);

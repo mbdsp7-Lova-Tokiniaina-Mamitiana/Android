@@ -94,9 +94,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="-"
-                    android:textSize="20dp"
+                    android:text="vs"
+                    android:textSize="16dp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/mosk_normal_400"
+                    android:textColor="@color/colorRed"
                     android:layout_height="wrap_content"/>
                 <androidx.cardview.widget.CardView
                     android:layout_marginTop="25dp"
@@ -122,46 +124,11 @@
 
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
-            <RelativeLayout
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/score_equipe1"
-                    android:layout_width="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="66dp"
-                    android:textColor="@color/colorBlack2"
-                    android:fontFamily="@font/mosk_bold_700"
 
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="2">
-
-                </TextView>
-
-
-                <TextView
-                    android:gravity="center"
-                    android:id="@+id/score_equipe2"
-                    android:layout_width="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="66dp"
-                    android:textColor="@color/colorBlack2"
-                    android:fontFamily="@font/mosk_bold_700"
-
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="1">
-
-                </TextView>
-            </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-
+                android:id="@+id/description_pari"
                 android:gravity="center"
                 android:text="Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum"
                 android:textStyle="italic"

@@ -54,7 +54,7 @@
                 android:layout_height="40dp" android:src="@drawable/coin"/>
 
             <TextView
-                android:id="@+id/mise"
+                android:id="@+id/solde"
                 android:layout_width="wrap_content"
                 android:textColor="@color/colorRed"
                 android:fontFamily="@font/mosk_bold_700"

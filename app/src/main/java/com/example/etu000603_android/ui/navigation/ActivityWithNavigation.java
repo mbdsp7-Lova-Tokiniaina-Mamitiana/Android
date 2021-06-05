@@ -29,6 +29,7 @@ import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.language.LanguageItem;
 import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
 import com.example.etu000603_android.ui.pari.PariPersonelActivity;
+import com.example.etu000603_android.utils.ActivityFunction;
 import com.example.etu000603_android.utils.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -327,6 +328,9 @@ public class ActivityWithNavigation extends AuthState {
             if(drawerLayout!=null){
 
                 drawerLayout.openDrawer(GravityCompat.START,true);
+                TextView textSolde = findViewById(R.id.solde);
+                ActivityFunction.startCountAnimation(textSolde,0,200,1500);
+
 
             }
 

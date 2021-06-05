@@ -184,6 +184,7 @@
                     android:paddingTop="5dp"
                     android:paddingLeft="10dp"
                     android:layout_gravity="center_horizontal"
+                    android:inputType="number"
                     android:paddingBottom="5dp"
                     android:layout_height="wrap_content"/>
                 <Button

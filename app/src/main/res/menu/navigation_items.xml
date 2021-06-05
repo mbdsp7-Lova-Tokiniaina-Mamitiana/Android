@@ -9,7 +9,10 @@
 
         android:icon="@drawable/ico_accueil"
         />
-
+    <item android:id="@+id/action_perso"
+        android:title="menu"
+        android:icon="@drawable/ico_menu"
+        />
     <item android:id="@+id/action_menu"
         android:title="menu"
         android:icon="@drawable/ico_params"

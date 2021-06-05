@@ -39,4 +39,6 @@
     <string name="montant">Value</string>
     <string name="choix_equipe">Please choose a team by clicking on the logo</string>
     <string name="parier_ici">Bet here!</string>
+    <string name ="recharger_compte"> Recharge your account</string>
+    <string name ="recharger"> Recharge</string>
 </resources>

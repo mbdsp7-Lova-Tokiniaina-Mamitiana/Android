@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/border_help"
+    android:layout_margin="50dp"
+    android:padding="30dp"
+    android:elevation="0dp"
+
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_alignParentRight="true"
+            android:id="@+id/close_button"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"
+            android:src="@drawable/close_button"
+            />
+    </RelativeLayout>
+
+    <TextView
+
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recharger_compte"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        />
+    <TextView
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 Ar"
+        android:gravity="center"
+        android:textColor="@color/colorRed"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        />
+
+        <TextView
+            android:layout_marginTop="50dp"
+            android:text="@string/montant"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/open_sans_bold"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:layout_height="wrap_content"/>
+        <EditText
+
+            android:id="@+id/value"
+            android:layout_marginTop="10dp"
+            android:layout_width="150dp"
+            android:fontFamily="@font/open_sans"
+            android:background="@drawable/rouded_search_edittext2"
+            android:paddingTop="5dp"
+            android:paddingLeft="10dp"
+            android:inputType="number"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="5dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_marginTop="25dp"
+            android:elevation="25dp"
+            android:id="@+id/btn_pari"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/radius"
+            android:fontFamily="@font/open_sans"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textAllCaps="false"
+            android:text="@string/recharger"
+
+            >
+
+        </Button>
+
+
+
+</LinearLayout>

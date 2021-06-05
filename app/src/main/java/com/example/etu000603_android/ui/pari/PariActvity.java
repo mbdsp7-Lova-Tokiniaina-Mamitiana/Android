@@ -73,7 +73,7 @@ public class PariActvity extends ActivityWithNavigation {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setIdPage(R.id.action_home);
         super.onCreate(savedInstanceState);
         this.instance=savedInstanceState;
         setContentView(R.layout.activity_search_society_drawer);
@@ -101,11 +101,7 @@ public class PariActvity extends ActivityWithNavigation {
         });
 
         this.configureSearchView();
-        this.configureBottomNavigationView(R.id.action_home);
-        this.configureDrawer();
-        configureDrawer();
-        configureDrawerInformation();
-        configureSpinnerLanguage();
+
     }
 
 

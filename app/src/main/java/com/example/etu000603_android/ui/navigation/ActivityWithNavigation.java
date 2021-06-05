@@ -1,5 +1,6 @@
 package com.example.etu000603_android.ui.navigation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -56,11 +57,34 @@ public class ActivityWithNavigation extends AuthState {
     private LanguageItem selected_language;
     private Bundle instance=null;
     private  View languageSpinner;
+    private PopupWindow popUp;
+    private static boolean ondissmissclick =false;
+    private int idPage =0;
+
+    public void setIdPage(int idPage) {
+        this.idPage = idPage;
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance=savedInstanceState;
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        configurationGlobal();
+    }
+
+    public void configurationGlobal(){
+        this.configureBottomNavigationView(idPage);
+        this.configureDrawer();
+        configureDrawer();
+        configureDrawerInformation();
+        configureSpinnerLanguage();
+        setOnclickListener();
     }
     public void configureDrawerInformation(){
 
@@ -344,17 +368,70 @@ public class ActivityWithNavigation extends AuthState {
         selected_language=languageItem;
     }
     private  void setOnclickListener(){
-        Button condition=findViewById(R.id.condition);
-        condition.setText(getBaseContext().getResources().getString(R.string.conditions));
+        Button condition=findViewById(R.id.recharger);
+        popUp = new PopupWindow(this.getBaseContext());
+        final Activity activity = this;
+        condition.setText(getBaseContext().getResources().getString(R.string.recharger_compte));
+        View customView = getLayoutInflater().inflate(R.layout.popup_account,null);
+        ImageButton bouton=customView.findViewById(R.id.close_button);
+        final View back=activity.getWindow().getDecorView().getRootView();
+
+        bouton.setVisibility(View.GONE);
+        bouton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUp.dismiss();
+
+                // activity.enable(true);
+
+            }
+        });
         condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("https://www.doubs.cci.fr/sites/default/files/doubs/Dev_votre_entrep/commerce/numerique/cles-num-2016/07-Modele-CGU.pdf"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                if(popUp.isShowing()){
+                    back.setBackgroundColor(activity.getResources().getColor(R.color.colorWhite));
+
+                    popUp.dismiss();
+
+                    //activity.enable(true);
+
+                }else{
+                    popUp.showAtLocation(back, Gravity.CENTER,0,0);
+
+                    //back.setBackgroundColor(view.getResources().getColor(R.color.colorBlack));
+                    back.setAlpha(0.8F);
+                    Blurry.with(back.getContext()).onto((ViewGroup) back);
+
+                    // activity.enable(false);
+
+
+                }
             }
         });
+        popUp.setElevation(0F);
+        popUp.setContentView(customView);
+        popUp.setOutsideTouchable(true);
+
+        popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+
+                // back.setBackgroundColor(view.getResources().getColor(R.color.colorWhite));
+                Blurry.delete((ViewGroup) back);
+
+                back.setAlpha(1F);
+
+
+
+                ondissmissclick=true;
+                System.out.println("dismiss");
+            }
+        });
+        popUp.setBackgroundDrawable(null);
+        popUp.setFocusable(true);
+        popUp.update();
     }
     public   void changeLogo(){
         final BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);

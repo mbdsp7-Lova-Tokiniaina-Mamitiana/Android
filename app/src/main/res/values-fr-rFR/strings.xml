@@ -36,4 +36,6 @@
     <string name="parier">Parier</string>
     <string name="montant">Montant</string>
     <string name="parier_ici">Parier Ici!</string>
+    <string name ="recharger_compte"> Recharger le compte</string>
+    <string name ="recharger"> Recharger</string>
 </resources>

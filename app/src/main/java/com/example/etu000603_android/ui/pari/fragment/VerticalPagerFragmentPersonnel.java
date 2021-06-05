@@ -9,25 +9,28 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.etu000603_android.data.model.Pari;
-import com.example.etu000603_android.ui.pari.PariActvity;
+import com.example.etu000603_android.data.model.PariPersonnel;
+import com.example.etu000603_android.data.model.PariStatut;
+import com.example.etu000603_android.ui.pari.PariPersonelActivity;
 
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
 
-public class VerticalPagerFragment  extends Fragment {
-    private List<Pari> liste=null;
+public class VerticalPagerFragmentPersonnel  extends Fragment {
+    private List<PariPersonnel> liste=null;
     private int position=0;
-    private PariActvity activity;
+    private PariPersonelActivity activity;
+    private  PariStatut type;
 
-    public VerticalPagerFragment(){
+    public VerticalPagerFragmentPersonnel(){
 
     }
-    public VerticalPagerFragment(List<Pari> list, int position, PariActvity act){
+    public VerticalPagerFragmentPersonnel(List<PariPersonnel> list, int position, PariPersonelActivity act, PariStatut type){
         liste=list;
         this.position=position;
         activity=act;
+        this.type =type;
 
     }
     @Override
@@ -49,19 +52,19 @@ public class VerticalPagerFragment  extends Fragment {
 
         textPage.setTextSize(16);
         textPage.setText(Html.fromHtml(html));
-       // linearLayout.addView(textPage,linepa);
+        // linearLayout.addView(textPage,linepa);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         textPage.setVisibility(View.GONE);
         relativeLayout.addView(textPage,linepa);
-      //  scrollView.addView(linearLayout, lpScrol);
+        //  scrollView.addView(linearLayout, lpScrol);
 
         for(int i=position;i<position+5;i++){
             if(i>=n){
                 break;
             }
-            Pari c=liste.get(i);
-            VerticalPariFragment fragment=new VerticalPariFragment(c,activity);
-          //  View view=fragment.onCreateView(getLayoutInflater(),linearLayout,activity.instance);
+            PariPersonnel c=liste.get(i);
+            VerticalPariPersonelFragment fragment=new VerticalPariPersonelFragment(c,activity,type);
+            //  View view=fragment.onCreateView(getLayoutInflater(),linearLayout,activity.instance);
             LinearLayout.LayoutParams lp2=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             View view=fragment.onCreateView(getLayoutInflater(),linearLayout,savedInstanceState);
 

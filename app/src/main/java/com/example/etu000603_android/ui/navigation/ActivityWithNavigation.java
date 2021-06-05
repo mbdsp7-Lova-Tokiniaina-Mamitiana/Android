@@ -2,12 +2,8 @@ package com.example.etu000603_android.ui.navigation;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -27,15 +23,12 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.ui.authstate.AuthState;
-import com.example.etu000603_android.ui.pari.CompanyDetails;
 import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.language.LanguageItem;
 import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
+import com.example.etu000603_android.ui.pari.PariPersonelActivity;
 import com.example.etu000603_android.utils.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -43,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
@@ -165,20 +157,21 @@ public class ActivityWithNavigation extends AuthState {
                     switch (item.getItemId()) {
 
 
-                        case R.id.company_logo:
-                            Intent intent = new Intent(getBaseContext(), PariActvity.class);
 
-                            startActivity(intent);
-                            //  finish();
-                            break;
 
                         case R.id.action_home:
 
-                            intent = new Intent(getBaseContext(), CompanyDetails.class);
-                            // startActivity(intent);
-                            finish();
+                            Intent intent = new Intent(getBaseContext(), PariActvity.class);
+
+                            startActivity(intent);
                             break;
 
+                        case R.id.action_perso:
+
+                             intent = new Intent(getBaseContext(), PariPersonelActivity.class);
+
+                            startActivity(intent);
+                            break;
 
                         case R.id.action_menu:
 
@@ -197,6 +190,9 @@ public class ActivityWithNavigation extends AuthState {
             });
             if (id == R.id.action_home) {
                 navigationView.setSelectedItemId(R.id.action_home);
+            }
+            if (id == R.id.action_perso) {
+                navigationView.setSelectedItemId(R.id.action_perso);
             }
         }
 

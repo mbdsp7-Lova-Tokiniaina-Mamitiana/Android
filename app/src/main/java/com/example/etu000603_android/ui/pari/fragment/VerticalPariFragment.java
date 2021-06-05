@@ -28,17 +28,17 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 
-public class VerticalCompanyFragment extends Fragment {
+public class VerticalPariFragment extends Fragment {
 
     private Pari pari;
     private PariActvity activity;
     private int heigth;
     private int width;
-    public VerticalCompanyFragment(){
+    public VerticalPariFragment(){
 
     }
 
-    public VerticalCompanyFragment(Pari pari, PariActvity activity) {
+    public VerticalPariFragment(Pari pari, PariActvity activity) {
 
         this.pari = pari;
         this.activity=activity;
@@ -193,7 +193,7 @@ public class VerticalCompanyFragment extends Fragment {
                              Bundle savedInstanceState) {
        final View view= (ViewGroup) inflater.inflate(
                 R.layout.pari_item2, container, false);
-         float scale=heigth/970;
+
         TextView textEquipe1=view.findViewById(R.id.text_equipe1);
         TextView textEquipe2=view.findViewById(R.id.text_equipe2);
         TextView textDescription = view.findViewById(R.id.description_pari);
@@ -270,8 +270,7 @@ public class VerticalCompanyFragment extends Fragment {
             imageView2.setImageDrawable(pari.getMatch().getExterieur().getLogo_drawable());
         }
 
-       view.setScaleX(scale);
-      view.setScaleY(scale);
+
 
         return view;
     }

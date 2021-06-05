@@ -141,7 +141,7 @@ public class PagerFragment extends Fragment {
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Drawable drawable = new BitmapDrawable(getResources(), resource);
+                                Drawable drawable = new BitmapDrawable(view.getResources(), resource);
 
 
                                 imageView1.setAdjustViewBounds(true);
@@ -165,7 +165,7 @@ public class PagerFragment extends Fragment {
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Drawable drawable = new BitmapDrawable(getResources(), resource);
+                                Drawable drawable = new BitmapDrawable(view.getResources(), resource);
 
 
                                 imageView2.setAdjustViewBounds(true);

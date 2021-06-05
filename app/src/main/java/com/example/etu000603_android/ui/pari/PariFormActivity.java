@@ -28,6 +28,7 @@ public class PariFormActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pari_form);
         final Pari pari = Session.selected_pari;

@@ -37,8 +37,16 @@
     <string name="conditions">Conditions of use</string>
     <string name="parier">Bet</string>
     <string name="montant">Value</string>
+
+    <string name="montant2">Value :</string>
     <string name="choix_equipe">Please choose a team by clicking on the logo</string>
     <string name="parier_ici">Bet here!</string>
-    <string name ="recharger_compte"> Recharge your account</string>
-    <string name ="recharger"> Recharge</string>
+    <string name="recharger_compte"> Recharge your account</string>
+    <string name="recharger"> Recharge</string>
+    <string name="my_bets"> My bets</string>
+    <string name="en_cours"> Progressing</string>
+
+    <string name="votre_mise">Your bet:</string>
+    <string name="terminees"> Finished</string>
+
 </resources>

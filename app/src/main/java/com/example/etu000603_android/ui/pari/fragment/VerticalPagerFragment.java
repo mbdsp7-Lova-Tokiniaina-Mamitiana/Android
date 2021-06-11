@@ -1,4 +1,4 @@
-package com.example.etu000603_android.ui.company.fragment;
+package com.example.etu000603_android.ui.pari.fragment;
 
 import android.os.Bundle;
 import android.text.Html;
@@ -10,21 +10,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.etu000603_android.data.model.Company;
-import com.example.etu000603_android.ui.company.SearchCompany;
+import com.example.etu000603_android.data.model.Pari;
+import com.example.etu000603_android.ui.pari.PariActvity;
 
 import java.util.List;
 
 import androidx.fragment.app.Fragment;
 
 public class VerticalPagerFragment  extends Fragment {
-    private List<Company> liste=null;
+    private List<Pari> liste=null;
     private int position=0;
-    private SearchCompany activity;
+    private PariActvity activity;
 
     public VerticalPagerFragment(){
 
     }
-    public VerticalPagerFragment(List<Company> list, int position, SearchCompany act){
+    public VerticalPagerFragment(List<Pari> list, int position, PariActvity act){
         liste=list;
         this.position=position;
         activity=act;
@@ -59,11 +60,12 @@ public class VerticalPagerFragment  extends Fragment {
             if(i>=n){
                 break;
             }
-            Company c=liste.get(i);
+            Pari c=liste.get(i);
             VerticalCompanyFragment fragment=new VerticalCompanyFragment(c,activity);
           //  View view=fragment.onCreateView(getLayoutInflater(),linearLayout,activity.instance);
-            View view=fragment.createView();
             LinearLayout.LayoutParams lp2=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            View view=fragment.onCreateView(getLayoutInflater(),linearLayout,savedInstanceState);
+
             lp2.bottomMargin=15;
             linearLayout.addView(view,lp2);
         }

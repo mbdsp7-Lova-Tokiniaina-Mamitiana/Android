@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/side_content"
     android:background="@color/colorWhite"
-    tools:context=".ui.company.CompanyDetails">
+    tools:context=".ui.pari.CompanyDetails">
 
     <LinearLayout
         android:background="@drawable/trame"

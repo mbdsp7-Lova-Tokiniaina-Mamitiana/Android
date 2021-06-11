@@ -1,4 +1,4 @@
-package com.example.etu000603_android.ui.company.fragment;
+package com.example.etu000603_android.ui.pari.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,9 +19,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.etu000603_android.R;
-import com.example.etu000603_android.data.model.Address;
-import com.example.etu000603_android.data.model.Company;
-import com.example.etu000603_android.ui.company.SearchCompany;
+import com.example.etu000603_android.data.model.Pari;
+import com.example.etu000603_android.ui.pari.PariActvity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,16 +29,16 @@ import androidx.fragment.app.Fragment;
 
 
 public class PagerFragment extends Fragment {
-    private Company company=new Company("",new Address(),"");
+    private Pari pari=new Pari();
     private int position=0;
     private int pageCount=0;
-    private SearchCompany activity;
+    private PariActvity activity;
     public PagerFragment(){
 
     }
 
-    public PagerFragment(Company company,SearchCompany activity,int position,int page) {
-        this.company = company;
+    public PagerFragment(Pari pari, PariActvity activity, int position, int page) {
+        this.pari = pari;
         this.position=position;
         this.pageCount=page;
         this.activity=activity;
@@ -49,7 +48,7 @@ public class PagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view= (ViewGroup) inflater.inflate(
-                R.layout.company_item, container, false);
+                R.layout.pari_item, container, false);
         View content= activity.findViewById(R.id.content);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -57,24 +56,33 @@ public class PagerFragment extends Fragment {
         float height= displayMetrics.heightPixels;
 
       //  System.out.println("height screen:"+height+" vs "+content.getHeight()) ;
-        TextView textCompany=view.findViewById(R.id.text_company);
-        textCompany.setText(company.getName());
+        TextView textEquipe1=view.findViewById(R.id.text_equipe1);
+        TextView textEquipe2=view.findViewById(R.id.text_equipe2);
+        TextView scoreEquipe1=view.findViewById(R.id.score_equipe1);
+        TextView scoreEquipe2=view.findViewById(R.id.score_equipe2);
+        textEquipe1.setText(pari.getMatch().getDomicile().getName());
+        textEquipe2.setText(pari.getMatch().getExterieur().getName());
+        scoreEquipe1.setText(""+pari.getScoreDomicile());
+        scoreEquipe2.setText(pari.getScoreExterieur()+"");
 
-        TextView textAdresse=view.findViewById(R.id.company_adress);
-        textAdresse.setText(company.getAddress().toString());
+
 
         TextView textPage=view.findViewById(R.id.pagination);
 
 
-        CardView cardcomp=view.findViewById(R.id.card_company);
+        CardView cardcomp1=view.findViewById(R.id.card_equipe_1);
+        CardView cardcomp2=view.findViewById(R.id.card_equipe_2);
         Float ratio = width/height;
         Log.d("Ratio",width + ":" + height);
         Log.d("Ratio",ratio + "");
         if(ratio < 0.48 || ratio > 0.525) {
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) cardcomp.getLayoutParams();
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) cardcomp1.getLayoutParams();
+            RelativeLayout.LayoutParams layoutParams2 = (RelativeLayout.LayoutParams) cardcomp2.getLayoutParams();
             int topMargin = (int) (height * 4 / 100);
             layoutParams.topMargin = (int) (topMargin);
-            cardcomp.setLayoutParams(layoutParams);
+            layoutParams2.topMargin = (int) (topMargin);
+            cardcomp1.setLayoutParams(layoutParams);
+            cardcomp2.setLayoutParams(layoutParams);
         }
 
         //CardView cardnext=view.findViewById(R.id.card_company_shadow);
@@ -96,26 +104,31 @@ public class PagerFragment extends Fragment {
         textPage2.setText(" / "+pageCount);
         if(page<10){
             textPage.setText("0"+(page));
+
+
+        }
+        if(pageCount<10){
             textPage2.setText(" / 0"+pageCount);
         }
-        CardView card=view.findViewById(R.id.card_company_img);
-        card.setBackgroundResource(R.drawable.circle_cardview);
-
+        CardView card1=view.findViewById(R.id.card_equipe_1);
+        card1.setBackgroundResource(R.drawable.circle_cardview);
+        CardView card2=view.findViewById(R.id.card_equipe_2);
+        card2.setBackgroundResource(R.drawable.circle_cardview);
         ImageButton eyeButton=view.findViewById(R.id.eye_detail);
         eyeButton.setOnClickListener(new ImageButton.OnClickListener(){
 
             @Override
             public void onClick(View v) {
 
-                activity.redirectToInfo(company);
+                activity.redirectToInfo(pari);
             }
         });
-        final ImageView imageView=view.findViewById(R.id.image_tiers);
-        if(company.getUrl_logo()!=null) {
-            if(!company.getUrl_logo().isEmpty()&&!company.getUrl_logo().equals("null")) {
+        final ImageView imageView1=view.findViewById(R.id.image_equipe1);
+        if(pari.getMatch().getDomicile().getUrl_image()!=null) {
+            if(!pari.getMatch().getDomicile().getUrl_image().isEmpty()&&!pari.getMatch().getDomicile().getUrl_image().equals("null")) {
                 Glide.with(view.getContext())
                         .asBitmap().centerCrop()
-                        .load(company.getUrl_logo())
+                        .load(pari.getMatch().getDomicile().getUrl_image())
                         .centerCrop()
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
@@ -123,11 +136,35 @@ public class PagerFragment extends Fragment {
                                 Drawable drawable = new BitmapDrawable(getResources(), resource);
 
 
-                                imageView.setAdjustViewBounds(true);
-                                imageView.setImageDrawable(drawable);
+                                imageView1.setAdjustViewBounds(true);
+                                imageView1.setImageDrawable(drawable);
 
-                                imageView.setPadding(28, 28, 28, 28);
-                                company.setLogo_drawable(drawable);
+                                imageView1.setPadding(28, 28, 28, 28);
+                                pari.getMatch().getDomicile().setLogo_drawable(drawable);
+
+
+                            }
+                        });
+            }
+        }
+        final ImageView imageView2=view.findViewById(R.id.image_equipe2);
+        if(pari.getMatch().getExterieur().getUrl_image()!=null) {
+            if(!pari.getMatch().getExterieur().getUrl_image().isEmpty()&&!pari.getMatch().getExterieur().getUrl_image().equals("null")) {
+                Glide.with(view.getContext())
+                        .asBitmap().centerCrop()
+                        .load(pari.getMatch().getExterieur().getUrl_image())
+                        .centerCrop()
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                Drawable drawable = new BitmapDrawable(getResources(), resource);
+
+
+                                imageView2.setAdjustViewBounds(true);
+                                imageView2.setImageDrawable(drawable);
+
+                                imageView2.setPadding(28, 28, 28, 28);
+                                pari.getMatch().getExterieur().setLogo_drawable(drawable);
 
 
                             }
@@ -139,7 +176,7 @@ public class PagerFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                activity.redirectToInfo(company);
+                activity.redirectToInfo(pari);
 
             }
         });

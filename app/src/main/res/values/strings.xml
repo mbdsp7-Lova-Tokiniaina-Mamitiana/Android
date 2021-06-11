@@ -14,9 +14,9 @@
     <string name="call">Call</string>
 
     <string name="choose">"Choose "</string>
-    <string name="research_company">Search for a company</string>
+    <string name="research_company">Search for a bet</string>
     <string name="company_not_found"> Can\'t find the company you\'re looking for?</string>
-    <string name="your_company">your company</string>
+    <string name="your_company">your bet</string>
     <string name="logout">Log off</string>
 
     <string name="login_error">" x Username or password incorrect"</string>
@@ -35,4 +35,5 @@
     <string name="name_video">How to manage you company</string>
     <string name="contacts">Contacts</string>
     <string name="conditions">Conditions of use</string>
+    <string name="parier">Bet</string>
 </resources>

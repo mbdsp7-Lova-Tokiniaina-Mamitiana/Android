@@ -35,6 +35,9 @@ import com.example.etu000603_android.ui.authstate.LocalAuthState;
 import com.example.etu000603_android.ui.company.CompanyDetails;
 import com.example.etu000603_android.ui.company.SearchCompany;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
+import com.example.etu000603_android.ui.authstate.AuthState;
+import com.example.etu000603_android.ui.pari.CompanyDetails;
+import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.language.LanguageItem;
 import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
 import com.example.etu000603_android.utils.Session;
@@ -67,13 +70,13 @@ public class ActivityWithNavigation extends LocalAuthState {
     }
     public void configureDrawerInformation(){
 
-        TextView companyName=findViewById(R.id.company_name);
+        /*TextView companyName=findViewById(R.id.company_name);
         TextView companyAdress=findViewById(R.id.company_adress);
         final ImageView imageView=findViewById(R.id.logo_company);
 
-        if(Session.selected_company!=null) {
-            System.out.println("company selected:" + Session.selected_company);
-            companyName.setText(Session.selected_company.getName());
+        if(Session.selected_pari!=null) {
+            System.out.println("company selected:" + Session.selected_pari);
+            companyName.setText(Session.selected_pari.getName());
             companyName.setTextIsSelectable(true);
             companyAdress.setText(Session.selected_company.getAddress().toString());
             companyAdress.setTextIsSelectable(true);
@@ -84,7 +87,7 @@ public class ActivityWithNavigation extends LocalAuthState {
             } else {
                 Glide.with(getBaseContext())
                         .asBitmap().centerCrop()
-                        .load(Session.selected_company.getUrl_logo())
+                        .load(Session.selected_pari.get())
                         .centerCrop()
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
@@ -95,7 +98,7 @@ public class ActivityWithNavigation extends LocalAuthState {
                                 imageView.setAdjustViewBounds(true);
                                 imageView.setImageDrawable(drawable);
 
-                                Session.selected_company.setLogo_drawable(drawable);
+                                Session.selected_pari.setLogo_drawable(drawable);
 
 
                             }
@@ -116,7 +119,7 @@ public class ActivityWithNavigation extends LocalAuthState {
             companyName.setVisibility(View.INVISIBLE);
             imageView.setVisibility(View.INVISIBLE);
         }
-        setOnclickListener();
+        setOnclickListener();*/
     }
     public void configureBottomNavigationView(final int id){
 
@@ -145,7 +148,7 @@ public class ActivityWithNavigation extends LocalAuthState {
 
 
                         case R.id.company_logo:
-                            Intent intent = new Intent(getBaseContext(), SearchCompany.class);
+                            Intent intent = new Intent(getBaseContext(), PariActvity.class);
 
                             startActivity(intent);
                             //  finish();
@@ -363,9 +366,9 @@ public class ActivityWithNavigation extends LocalAuthState {
         final BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);
 
         ImageView imageView=findViewById(R.id.image_tiers);
-        if(Session.selected_company!=null) {
-            if (Session.selected_company.getLogo_drawable() != null)
-                imageView.setImageDrawable(Session.selected_company.getLogo_drawable());
+        if(Session.selected_pari!=null) {
+           /* if (Session.selected_pari.getLogo_drawable() != null)
+                imageView.setImageDrawable(Session.selected_company.getLogo_drawable());*/
         }
 
 

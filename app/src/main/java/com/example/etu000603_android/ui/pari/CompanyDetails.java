@@ -1,6 +1,5 @@
-package com.example.etu000603_android.ui.company;
+package com.example.etu000603_android.ui.pari;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -10,25 +9,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.data.model.Company;
 import com.example.etu000603_android.data.model.Contact;
-import com.example.etu000603_android.ui.company.fragment.ContactFragment;
+import com.example.etu000603_android.data.model.Pari;
+import com.example.etu000603_android.ui.pari.fragment.ContactFragment;
 import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.utils.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyDetails extends ActivityWithNavigation {
@@ -56,11 +52,11 @@ public class CompanyDetails extends ActivityWithNavigation {
 
     }
     private void initContact(){
-        Company selected= Session.selected_company;
+        Pari selected= Session.selected_pari;
         CompanyDetails activity=this;
         checkLanguage();
         if(selected!=null){
-            List<Contact> listContact=selected.getListeDesContacts();
+            List<Contact> listContact=new ArrayList<>();
             int n=0;
             if(listContact!=null){
                 n=listContact.size();

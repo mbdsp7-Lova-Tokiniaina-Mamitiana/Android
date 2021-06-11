@@ -1,4 +1,4 @@
-package com.example.etu000603_android.ui.company.fragment;
+package com.example.etu000603_android.ui.pari.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.data.model.Contact;
-import com.example.etu000603_android.ui.company.CompanyDetails;
+import com.example.etu000603_android.ui.pari.CompanyDetails;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;

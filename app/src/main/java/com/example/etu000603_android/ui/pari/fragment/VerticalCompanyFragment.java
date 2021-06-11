@@ -1,4 +1,4 @@
-package com.example.etu000603_android.ui.company.fragment;
+package com.example.etu000603_android.ui.pari.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,8 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.etu000603_android.R;
-import com.example.etu000603_android.data.model.Company;
-import com.example.etu000603_android.ui.company.SearchCompany;
+import com.example.etu000603_android.data.model.Pari;
+import com.example.etu000603_android.ui.pari.PariActvity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,24 +29,24 @@ import androidx.fragment.app.Fragment;
 
 public class VerticalCompanyFragment extends Fragment {
 
-    private Company company;
-    private SearchCompany activity;
+    private Pari pari;
+    private PariActvity activity;
     private int heigth;
     private int width;
     public VerticalCompanyFragment(){
 
     }
 
-    public VerticalCompanyFragment(Company company, SearchCompany activity) {
+    public VerticalCompanyFragment(Pari pari, PariActvity activity) {
 
-        this.company = company;
+        this.pari = pari;
         this.activity=activity;
         View content=activity.findViewById(R.id.content);
         heigth=content.getHeight();
         width=content.getWidth();
 
     }
-    public View createView(){
+   /* public View createView(){
         int scale=heigth/970;
         final int heigthRoot=(heigth/5)-15;
       //  System.out.println("heightRoot:"+heigthRoot+" widthRoot:"+width);
@@ -63,7 +63,7 @@ public class VerticalCompanyFragment extends Fragment {
         cardRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.redirectToInfo(company);
+                activity.redirectToInfo(pari);
             }
         });
         cardRoot.setId(R.id.card_company2);
@@ -92,12 +92,12 @@ public class VerticalCompanyFragment extends Fragment {
         //cardCompany.setPadding(15,15,15,15);
         final ImageView imageView=new ImageView(activity.getBaseContext());
         final int scaleHeight=20*heigthRoot/144;
-        if(company.getLogo_drawable()==null){
+        if(pari.getMatch().getDomicile().getLogo_drawable()==null){
           //  System.out.println("glide");
             Glide.with(activity.getBaseContext())
                     .asBitmap()
                     .centerCrop()
-                    .load(company.getUrl_logo())
+                    .load(pari.getMatch().getDomicile().getUrl_image())
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -108,7 +108,7 @@ public class VerticalCompanyFragment extends Fragment {
                             imageView.setPadding(scaleHeight,scaleHeight,scaleHeight,scaleHeight);
                             imageView.setImageDrawable(drawable);
 
-                            company.setLogo_drawable(drawable);
+                            pari.getMatch().getDomicile().setLogo_drawable(drawable);
 
 
                         }
@@ -174,7 +174,7 @@ public class VerticalCompanyFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                activity.redirectToInfo(company);
+                activity.redirectToInfo(pari);
             }
         });
         //rlImageButton.addRule(RelativeLayout.LEFT_OF,R.id.card_company2);
@@ -187,51 +187,50 @@ public class VerticalCompanyFragment extends Fragment {
         relativeLayout.addView(imageButton,rlImageButton);
         imageButton.setScaleType(ImageView.ScaleType.CENTER_CROP);
         return relativeLayout;
-    }
+    }*/
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view= (ViewGroup) inflater.inflate(
-                R.layout.company_item2, container, false);
-        float scale=heigth/970;
-        TextView textCompany=view.findViewById(R.id.company_name);
-        textCompany.setText(company.getName());
+       final View view= (ViewGroup) inflater.inflate(
+                R.layout.pari_item2, container, false);
+         float scale=heigth/970;
+        TextView textEquipe1=view.findViewById(R.id.text_equipe1);
+        TextView textEquipe2=view.findViewById(R.id.text_equipe2);
+        TextView scoreEquipe1=view.findViewById(R.id.score_equipe1);
+        TextView scoreEquipe2=view.findViewById(R.id.score_equipe2);
+        textEquipe1.setText(pari.getMatch().getDomicile().getName());
+        textEquipe2.setText(pari.getMatch().getExterieur().getName());
+        scoreEquipe1.setText(""+pari.getScoreDomicile());
+        scoreEquipe2.setText(pari.getScoreExterieur()+"");
+
+        CardView card1=view.findViewById(R.id.card_equipe_1);
+        CardView card2=view.findViewById(R.id.card_equipe_2);
+        card1.setBackgroundResource(R.drawable.circle_cardview);
+        card2.setBackgroundResource(R.drawable.circle_cardview);
+        card1.requestLayout();
+        card2.requestLayout();
 
 
-        TextView textAdresse=view.findViewById(R.id.company_adress);
-        textAdresse.setText(company.getAddress().getStreet());
-
-        CardView card=view.findViewById(R.id.card_company_img);
-        card.setBackgroundResource(R.drawable.circle_cardview);
-        card.requestLayout();
-        ImageButton eyeButton=view.findViewById(R.id.eye_button);
-        eyeButton.setOnClickListener(new ImageButton.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-               activity.redirectToInfo(company);
-            }
-        });
-
-        final ImageView imageView=view.findViewById(R.id.logo_company);
-
-
+        final ImageView imageView1=view.findViewById(R.id.image_equipe1);
+        final ImageView imageView2=view.findViewById(R.id.image_equipe2);
 
 
 
-        if(company.getLogo_drawable()==null){
-            if(company.getUrl_logo()!=null ) {
-                if( !company.getUrl_logo().isEmpty()&&!company.getUrl_logo().equals("null")) {
+
+
+        if(pari.getMatch().getDomicile().getLogo_drawable()==null){
+            if(pari.getMatch().getDomicile().getUrl_image()!=null ) {
+                if( !pari.getMatch().getDomicile().getUrl_image().isEmpty()&&!pari.getMatch().getDomicile().getUrl_image().equals("null")) {
                     Glide.with(view.getContext())
                             .asBitmap()
-                            .load(company.getUrl_logo())
+                            .load(pari.getMatch().getDomicile().getUrl_image())
                             .into(new SimpleTarget<Bitmap>() {
                                 @Override
                                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                     Drawable drawable = new BitmapDrawable(view.getResources(), resource);
 
 
-                                    imageView.setImageDrawable(drawable);
-                                    company.setLogo_drawable(drawable);
+                                    imageView1.setImageDrawable(drawable);
+                                    pari.getMatch().getDomicile().setLogo_drawable(drawable);
 
 
                                 }
@@ -239,11 +238,34 @@ public class VerticalCompanyFragment extends Fragment {
                 }
             }
         }else{
-            imageView.setImageDrawable(company.getLogo_drawable());
+            imageView1.setImageDrawable(pari.getMatch().getDomicile().getLogo_drawable());
+        }
+        if(pari.getMatch().getExterieur().getLogo_drawable()==null){
+            if(pari.getMatch().getExterieur().getUrl_image()!=null ) {
+                if( !pari.getMatch().getExterieur().getUrl_image().isEmpty()&&!pari.getMatch().getExterieur().getUrl_image().equals("null")) {
+                    Glide.with(view.getContext())
+                            .asBitmap()
+                            .load(pari.getMatch().getExterieur().getUrl_image())
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    Drawable drawable = new BitmapDrawable(view.getResources(), resource);
+
+
+                                    imageView2.setImageDrawable(drawable);
+                                    pari.getMatch().getExterieur().setLogo_drawable(drawable);
+
+
+                                }
+                            });
+                }
+            }
+        }else{
+            imageView2.setImageDrawable(pari.getMatch().getExterieur().getLogo_drawable());
         }
 
-      //  view.setScaleX(scale);
-     //   view.setScaleY(scale);
+       view.setScaleX(scale);
+      view.setScaleY(scale);
 
         return view;
     }

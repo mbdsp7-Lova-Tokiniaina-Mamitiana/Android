@@ -1,31 +1,20 @@
 package com.example.etu000603_android.ui.login;
 
-import androidx.annotation.NonNull;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import com.example.etu000603_android.R;
-import com.example.etu000603_android.service.AuthService;
-import com.example.etu000603_android.ui.company.SearchCompany;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.example.etu000603_android.R;
-import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
+import com.example.etu000603_android.ui.pari.PariActvity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import org.json.JSONException;
 
 public class LoginActivity extends ActivityWithLanguage {
     private FirebaseAuth authState;
@@ -105,7 +94,7 @@ public class LoginActivity extends ActivityWithLanguage {
 
     public void onLoginSuccess() {
         progressBar.setVisibility(View.INVISIBLE);
-        startActivity(new Intent(getBaseContext(), SearchCompany.class));
+        startActivity(new Intent(getBaseContext(), PariActvity.class));
         finish();
     }
 

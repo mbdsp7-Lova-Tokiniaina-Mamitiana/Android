@@ -3,22 +3,16 @@ package com.example.etu000603_android.service;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.IBinder;
-
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import com.example.etu000603_android.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
-import java.util.Random;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
 
 public class FirebaseService extends FirebaseMessagingService {
     public FirebaseService() {

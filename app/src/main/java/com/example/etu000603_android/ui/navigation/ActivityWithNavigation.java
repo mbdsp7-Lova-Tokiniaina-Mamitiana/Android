@@ -1,59 +1,33 @@
 package com.example.etu000603_android.ui.navigation;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.example.etu000603_android.R;
-import com.example.etu000603_android.ui.authstate.FirebaseAuthState;
-import com.example.etu000603_android.ui.authstate.LocalAuthState;
-import com.example.etu000603_android.ui.company.CompanyDetails;
-import com.example.etu000603_android.ui.company.SearchCompany;
-import com.example.etu000603_android.ui.language.ActivityWithLanguage;
-import com.example.etu000603_android.ui.authstate.AuthState;
-import com.example.etu000603_android.ui.pari.CompanyDetails;
-import com.example.etu000603_android.ui.pari.PariActvity;
-import com.example.etu000603_android.ui.language.LanguageItem;
-import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
-import com.example.etu000603_android.utils.Session;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.Locale;
-
+import android.widget.*;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import com.example.etu000603_android.R;
+import com.example.etu000603_android.ui.authstate.LocalAuthState;
+import com.example.etu000603_android.ui.language.LanguageItem;
+import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
+import com.example.etu000603_android.ui.pari.CompanyDetails;
+import com.example.etu000603_android.ui.pari.PariActvity;
+import com.example.etu000603_android.utils.Session;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import jp.wasabeef.blurry.Blurry;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class ActivityWithNavigation extends LocalAuthState {
     private ActionBarDrawerToggle actionBarDrawerToggle;

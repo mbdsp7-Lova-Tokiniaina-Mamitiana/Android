@@ -12,8 +12,8 @@ import org.json.JSONException;
 
 public class LocalAuthState extends ActivityWithLanguage {
     String uid;
-    private static String AUTH_PREF = "AuthSharedPref";
-    private static String TOKEN_PREF = "ACCESSTOKEN";
+    private static final String AUTH_PREF = "AuthSharedPref";
+    private static final String TOKEN_PREF = "ACCESSTOKEN";
 
     public String getAuthToken() {
         return getApplicationContext().getSharedPreferences(AUTH_PREF, Context.MODE_PRIVATE)

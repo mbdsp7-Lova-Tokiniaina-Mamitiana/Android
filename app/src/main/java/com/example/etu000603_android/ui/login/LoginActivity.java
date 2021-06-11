@@ -1,29 +1,18 @@
 package com.example.etu000603_android.ui.login;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.service.AuthService;
 import com.example.etu000603_android.ui.company.SearchCompany;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import org.json.JSONException;
 
 public class LoginActivity extends ActivityWithLanguage {
     private FirebaseAuth authState;
@@ -76,7 +65,7 @@ public class LoginActivity extends ActivityWithLanguage {
         final Button loginButton=findViewById(R.id.login);
         textPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
 
-//Hide Password
+        //Hide Password
         textPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +73,18 @@ public class LoginActivity extends ActivityWithLanguage {
                 String email=textUsername.getText().toString();
                 String password=textPassword.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
-               authState.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                try {
+                    AuthService.login(email,
+                            password,
+                            LoginActivity.this,
+                            LoginActivity.this.getClass().getMethod("onLoginSuccess"),
+                            LoginActivity.this.getClass().getMethod("onLoginError")
+                            );
+                } catch (NoSuchMethodException | JSONException e) {
+                    e.printStackTrace();
+                }
+                /*
+                authState.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                    @Override
                    public void onComplete(@NonNull Task<AuthResult> task) {
                        if(task.isSuccessful()){
@@ -97,9 +97,22 @@ public class LoginActivity extends ActivityWithLanguage {
                        progressBar.setVisibility(View.INVISIBLE);
                    }
                });
+               */
             }
         });
     }
+
+    public void onLoginSuccess() {
+        progressBar.setVisibility(View.INVISIBLE);
+        startActivity(new Intent(getBaseContext(), SearchCompany.class));
+        finish();
+    }
+
+    public void onLoginError() {
+        progressBar.setVisibility(View.INVISIBLE);
+        errorMessage.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onBackPressed() {
         this.finishAffinity();

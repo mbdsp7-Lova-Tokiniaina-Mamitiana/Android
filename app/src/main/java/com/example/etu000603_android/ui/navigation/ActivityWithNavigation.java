@@ -31,6 +31,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.ui.authstate.FirebaseAuthState;
+import com.example.etu000603_android.ui.authstate.LocalAuthState;
 import com.example.etu000603_android.ui.company.CompanyDetails;
 import com.example.etu000603_android.ui.company.SearchCompany;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
@@ -51,7 +52,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import jp.wasabeef.blurry.Blurry;
 
-public class ActivityWithNavigation extends FirebaseAuthState {
+public class ActivityWithNavigation extends LocalAuthState {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private int idselected=0;
     private  boolean stop=false;

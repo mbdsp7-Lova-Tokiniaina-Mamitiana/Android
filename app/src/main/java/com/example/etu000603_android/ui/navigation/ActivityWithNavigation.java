@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
+
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -23,33 +24,39 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.etu000603_android.R;
-import com.example.etu000603_android.ui.authstate.AuthState;
-import com.example.etu000603_android.ui.pari.PariActvity;
-import com.example.etu000603_android.ui.language.LanguageItem;
-import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
-import com.example.etu000603_android.ui.pari.PariPersonelActivity;
-import com.example.etu000603_android.utils.ActivityFunction;
-import com.example.etu000603_android.utils.Session;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.Locale;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.etu000603_android.R;
+import com.example.etu000603_android.ui.authstate.AuthState;
+import com.example.etu000603_android.ui.authstate.LocalAuthState;
+import com.example.etu000603_android.ui.pari.PariActvity;
+import com.example.etu000603_android.ui.language.LanguageItem;
+import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
+import com.example.etu000603_android.ui.pari.PariPersonelActivity;
+import com.example.etu000603_android.utils.ActivityFunction;
+
+import com.example.etu000603_android.utils.Session;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import jp.wasabeef.blurry.Blurry;
 
-public class ActivityWithNavigation extends AuthState {
+import java.util.ArrayList;
+import java.util.Locale;
+
+
+
+
+public class ActivityWithNavigation extends LocalAuthState {
+
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private int idselected=0;
     private  boolean stop=false;
     private LanguageItem selected_language;
     private Bundle instance=null;
-    private  View languageSpinner;
+    private View languageSpinner;
     private PopupWindow popUp;
     private static boolean ondissmissclick =false;
     private int idPage =0;
@@ -199,7 +206,7 @@ public class ActivityWithNavigation extends AuthState {
 
     }
     public void configureDrawer(){
-        final DrawerLayout  drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         final RelativeLayout content2=findViewById(R.id.shadow_slide);
         content2.setElevation(0);
         content2.setBackgroundResource(R.drawable.layout_radius_gray);

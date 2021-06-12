@@ -1,21 +1,15 @@
 package com.example.etu000603_android.ui.login;
 
-import androidx.annotation.NonNull;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
+import android.widget.*;
+import androidx.annotation.NonNull;
 import com.example.etu000603_android.R;
-import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
+import com.example.etu000603_android.ui.pari.PariActvity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -73,7 +67,7 @@ public class LoginActivity extends ActivityWithLanguage {
         final Button loginButton=findViewById(R.id.login);
         textPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
 
-//Hide Password
+        //Hide Password
         textPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +91,18 @@ public class LoginActivity extends ActivityWithLanguage {
             }
         });
     }
+
+    public void onLoginSuccess() {
+        progressBar.setVisibility(View.INVISIBLE);
+        startActivity(new Intent(getBaseContext(), PariActvity.class));
+        finish();
+    }
+
+    public void onLoginError() {
+        progressBar.setVisibility(View.INVISIBLE);
+        errorMessage.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public void onBackPressed() {
         this.finishAffinity();

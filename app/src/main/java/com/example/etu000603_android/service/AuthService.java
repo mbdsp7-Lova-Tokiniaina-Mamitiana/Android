@@ -33,6 +33,7 @@ public class AuthService {
         JSONObject jsonBody = new JSONObject();
         jsonBody.put("login", login);
         jsonBody.put("password", password);
+        jsonBody.put("role", "client");
         final String requestBody = jsonBody.toString();
 
         // Request a string response from the provided URL.

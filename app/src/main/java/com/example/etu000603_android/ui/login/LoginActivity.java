@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.service.AuthService;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.example.etu000603_android.ui.pari.PariActvity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import org.json.JSONException;
 
 public class LoginActivity extends ActivityWithLanguage {
     private FirebaseAuth authState;
@@ -75,19 +77,16 @@ public class LoginActivity extends ActivityWithLanguage {
                 String email=textUsername.getText().toString();
                 String password=textPassword.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
-               authState.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                   @Override
-                   public void onComplete(@NonNull Task<AuthResult> task) {
-                       if(task.isSuccessful()){
-                           startActivity(new Intent(getBaseContext(), PariActvity.class));
-                           finish();
-                       }else {
-                           System.out.println("failed");
-                           errorMessage.setVisibility(View.VISIBLE);
-                       }
-                       progressBar.setVisibility(View.INVISIBLE);
-                   }
-               });
+                try {
+                    AuthService.login(email,
+                            password,
+                            LoginActivity.this,
+                            LoginActivity.this.getClass().getMethod("onLoginSuccess"),
+                            LoginActivity.this.getClass().getMethod("onLoginError")
+                    );
+                } catch (NoSuchMethodException | JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

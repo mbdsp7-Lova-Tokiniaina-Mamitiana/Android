@@ -1,27 +1,44 @@
 package com.example.etu000603_android.ui.navigation;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.*;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.ui.authstate.AuthState;
 import com.example.etu000603_android.ui.authstate.LocalAuthState;
+import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.language.LanguageItem;
 import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
-import com.example.etu000603_android.ui.pari.CompanyDetails;
-import com.example.etu000603_android.ui.pari.PariActvity;
+import com.example.etu000603_android.ui.pari.PariPersonelActivity;
+import com.example.etu000603_android.utils.ActivityFunction;
+
 import com.example.etu000603_android.utils.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import jp.wasabeef.blurry.Blurry;
@@ -29,18 +46,45 @@ import jp.wasabeef.blurry.Blurry;
 import java.util.ArrayList;
 import java.util.Locale;
 
+
+
+
 public class ActivityWithNavigation extends LocalAuthState {
+
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private int idselected=0;
     private  boolean stop=false;
     private LanguageItem selected_language;
     private Bundle instance=null;
-    private  View languageSpinner;
+    private View languageSpinner;
+    private PopupWindow popUp;
+    private static boolean ondissmissclick =false;
+    private int idPage =0;
+
+    public void setIdPage(int idPage) {
+        this.idPage = idPage;
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         instance=savedInstanceState;
 
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        configurationGlobal();
+    }
+
+    public void configurationGlobal(){
+        this.configureBottomNavigationView(idPage);
+        this.configureDrawer();
+        configureDrawer();
+        configureDrawerInformation();
+        configureSpinnerLanguage();
+        setOnclickListener();
     }
     public void configureDrawerInformation(){
 
@@ -121,20 +165,21 @@ public class ActivityWithNavigation extends LocalAuthState {
                     switch (item.getItemId()) {
 
 
-                        case R.id.company_logo:
-                            Intent intent = new Intent(getBaseContext(), PariActvity.class);
 
-                            startActivity(intent);
-                            //  finish();
-                            break;
 
                         case R.id.action_home:
 
-                            intent = new Intent(getBaseContext(), CompanyDetails.class);
-                            // startActivity(intent);
-                            finish();
+                            Intent intent = new Intent(getBaseContext(), PariActvity.class);
+
+                            startActivity(intent);
                             break;
 
+                        case R.id.action_perso:
+
+                             intent = new Intent(getBaseContext(), PariPersonelActivity.class);
+
+                            startActivity(intent);
+                            break;
 
                         case R.id.action_menu:
 
@@ -154,11 +199,14 @@ public class ActivityWithNavigation extends LocalAuthState {
             if (id == R.id.action_home) {
                 navigationView.setSelectedItemId(R.id.action_home);
             }
+            if (id == R.id.action_perso) {
+                navigationView.setSelectedItemId(R.id.action_perso);
+            }
         }
 
     }
     public void configureDrawer(){
-        final DrawerLayout  drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         final RelativeLayout content2=findViewById(R.id.shadow_slide);
         content2.setElevation(0);
         content2.setBackgroundResource(R.drawable.layout_radius_gray);
@@ -287,6 +335,9 @@ public class ActivityWithNavigation extends LocalAuthState {
             if(drawerLayout!=null){
 
                 drawerLayout.openDrawer(GravityCompat.START,true);
+                TextView textSolde = findViewById(R.id.solde);
+                ActivityFunction.startCountAnimation(textSolde,0,200,1500);
+
 
             }
 
@@ -324,17 +375,70 @@ public class ActivityWithNavigation extends LocalAuthState {
         selected_language=languageItem;
     }
     private  void setOnclickListener(){
-        Button condition=findViewById(R.id.condition);
-        condition.setText(getBaseContext().getResources().getString(R.string.conditions));
+        Button condition=findViewById(R.id.recharger);
+        popUp = new PopupWindow(this.getBaseContext());
+        final Activity activity = this;
+        condition.setText(getBaseContext().getResources().getString(R.string.recharger_compte));
+        View customView = getLayoutInflater().inflate(R.layout.popup_account,null);
+        ImageButton bouton=customView.findViewById(R.id.close_button);
+        final View back=activity.getWindow().getDecorView().getRootView();
+
+        bouton.setVisibility(View.GONE);
+        bouton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUp.dismiss();
+
+                // activity.enable(true);
+
+            }
+        });
         condition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Uri uri = Uri.parse("https://www.doubs.cci.fr/sites/default/files/doubs/Dev_votre_entrep/commerce/numerique/cles-num-2016/07-Modele-CGU.pdf"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                if(popUp.isShowing()){
+                    back.setBackgroundColor(activity.getResources().getColor(R.color.colorWhite));
+
+                    popUp.dismiss();
+
+                    //activity.enable(true);
+
+                }else{
+                    popUp.showAtLocation(back, Gravity.CENTER,0,0);
+
+                    //back.setBackgroundColor(view.getResources().getColor(R.color.colorBlack));
+                    back.setAlpha(0.8F);
+                    Blurry.with(back.getContext()).onto((ViewGroup) back);
+
+                    // activity.enable(false);
+
+
+                }
             }
         });
+        popUp.setElevation(0F);
+        popUp.setContentView(customView);
+        popUp.setOutsideTouchable(true);
+
+        popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+
+                // back.setBackgroundColor(view.getResources().getColor(R.color.colorWhite));
+                Blurry.delete((ViewGroup) back);
+
+                back.setAlpha(1F);
+
+
+
+                ondissmissclick=true;
+                System.out.println("dismiss");
+            }
+        });
+        popUp.setBackgroundDrawable(null);
+        popUp.setFocusable(true);
+        popUp.update();
     }
     public   void changeLogo(){
         final BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);

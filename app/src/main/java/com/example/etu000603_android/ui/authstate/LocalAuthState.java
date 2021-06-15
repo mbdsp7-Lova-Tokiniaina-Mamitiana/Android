@@ -68,6 +68,6 @@ public class LocalAuthState extends ActivityWithLanguage {
     @Override
     public void onStart() {
         super.onStart();
-       // checkAuthstate();
+
     }
 }

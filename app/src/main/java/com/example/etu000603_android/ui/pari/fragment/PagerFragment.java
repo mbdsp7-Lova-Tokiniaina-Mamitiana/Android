@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +34,7 @@ public class PagerFragment extends Fragment {
     private int position=0;
     private int pageCount=0;
     private PariActvity activity;
+
     public PagerFragment(){
 
     }
@@ -58,14 +60,20 @@ public class PagerFragment extends Fragment {
       //  System.out.println("height screen:"+height+" vs "+content.getHeight()) ;
         TextView textEquipe1=view.findViewById(R.id.text_equipe1);
         TextView textEquipe2=view.findViewById(R.id.text_equipe2);
-        TextView scoreEquipe1=view.findViewById(R.id.score_equipe1);
-        TextView scoreEquipe2=view.findViewById(R.id.score_equipe2);
+        TextView textDescription = view.findViewById(R.id.description_pari);
+
         textEquipe1.setText(pari.getMatch().getDomicile().getName());
         textEquipe2.setText(pari.getMatch().getExterieur().getName());
-        scoreEquipe1.setText(""+pari.getScoreDomicile());
-        scoreEquipe2.setText(pari.getScoreExterieur()+"");
+        textDescription.setText(pari.getDescription());
 
 
+        Button pariButton =view.findViewById(R.id.btn_pari);
+        pariButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.parier(pari);
+            }
+        });
 
         TextView textPage=view.findViewById(R.id.pagination);
 
@@ -133,7 +141,7 @@ public class PagerFragment extends Fragment {
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Drawable drawable = new BitmapDrawable(getResources(), resource);
+                                Drawable drawable = new BitmapDrawable(view.getResources(), resource);
 
 
                                 imageView1.setAdjustViewBounds(true);
@@ -157,7 +165,7 @@ public class PagerFragment extends Fragment {
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Drawable drawable = new BitmapDrawable(getResources(), resource);
+                                Drawable drawable = new BitmapDrawable(view.getResources(), resource);
 
 
                                 imageView2.setAdjustViewBounds(true);

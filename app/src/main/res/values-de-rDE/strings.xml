@@ -33,4 +33,20 @@
     <string name="welcome">" Willkommen bei HervéBusiness! Bitte melden Sie sich an"</string>
     <string name="conditions">Nutzungsbedingungen</string>
     <string name="parier">Parier</string>
+    <string name="montant">Value</string>
+    <string name="choix_equipe">Veuillez choisir une epuipe en cliquant sur le logo</string>
+    <string name="parier_ici">Bet here!</string>
+
+    <string name ="recharger_compte"> Recharge your account</string>
+    <string name ="recharger"> Recharge</string>
+
+    <string name="my_bets"> My bets</string>
+
+    <string name="en_cours"> Progressing</string>
+
+    <string name="terminees"> Finished</string>
+
+    <string name="montant2">Value :</string>
+
+    <string name="votre_mise">Votre mise</string>
 </resources>

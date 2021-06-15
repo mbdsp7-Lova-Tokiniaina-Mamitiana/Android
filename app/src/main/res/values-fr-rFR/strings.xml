@@ -34,4 +34,17 @@
     <string name="contacts">Contacts</string>
     <string name="conditions">Conditions d\'utilisations</string>
     <string name="parier">Parier</string>
+    <string name="montant">Montant</string>
+    <string name="parier_ici">Parier Ici!</string>
+    <string name ="recharger_compte"> Recharger le compte</string>
+    <string name ="recharger"> Recharger</string>
+
+    <string name="montant2">Montant :</string>
+    <string name="my_bets"> Mes paris</string>
+    <string name="en_cours"> En cours</string>
+
+    <string name="terminees"> Terminées</string>
+
+    <string name="votre_mise">Votre mise:</string>
+
 </resources>

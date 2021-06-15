@@ -5,13 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -21,17 +15,18 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 
 import com.example.etu000603_android.R;
-import com.example.etu000603_android.data.model.Company;
 import com.example.etu000603_android.data.model.Pari;
 import com.example.etu000603_android.data.repository.PariRepository;
 import com.example.etu000603_android.ui.pari.fragment.PagerFragment;
-import com.example.etu000603_android.ui.pari.fragment.VerticalCompanyFragment;
+import com.example.etu000603_android.ui.pari.fragment.VerticalPariFragment;
 import com.example.etu000603_android.ui.pari.fragment.VerticalPagerFragment;
 import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.utils.Session;
@@ -61,6 +56,7 @@ public class PariActvity extends ActivityWithNavigation {
     private  ImageButton search_button;
 
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -71,15 +67,16 @@ public class PariActvity extends ActivityWithNavigation {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setIdPage(R.id.action_home);
         super.onCreate(savedInstanceState);
         this.instance=savedInstanceState;
-        setContentView(R.layout.activity_search_society_drawer);
+        setContentView(R.layout.activity_search_pari_drawer);
         activity=this;
         searchView=this.findViewById(R.id.searchView);
         search_button=findViewById(R.id.search_button);
         content=this.findViewById(R.id.content);
         progressBar=findViewById(R.id.loading);
+
 
 
 
@@ -98,15 +95,16 @@ public class PariActvity extends ActivityWithNavigation {
         });
 
         this.configureSearchView();
-        this.configureBottomNavigationView(R.id.action_home);
-        this.configureDrawer();
-        configureDrawer();
-        configureDrawerInformation();
-        configureSpinnerLanguage();
+
     }
 
 
+    public void parier(Pari pari){
+        Session.selected_pari=pari;
+        Intent intent=new Intent(getBaseContext(), PariFormActivity.class);
 
+        startActivity(intent);
+    }
     public void logout() {
 
 
@@ -115,10 +113,7 @@ public class PariActvity extends ActivityWithNavigation {
 
 
     public void redirectToInfo(Pari pari){
-        Session.selected_pari=pari;
-       Intent intent=new Intent(getBaseContext(), CompanyDetails.class);
-
-        startActivity(intent);
+        parier(pari);
         //finish();
     }
     private void hideKeybaord(View v) {
@@ -187,30 +182,24 @@ public class PariActvity extends ActivityWithNavigation {
                     View view=fragment.onCreateView(getLayoutInflater(),linearLayout,this.instance);
                     linearLayout.addView(view);
                 }*/
-            RelativeLayout relativeLayout=new RelativeLayout(getBaseContext());
+            LinearLayout linearLayout=new LinearLayout(getBaseContext());
+            ScrollView scrollView = new ScrollView(getBaseContext());
             RelativeLayout.LayoutParams lpRelative=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-            content.addView(relativeLayout,lpRelative);
+            content.addView(scrollView,lpRelative);
            // System.out.println("Content width:"+content.getWidth()+"Content height:"+content.getHeight());
-            ViewPager2 viewPager=new ViewPager2(getBaseContext());
-            viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
-            viewPager.setClipToPadding(false);
-            viewPager.setOnDragListener(new View.OnDragListener() {
-                @Override
-                public boolean onDrag(View v, DragEvent event) {
-                 //   System.out.println("drag");
-                    return true;
-                }
-            });
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            scrollView.addView(linearLayout,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            ScreenSlidePagerAdapter adapter =new ScreenSlidePagerAdapter(activity,liste);
+            int n = adapter.getItemCount();
+            for(int i=0;i<n;i++){
 
-            RelativeLayout.LayoutParams lpViewPager=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                viewPager.setForegroundGravity(Gravity.CENTER);
+                RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.bottomMargin = 50;
+                VerticalPariFragment pariFragment =new VerticalPariFragment(liste.get(i),activity);
+                linearLayout.addView(pariFragment.onCreateView(getLayoutInflater(),linearLayout,null),lp);
             }
-            lpViewPager.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-            viewPager.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
-            FragmentStateAdapter  pagerAdapter = new ScreenVerticalPagerAdapter(this,list);
-            viewPager.setAdapter(pagerAdapter);
-            relativeLayout.addView(viewPager,lpViewPager);
+
+
 
         }
 
@@ -325,6 +314,7 @@ public class PariActvity extends ActivityWithNavigation {
         searchView.setEnabled(true);
         search_button.setEnabled(true);
     }
+
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         private List<Pari> liste=null;
         private PariActvity activity;
@@ -359,7 +349,7 @@ public class PariActvity extends ActivityWithNavigation {
         @Override
         public int getItemCount() {
             int n=liste.size();
-            return ((n/5)+1);
+            return (n);
         }
     }
     private class HorizontalAdapter extends FragmentStateAdapter {
@@ -371,7 +361,7 @@ public class PariActvity extends ActivityWithNavigation {
 
         @Override
         public Fragment createFragment(int position) {
-            return new VerticalCompanyFragment(liste.get(position),activity);
+            return new VerticalPariFragment(liste.get(position),activity);
         }
 
         @Override

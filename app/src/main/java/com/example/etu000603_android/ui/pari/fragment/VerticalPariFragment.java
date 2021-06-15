@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,17 +28,17 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 
-public class VerticalCompanyFragment extends Fragment {
+public class VerticalPariFragment extends Fragment {
 
     private Pari pari;
     private PariActvity activity;
     private int heigth;
     private int width;
-    public VerticalCompanyFragment(){
+    public VerticalPariFragment(){
 
     }
 
-    public VerticalCompanyFragment(Pari pari, PariActvity activity) {
+    public VerticalPariFragment(Pari pari, PariActvity activity) {
 
         this.pari = pari;
         this.activity=activity;
@@ -192,15 +193,20 @@ public class VerticalCompanyFragment extends Fragment {
                              Bundle savedInstanceState) {
        final View view= (ViewGroup) inflater.inflate(
                 R.layout.pari_item2, container, false);
-         float scale=heigth/970;
+
         TextView textEquipe1=view.findViewById(R.id.text_equipe1);
         TextView textEquipe2=view.findViewById(R.id.text_equipe2);
-        TextView scoreEquipe1=view.findViewById(R.id.score_equipe1);
-        TextView scoreEquipe2=view.findViewById(R.id.score_equipe2);
+        TextView textDescription = view.findViewById(R.id.description_pari);
         textEquipe1.setText(pari.getMatch().getDomicile().getName());
         textEquipe2.setText(pari.getMatch().getExterieur().getName());
-        scoreEquipe1.setText(""+pari.getScoreDomicile());
-        scoreEquipe2.setText(pari.getScoreExterieur()+"");
+        textDescription.setText(pari.getDescription());
+        Button pariButton =view.findViewById(R.id.btn_pari);
+        pariButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.parier(pari);
+            }
+        });
 
         CardView card1=view.findViewById(R.id.card_equipe_1);
         CardView card2=view.findViewById(R.id.card_equipe_2);
@@ -264,8 +270,7 @@ public class VerticalCompanyFragment extends Fragment {
             imageView2.setImageDrawable(pari.getMatch().getExterieur().getLogo_drawable());
         }
 
-       view.setScaleX(scale);
-      view.setScaleY(scale);
+
 
         return view;
     }

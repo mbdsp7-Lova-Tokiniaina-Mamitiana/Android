@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import com.example.etu000603_android.service.AuthService;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.example.etu000603_android.ui.login.LoginActivity;
+import com.example.etu000603_android.ui.pari.PariActvity;
+
 import org.json.JSONException;
 
 public class LocalAuthState extends ActivityWithLanguage {
@@ -45,12 +47,17 @@ public class LocalAuthState extends ActivityWithLanguage {
         finish();
         startActivity(intent);
     }
+    public void redirectToAccueil(){
+        Intent intent = new Intent(getBaseContext(), PariActvity.class);
+        finish();
+        startActivity(intent);
+    }
 
     public void logout(){
         SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(AUTH_PREF, Context.MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
-        redirectToLogin();
+        redirectToAccueil();
     }
 
     @Override
@@ -61,6 +68,6 @@ public class LocalAuthState extends ActivityWithLanguage {
     @Override
     public void onStart() {
         super.onStart();
-        checkAuthstate();
+       // checkAuthstate();
     }
 }

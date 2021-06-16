@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,9 +19,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.data.model.Pari;
+import com.example.etu000603_android.ui.language.ActivityWithLanguage;
+import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.utils.Session;
-
-public class PariFormActivity extends AppCompatActivity {
+public class PariFormActivity extends ActivityWithNavigation {
     private TextView textCote,description,textEquipe1,textEquipe2 = null;
     private Button btn_pari =null;
     private ImageView imageView1,imageView2 = null;
@@ -47,6 +49,13 @@ public class PariFormActivity extends AppCompatActivity {
         description.setText(pari.getDescription());
         cardView1.setBackgroundResource(R.drawable.circle_cardview);
         cardView2.setBackgroundResource(R.drawable.circle_cardview);
+        final PariFormActivity actvity =this;
+        btn_pari.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actvity.checkAuthstate();
+            }
+        });
         if(pari.getMatch().getDomicile().getUrl_image()!=null) {
             if(!pari.getMatch().getDomicile().getUrl_image().isEmpty()&&!pari.getMatch().getDomicile().getUrl_image().equals("null")) {
                 Glide.with(this.getApplicationContext())

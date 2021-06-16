@@ -1,51 +1,45 @@
 package com.example.etu000603_android.ui.login;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.*;
-import androidx.annotation.NonNull;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.service.AuthService;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.example.etu000603_android.ui.pari.PariActvity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 import org.json.JSONException;
 
-public class LoginActivity extends ActivityWithLanguage {
-    private FirebaseAuth authState;
+public class InscriptionActivity extends ActivityWithLanguage {
+
+    private EditText textName,textUsername,textPassword,textFirstName,textEmail;
+    TextView errorMessage;
+    private Button  inscription,loginButton;
     private ProgressBar progressBar;
-    private TextView errorMessage;
-    private EditText textPassword;
-    private EditText textUsername;
-    private Button inscription;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authState=FirebaseAuth.getInstance();
-        checkUser();
-        setContentView(R.layout.activity_login);
-
-
-        textUsername=findViewById(R.id.username);
-        textPassword=findViewById(R.id.password);
-        progressBar=findViewById(R.id.progressBar);
-        errorMessage=findViewById(R.id.error_message);
+        setContentView(R.layout.activity_inscription);
+        textName = findViewById(R.id.name);
+        textUsername = findViewById(R.id.username);
+        textPassword = findViewById(R.id.password);
+        textFirstName= findViewById(R.id.firstname);
+        textEmail= findViewById(R.id.email);
         inscription = findViewById(R.id.inscription);
+        progressBar = findViewById(R.id.progressBar);
+        errorMessage = findViewById(R.id.error_message);
+        loginButton = findViewById(R.id.login);
         setOnclickListener();
-    }
-    private void checkUser(){
-        FirebaseUser user=authState.getCurrentUser();
-        if(user!=null){
-            startActivity(new Intent(getBaseContext(), PariActvity.class));
-            finish();
-        }
     }
     public void ShowHidePass(View view){
 
@@ -68,30 +62,33 @@ public class LoginActivity extends ActivityWithLanguage {
         }
     }
     private void setOnclickListener(){
-        final Button loginButton=findViewById(R.id.login);
+
         textPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
 
         //Hide Password
         textPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        inscription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), InscriptionActivity.class));
-                finish();
-            }
-        });
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email=textUsername.getText().toString();
+                startActivity(new Intent(getBaseContext(), LoginActivity.class));
+                finish();
+            }
+        });
+        inscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email=textEmail.getText().toString();
                 String password=textPassword.getText().toString();
+                String username =textUsername.getText().toString();
+                String firstname =textFirstName.getText().toString();
+                String name =textFirstName.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
                 try {
-                    AuthService.login(email,
+                    AuthService.inscription(username,email,name,firstname,
                             password,
-                            LoginActivity.this,
-                            LoginActivity.this.getClass().getMethod("onLoginSuccess"),
-                            LoginActivity.this.getClass().getMethod("onLoginError")
+                            InscriptionActivity.this,
+                            InscriptionActivity.this.getClass().getMethod("onInscriptionSuccess"),
+                            InscriptionActivity.this.getClass().getMethod("onInscriptionError")
                     );
                 } catch (NoSuchMethodException | JSONException e) {
                     e.printStackTrace();
@@ -99,23 +96,14 @@ public class LoginActivity extends ActivityWithLanguage {
             }
         });
     }
-
-    public void onLoginSuccess() {
+    public void onInscriptionSuccess() {
         progressBar.setVisibility(View.INVISIBLE);
         startActivity(new Intent(getBaseContext(), PariActvity.class));
         finish();
     }
 
-    public void onLoginError() {
+    public void onInscriptionError() {
         progressBar.setVisibility(View.INVISIBLE);
         errorMessage.setVisibility(View.VISIBLE);
     }
-
-    @Override
-    public void onBackPressed() {
-       // this.finishAffinity();
-        startActivity(new Intent(getBaseContext(), PariActvity.class));
-        finish();
-
-    }
-};
+}

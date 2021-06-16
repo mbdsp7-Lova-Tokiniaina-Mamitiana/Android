@@ -207,81 +207,83 @@ public class ActivityWithNavigation extends LocalAuthState {
     }
     public void configureDrawer(){
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        final RelativeLayout content2=findViewById(R.id.shadow_slide);
-        content2.setElevation(0);
-        content2.setBackgroundResource(R.drawable.layout_radius_gray);
-        content2.setAlpha(0.5F);
-        final RelativeLayout content = (RelativeLayout) findViewById(R.id.side_content);
-        stop=false;
-        final CardView decoview=findViewById(R.id.logout_button2);
-        final View decoview2=findViewById(R.id.logout_view);
-        //ActivityFunction.configureDrawerLayout(this,drawerLayout,decoview,decoview2,content);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        if(drawerLayout!=null) {
+            final RelativeLayout content2 = findViewById(R.id.shadow_slide);
+            content2.setElevation(0);
+            content2.setBackgroundResource(R.drawable.layout_radius_gray);
+            content2.setAlpha(0.5F);
+            final RelativeLayout content = (RelativeLayout) findViewById(R.id.side_content);
+            stop = false;
+            final CardView decoview = findViewById(R.id.logout_button2);
+            final View decoview2 = findViewById(R.id.logout_view);
+            //ActivityFunction.configureDrawerLayout(this,drawerLayout,decoview,decoview2,content);
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            private float scaleFactorX = 3f;
-            private float scaleFactorY = 3f;
+            actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                private float scaleFactorX = 3f;
+                private float scaleFactorY = 3f;
 
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
+                @Override
+                public void onDrawerSlide(View drawerView, float slideOffset) {
 
-              //  System.out.println("SlideOffset:"+slideOffset);
-                //  System.out.println(drawerView.getId()+"  d:"+drawerLayout.getId()+" c:"+content.getId());
-                super.onDrawerSlide(drawerView, slideOffset);
-                if(stop){
-                    return;
-                }
-                float slideX = drawerView.getWidth() * slideOffset;
-                //  System.out.println("SlideX:"+slideX);
-                content.setTranslationX(slideX+51);
-                content2.setVisibility(View.GONE);
-                // System.out.println("scale:"+(1 - (slideOffset / scaleFactor)));
-                content.setScaleX(1 - (slideOffset / scaleFactorX));
-                content.setScaleY(1 - (slideOffset / scaleFactorY));
+                    //  System.out.println("SlideOffset:"+slideOffset);
+                    //  System.out.println(drawerView.getId()+"  d:"+drawerLayout.getId()+" c:"+content.getId());
+                    super.onDrawerSlide(drawerView, slideOffset);
+                    if (stop) {
+                        return;
+                    }
+                    float slideX = drawerView.getWidth() * slideOffset;
+                    //  System.out.println("SlideX:"+slideX);
+                    content.setTranslationX(slideX + 51);
+                    content2.setVisibility(View.GONE);
+                    // System.out.println("scale:"+(1 - (slideOffset / scaleFactor)));
+                    content.setScaleX(1 - (slideOffset / scaleFactorX));
+                    content.setScaleY(1 - (slideOffset / scaleFactorY));
 
-                decoview2.setVisibility(CardView.INVISIBLE);
-                decoview.setVisibility(CardView.INVISIBLE);
-                content.setBackgroundResource(R.drawable.layout_radius);
-
-                if(slideOffset==0){
-                    content.setBackgroundResource(R.color.colorWhiteOpaque);
-                    content.setTranslationX(0);
-                    configureBottomNavigationView(idselected);
-                    showBottomNavigationView();
-                }else {
-
-                    hideBottomNavigationView();
-                }
-                content.setElevation(0);
-
-                //  System.out.println("drawer:"+content.getWidth());
-                if(slideOffset==1){
-
-                    content2.setScaleX(0.35F);
-                    content2.setTranslationX((slideX/(400/185))+50);
-                    content2.setScaleY(0.55F);
-                    content2.setVisibility(View.VISIBLE);
-                    //deco.setX(200);
-                    decoview2.setVisibility(CardView.VISIBLE);
-                    // decoview2.setElevation(50);
-                  //  System.out.println("elevation : "+decoview2.getElevation()+" vs "+ drawerLayout.getElevation()+" vs" +content.getElevation());
+                    decoview2.setVisibility(CardView.INVISIBLE);
                     decoview.setVisibility(CardView.INVISIBLE);
+                    content.setBackgroundResource(R.drawable.layout_radius);
 
-                    configureOnTouchLister();
+                    if (slideOffset == 0) {
+                        content.setBackgroundResource(R.color.colorWhiteOpaque);
+                        content.setTranslationX(0);
+                        configureBottomNavigationView(idselected);
+                        showBottomNavigationView();
+                    } else {
 
+                        hideBottomNavigationView();
+                    }
+                    content.setElevation(0);
+
+                    //  System.out.println("drawer:"+content.getWidth());
+                    if (slideOffset == 1) {
+
+                        content2.setScaleX(0.35F);
+                        content2.setTranslationX((slideX / (400 / 185)) + 50);
+                        content2.setScaleY(0.55F);
+                        content2.setVisibility(View.VISIBLE);
+                        //deco.setX(200);
+                        decoview2.setVisibility(CardView.VISIBLE);
+                        // decoview2.setElevation(50);
+                        //  System.out.println("elevation : "+decoview2.getElevation()+" vs "+ drawerLayout.getElevation()+" vs" +content.getElevation());
+                        decoview.setVisibility(CardView.INVISIBLE);
+
+                        configureOnTouchLister();
+
+
+                    }
 
                 }
 
-            }
 
+            };
 
-        };
-
-        drawerLayout.setScrimColor(Color.TRANSPARENT);
-        drawerLayout.setDrawerElevation(0f);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+            drawerLayout.setScrimColor(Color.TRANSPARENT);
+            drawerLayout.setDrawerElevation(0f);
+            drawerLayout.addDrawerListener(actionBarDrawerToggle);
+            actionBarDrawerToggle.syncState();
+        }
 
 
     }
@@ -376,69 +378,80 @@ public class ActivityWithNavigation extends LocalAuthState {
     }
     private  void setOnclickListener(){
         Button condition=findViewById(R.id.recharger);
-        popUp = new PopupWindow(this.getBaseContext());
-        final Activity activity = this;
-        condition.setText(getBaseContext().getResources().getString(R.string.recharger_compte));
-        View customView = getLayoutInflater().inflate(R.layout.popup_account,null);
-        ImageButton bouton=customView.findViewById(R.id.close_button);
-        final View back=activity.getWindow().getDecorView().getRootView();
+        if(condition!=null) {
+            popUp = new PopupWindow(this.getBaseContext());
+            final ActivityWithNavigation activity = this;
+            condition.setText(getBaseContext().getResources().getString(R.string.recharger_compte));
+            View customView = getLayoutInflater().inflate(R.layout.popup_account, null);
+            ImageButton bouton = customView.findViewById(R.id.close_button);
+            Button boutonRecharge = customView.findViewById(R.id.btn_recharge);
+            boutonRecharge.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.checkAuthstate();
+                }
+            });
 
-        bouton.setVisibility(View.GONE);
-        bouton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popUp.dismiss();
 
-                // activity.enable(true);
+            final View back = activity.getWindow().getDecorView().getRootView();
 
-            }
-        });
-        condition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(popUp.isShowing()){
-                    back.setBackgroundColor(activity.getResources().getColor(R.color.colorWhite));
-
+            bouton.setVisibility(View.GONE);
+            bouton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     popUp.dismiss();
 
-                    //activity.enable(true);
-
-                }else{
-                    popUp.showAtLocation(back, Gravity.CENTER,0,0);
-
-                    //back.setBackgroundColor(view.getResources().getColor(R.color.colorBlack));
-                    back.setAlpha(0.8F);
-                    Blurry.with(back.getContext()).onto((ViewGroup) back);
-
-                    // activity.enable(false);
-
+                    // activity.enable(true);
 
                 }
-            }
-        });
-        popUp.setElevation(0F);
-        popUp.setContentView(customView);
-        popUp.setOutsideTouchable(true);
+            });
 
-        popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
+            condition.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                // back.setBackgroundColor(view.getResources().getColor(R.color.colorWhite));
-                Blurry.delete((ViewGroup) back);
+                    if (popUp.isShowing()) {
+                        back.setBackgroundColor(activity.getResources().getColor(R.color.colorWhite));
 
-                back.setAlpha(1F);
+                        popUp.dismiss();
+
+                        //activity.enable(true);
+
+                    } else {
+                        popUp.showAtLocation(back, Gravity.CENTER, 0, 0);
+
+                        //back.setBackgroundColor(view.getResources().getColor(R.color.colorBlack));
+                        back.setAlpha(0.8F);
+                        Blurry.with(back.getContext()).onto((ViewGroup) back);
+
+                        // activity.enable(false);
 
 
+                    }
+                }
+            });
+            popUp.setElevation(0F);
+            popUp.setContentView(customView);
+            popUp.setOutsideTouchable(true);
 
-                ondissmissclick=true;
-                System.out.println("dismiss");
-            }
-        });
-        popUp.setBackgroundDrawable(null);
-        popUp.setFocusable(true);
-        popUp.update();
+            popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+
+                    // back.setBackgroundColor(view.getResources().getColor(R.color.colorWhite));
+                    Blurry.delete((ViewGroup) back);
+
+                    back.setAlpha(1F);
+
+
+                    ondissmissclick = true;
+                    System.out.println("dismiss");
+                }
+            });
+            popUp.setBackgroundDrawable(null);
+            popUp.setFocusable(true);
+            popUp.update();
+        }
     }
     public   void changeLogo(){
         final BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);
@@ -453,127 +466,128 @@ public class ActivityWithNavigation extends LocalAuthState {
     }
     public void configureSpinnerLanguage(){
         languageSpinner=findViewById(R.id.language_spinner);
-        ArrayList<String> listeLanguages=new ArrayList<>();
-        listeLanguages.add("Français");
-        listeLanguages.add("English");
-        listeLanguages.add("Deutsche");
-        listeLanguages.add("Lëtzebuergesch");
-        final ArrayList<LanguageItem> liste=new ArrayList<LanguageItem>();
-        Locale locale = getResources().getConfiguration().locale;
-        liste.add(new LanguageItem("Français",R.drawable.france_rounded));
-        liste.add(new LanguageItem("English",R.drawable.uk_rounded));
-        liste.add(new LanguageItem("Deutsche",R.drawable.germany_flag));
+        if(languageSpinner!=null) {
+            ArrayList<String> listeLanguages = new ArrayList<>();
+            listeLanguages.add("Français");
+            listeLanguages.add("English");
+            listeLanguages.add("Deutsche");
+            listeLanguages.add("Lëtzebuergesch");
+            final ArrayList<LanguageItem> liste = new ArrayList<LanguageItem>();
+            Locale locale = getResources().getConfiguration().locale;
+            liste.add(new LanguageItem("Français", R.drawable.france_rounded));
+            liste.add(new LanguageItem("English", R.drawable.uk_rounded));
+            liste.add(new LanguageItem("Deutsche", R.drawable.germany_flag));
 
-        final Boolean[] init = {true};
-        //languageSpinner.setAdapter(new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1,listeLanguages));
-        // languageSpinner.setAdapter(new LanguageAdapter(getBaseContext(),liste));
-        final ImageView flag_img=findViewById(R.id.img_flag);
-        if(locale.getLanguage().equals(new Locale("fr").getLanguage())){
-            selected_language=liste.get(0);
-            liste.get(0).setSelected(true);
-            setSelectedItem(liste.get(0),true);
+            final Boolean[] init = {true};
+            //languageSpinner.setAdapter(new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_1,listeLanguages));
+            // languageSpinner.setAdapter(new LanguageAdapter(getBaseContext(),liste));
+            final ImageView flag_img = findViewById(R.id.img_flag);
+            if (locale.getLanguage().equals(new Locale("fr").getLanguage())) {
+                selected_language = liste.get(0);
+                liste.get(0).setSelected(true);
+                setSelectedItem(liste.get(0), true);
 
-        }
-        if(locale.getLanguage().equals(new Locale("en").getLanguage())){
-            selected_language=liste.get(1);
-            setSelectedItem(liste.get(1),true);
+            }
+            if (locale.getLanguage().equals(new Locale("en").getLanguage())) {
+                selected_language = liste.get(1);
+                setSelectedItem(liste.get(1), true);
 
-            liste.get(1).setSelected(true);
-        }
-        if(locale.getLanguage().equals(new Locale("de").getLanguage())){
+                liste.get(1).setSelected(true);
+            }
+            if (locale.getLanguage().equals(new Locale("de").getLanguage())) {
 
 
-            selected_language=liste.get(2);
-            setSelectedItem(liste.get(2),true);
-            liste.get(2).setSelected(true);
-        }
+                selected_language = liste.get(2);
+                setSelectedItem(liste.get(2), true);
+                liste.get(2).setSelected(true);
+            }
 
-        final LinearLayout layout=new LinearLayout(getBaseContext());
-        layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setBackgroundResource(R.drawable.border_help_white);
+            final LinearLayout layout = new LinearLayout(getBaseContext());
+            layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            layout.setOrientation(LinearLayout.VERTICAL);
+            layout.setBackgroundResource(R.drawable.border_help_white);
 
-        final PopupWindow popUp=new PopupWindow(getBaseContext());
-        final LinearLayout linearLayout=new LinearLayout(getBaseContext());
-        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setBackgroundResource(R.drawable.border_white_popup);
-        for(final LanguageItem languageItem:liste){
-            LanguageFragment fragment=new LanguageFragment(languageItem);
-            View view= fragment.onCreateView(getLayoutInflater(),layout,instance);
-            //ImageView img=view.findViewById(R.id.img_flag);
+            final PopupWindow popUp = new PopupWindow(getBaseContext());
+            final LinearLayout linearLayout = new LinearLayout(getBaseContext());
+            linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.setBackgroundResource(R.drawable.border_white_popup);
+            for (final LanguageItem languageItem : liste) {
+                LanguageFragment fragment = new LanguageFragment(languageItem);
+                View view = fragment.onCreateView(getLayoutInflater(), layout, instance);
+                //ImageView img=view.findViewById(R.id.img_flag);
 
-            linearLayout.addView(view);
+                linearLayout.addView(view);
 
-            view.setOnClickListener(new View.OnClickListener() {
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        setSelectedItem(languageItem, false);
+
+                        popUp.dismiss();
+                    }
+                });
+
+            }
+            layout.setPadding(0, 50, 0, 50);
+            layout.addView(linearLayout);
+            Display display = getWindowManager().getDefaultDisplay();
+            final View back = getWindow().getDecorView();
+            final Animation anim = new ScaleAnimation(
+                    1f, 1f, // Start and end values for the X axis scaling
+                    0F, 1F, // Start and end values for the Y axis scaling
+                    Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
+                    Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
+            //  anim.setFillAfter(true); // Needed to keep the result of the animation
+            anim.setDuration(300);
+            anim.setInterpolator(new AccelerateInterpolator());
+            final LinearLayout content = findViewById(R.id.drawer_menu);
+            languageSpinner.setOnClickListener(new ImageButton.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
+                    if (popUp.isShowing()) {
 
-                    setSelectedItem(languageItem,false);
+                        back.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 
-                    popUp.dismiss();
-                }
-            });
+                        popUp.dismiss();
 
-        }
-        layout.setPadding(0,50,0,50);
-        layout.addView(linearLayout);
-        Display display = getWindowManager(). getDefaultDisplay();
-        final View back=getWindow().getDecorView();
-        final Animation anim = new ScaleAnimation(
-                1f, 1f, // Start and end values for the X axis scaling
-                0F, 1F, // Start and end values for the Y axis scaling
-                Animation.RELATIVE_TO_SELF, 1f, // Pivot point of X scaling
-                Animation.RELATIVE_TO_SELF, 1f); // Pivot point of Y scaling
-        //  anim.setFillAfter(true); // Needed to keep the result of the animation
-        anim.setDuration(300);
-        anim.setInterpolator(new AccelerateInterpolator());
-        final LinearLayout content=findViewById(R.id.drawer_menu);
-        languageSpinner.setOnClickListener(new ImageButton.OnClickListener(){
+                    } else {
+                        popUp.showAtLocation(content, Gravity.BOTTOM, 0, 0);
+                        layout.startAnimation(anim);
+                        // back.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+                        try {
+                            Blurry.with(back.getContext()).onto((ViewGroup) back);
+                        } catch (Exception exc) {
 
-            @Override
-            public void onClick(View v) {
-                if(popUp.isShowing()){
-
-                    back.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-
-                    popUp.dismiss();
-
-                }else{
-                    popUp.showAtLocation(content, Gravity.BOTTOM,0,0);
-                    layout.startAnimation(anim);
-                    // back.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-                    try {
-                        Blurry.with(back.getContext()).onto((ViewGroup) back);
-                    }catch (Exception exc){
+                        }
+                        back.setAlpha(0.8F);
 
                     }
-                    back.setAlpha(0.8F);
+
 
                 }
+            });
+            popUp.setElevation(0F);
 
+            popUp.setWidth(display.getWidth());
+            popUp.setContentView(layout);
+            popUp.setOutsideTouchable(true);
+            popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
 
-            }
-        });
-        popUp.setElevation(0F);
+                    // back.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                    try {
+                        Blurry.delete((ViewGroup) back);
+                        back.setAlpha(1F);
+                    } catch (Exception exc) {
 
-        popUp.setWidth(display.getWidth());
-        popUp.setContentView(layout);
-        popUp.setOutsideTouchable(true);
-        popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-
-                // back.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                try {
-                    Blurry.delete((ViewGroup) back);
-                    back.setAlpha(1F);
-                }catch (Exception exc){
-
+                    }
                 }
-            }
-        });
-        popUp.setBackgroundDrawable(null);
+            });
+            popUp.setBackgroundDrawable(null);
 
        /* languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -611,6 +625,7 @@ public class ActivityWithNavigation extends LocalAuthState {
             }
         });
         */
+        }
     }
     private void showBottomNavigationView(){
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);

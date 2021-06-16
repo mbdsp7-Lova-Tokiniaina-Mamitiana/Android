@@ -47,4 +47,8 @@
 
     <string name="votre_mise">Votre mise:</string>
 
+    <string name="inscription">S\'inscrire</string>
+    <string name="name">Nom</string>
+    <string name="firstname">Prenom</string>
+
 </resources>

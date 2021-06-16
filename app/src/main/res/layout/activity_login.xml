@@ -17,13 +17,14 @@
         android:layout_height="100dp"/>
     <TextView
         android:id="@+id/welcome"
-        android:layout_marginLeft="50dp"
-        android:text="@string/welcome"
+
+        android:gravity="center"
+        android:text="@string/action_sign_in_short"
         android:layout_marginTop="50dp"
-        android:textSize="25sp"
-        android:layout_width="wrap_content"
+        android:textSize="50dp"
+        android:layout_width="match_parent"
         android:fontFamily="@font/open_sans_bold"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorRedShadow"
         android:layout_height="wrap_content"/>
     <TextView
         android:layout_marginLeft="50dp"
@@ -106,6 +107,17 @@
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/inscription"
+        android:layout_marginTop="30dp"
+        android:background="@android:color/transparent"
+        android:text="S'inscrire"
+        android:textColor="@color/colorGray"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"/>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:visibility="gone"

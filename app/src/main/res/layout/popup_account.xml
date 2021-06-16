@@ -72,7 +72,7 @@
         <Button
             android:layout_marginTop="25dp"
             android:elevation="25dp"
-            android:id="@+id/btn_pari"
+            android:id="@+id/btn_recharge"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="center"

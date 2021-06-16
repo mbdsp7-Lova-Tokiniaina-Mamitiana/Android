@@ -83,7 +83,7 @@ public class PariActvity extends ActivityWithNavigation {
 
         CardView cardTrame=findViewById(R.id.card_trame);
         cardTrame.setBackgroundResource(R.drawable.trame);
-        final String uid=getUid();
+
         repository=new PariRepository();
         progressBar.setVisibility(View.VISIBLE);
         content.post(new Runnable() {

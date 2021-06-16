@@ -9,6 +9,7 @@ import com.example.etu000603_android.service.AuthService;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.example.etu000603_android.ui.login.LoginActivity;
 import com.example.etu000603_android.ui.pari.PariActvity;
+import com.example.etu000603_android.utils.Session;
 
 import org.json.JSONException;
 
@@ -44,13 +45,18 @@ public class LocalAuthState extends ActivityWithLanguage {
 
     public void redirectToLogin(){
         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-        finish();
+
         startActivity(intent);
     }
     public void redirectToAccueil(){
         Intent intent = new Intent(getBaseContext(), PariActvity.class);
         finish();
         startActivity(intent);
+    }
+    public boolean isConnected(){
+
+
+        return Session.profil != null;
     }
 
     public void logout(){

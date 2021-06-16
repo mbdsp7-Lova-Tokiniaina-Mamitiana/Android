@@ -48,5 +48,8 @@
 
     <string name="votre_mise">Your bet:</string>
     <string name="terminees"> Finished</string>
+    <string name="inscription">Sign up</string>
+    <string name="name">Name</string>
+    <string name="firstname">Firstname</string>
 
 </resources>

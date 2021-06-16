@@ -48,5 +48,7 @@
 
     <string name="montant2">Value :</string>
 
-    <string name="votre_mise">Votre mise</string>
+    <string name="inscription">Sign up</string>
+    <string name="name">name</string>
+    <string name="firstname">firstname</string>
 </resources>

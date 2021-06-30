@@ -25,6 +25,7 @@ import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.ui.pari.fragment.VerticalPagerFragmentPersonnel;
 import com.example.etu000603_android.ui.pari.fragment.VerticalPariFragment;
 import com.example.etu000603_android.ui.pari.fragment.VerticalPariPersonelFragment;
+import com.example.etu000603_android.utils.Session;
 
 import java.util.List;
 
@@ -55,7 +56,12 @@ public class PariPersonelActivity extends ActivityWithNavigation {
                 content.post(new Runnable() {
                     @Override
                     public void run() {
-                        repository.getPariPersonnels(activity,type);
+
+                        if(Session.profil!=null){
+                            progressBar.setVisibility(View.VISIBLE);
+                            repository.getPariPersonnel(Session.profil.getId(),PariStatut.ENCOURS,1,15,activity);
+                        }
+
 
                     }
                 });
@@ -70,8 +76,10 @@ public class PariPersonelActivity extends ActivityWithNavigation {
                 content.post(new Runnable() {
                     @Override
                     public void run() {
-                        repository.getPariPersonnels(activity,type);
-
+                        if(Session.profil!=null){
+                            progressBar.setVisibility(View.VISIBLE);
+                            repository.getPariPersonnel(Session.profil.getId(),PariStatut.TERMINEE,1,15,activity);
+                        }
                     }
                 });
             }
@@ -84,8 +92,9 @@ public class PariPersonelActivity extends ActivityWithNavigation {
         content.post(new Runnable() {
             @Override
             public void run() {
-                repository.getPariPersonnels(activity,type);
-
+                if(Session.profil!=null){
+                    repository.getPariPersonnel(Session.profil.getId(),PariStatut.ENCOURS,1,15,activity);
+                }
             }
         });
     }

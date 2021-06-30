@@ -1,12 +1,21 @@
 package com.example.etu000603_android.data.model;
 
 public class Pari {
+    private String id;
     private Match match;
     private String description;
     private  double cote;
 
     public  Pari(){
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Match getMatch() {

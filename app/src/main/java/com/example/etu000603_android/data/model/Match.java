@@ -1,10 +1,30 @@
 package com.example.etu000603_android.data.model;
 
+import java.sql.Timestamp;
+
 public class Match {
 
+    private String id;
     private  Equipe domicile,exterieur;
     private double localistionX,localisationY;
     private  String description;
+    private Timestamp date;
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 
     public String getDescription() {
         return description;

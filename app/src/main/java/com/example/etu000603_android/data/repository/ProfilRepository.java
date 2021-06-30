@@ -1,35 +1,20 @@
 package com.example.etu000603_android.data.repository;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
-import androidx.annotation.Nullable;
-
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.RequestQueue;
-
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.etu000603_android.data.LoginDataSource;
 import com.example.etu000603_android.data.constants.Constant;
 import com.example.etu000603_android.data.model.LoggedInUser;
+import com.example.etu000603_android.data.model.PariPersonnel;
 import com.example.etu000603_android.data.model.Result;
 import com.example.etu000603_android.data.model.User;
 import com.example.etu000603_android.ui.authstate.LocalAuthState;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.example.etu000603_android.ui.pari.PariPersonelActivity;
 
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -42,9 +27,9 @@ import okhttp3.Response;
  * Class that requests authentication and user information from the remote data source and
  * maintains an in-memory cache of login status and user credentials information.
  */
-public class LoginRepository {
+public class ProfilRepository {
 
-    private static volatile LoginRepository instance;
+    private static volatile ProfilRepository instance;
 
     private LoginDataSource dataSource;
 
@@ -53,15 +38,15 @@ public class LoginRepository {
     private LoggedInUser user = null;
 
     // private constructor : singleton access
-    private LoginRepository(LoginDataSource dataSource) {
+    private ProfilRepository(LoginDataSource dataSource) {
         this.dataSource = dataSource;
     }
-    public LoginRepository() {
+    public ProfilRepository() {
 
     }
-    public static LoginRepository getInstance(LoginDataSource dataSource) {
+    public static ProfilRepository getInstance(LoginDataSource dataSource) {
         if (instance == null) {
-            instance = new LoginRepository(dataSource);
+            instance = new ProfilRepository(dataSource);
         }
         return instance;
     }
@@ -143,9 +128,10 @@ public class LoginRepository {
 
 
     }
+
     public  void getProfil(final User user, final LocalAuthState authState){
         OkHttpClient client = new OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(Constant.TIMOUT, TimeUnit.SECONDS)
                 .build();
 
         Request request = new Request.Builder()

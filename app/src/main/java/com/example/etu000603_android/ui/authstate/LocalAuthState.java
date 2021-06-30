@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.example.etu000603_android.data.model.User;
-import com.example.etu000603_android.data.repository.LoginRepository;
+import com.example.etu000603_android.data.repository.ProfilRepository;
 import com.example.etu000603_android.service.AuthService;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.example.etu000603_android.ui.login.LoginActivity;
@@ -20,7 +20,7 @@ public class LocalAuthState extends ActivityWithLanguage {
     String uid;
     private static final String AUTH_PREF = "AuthSharedPref";
     private static final String TOKEN_PREF = "ACCESSTOKEN";
-    private LoginRepository repository=new LoginRepository();
+    private ProfilRepository repository=new ProfilRepository();
 
     public String getAuthToken() {
         return getApplicationContext().getSharedPreferences(AUTH_PREF, Context.MODE_PRIVATE)
@@ -84,6 +84,7 @@ public class LocalAuthState extends ActivityWithLanguage {
         }
     }
     public void setSession(User user){
+        System.out.println("Set session");
         Session.profil =user;
     }
     @Override

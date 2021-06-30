@@ -9,6 +9,7 @@ public class PariPersonnel extends Pari {
     private Timestamp date;
     private PariStatut statut;
 
+
     public String getUser() {
         return user;
     }

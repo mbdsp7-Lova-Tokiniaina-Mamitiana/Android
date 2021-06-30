@@ -84,12 +84,14 @@ public class InscriptionActivity extends ActivityWithLanguage {
                 String name =textFirstName.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
                 try {
+                    inscription.setEnabled(false);
                     AuthService.inscription(username,email,name,firstname,
                             password,
                             InscriptionActivity.this,
                             InscriptionActivity.this.getClass().getMethod("onInscriptionSuccess"),
                             InscriptionActivity.this.getClass().getMethod("onInscriptionError")
                     );
+
                 } catch (NoSuchMethodException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -99,11 +101,13 @@ public class InscriptionActivity extends ActivityWithLanguage {
     public void onInscriptionSuccess() {
         progressBar.setVisibility(View.INVISIBLE);
         startActivity(new Intent(getBaseContext(), PariActvity.class));
+        inscription.setEnabled(true);
         finish();
     }
 
     public void onInscriptionError() {
         progressBar.setVisibility(View.INVISIBLE);
+        inscription.setEnabled(true);
         errorMessage.setVisibility(View.VISIBLE);
     }
 }

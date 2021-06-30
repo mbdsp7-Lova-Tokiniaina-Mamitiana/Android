@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.data.model.User;
 import com.example.etu000603_android.service.AuthService;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.example.etu000603_android.ui.pari.PariActvity;
@@ -102,6 +103,7 @@ public class LoginActivity extends ActivityWithLanguage {
 
     public void onLoginSuccess() {
         progressBar.setVisibility(View.INVISIBLE);
+        //Check profil
         startActivity(new Intent(getBaseContext(), PariActvity.class));
         finish();
     }

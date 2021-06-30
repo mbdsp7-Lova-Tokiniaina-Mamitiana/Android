@@ -1,7 +1,9 @@
 package com.example.etu000603_android.ui.navigation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 
@@ -33,6 +35,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.etu000603_android.R;
 import com.example.etu000603_android.ui.authstate.AuthState;
 import com.example.etu000603_android.ui.authstate.LocalAuthState;
+import com.example.etu000603_android.ui.language.ActivityWithLanguage;
 import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.language.LanguageItem;
 import com.example.etu000603_android.ui.language.fragment.LanguageFragment;
@@ -288,6 +291,13 @@ public class ActivityWithNavigation extends LocalAuthState {
 
     }
 
+    public void logout2(){
+        SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences("AuthSharedPref", Context.MODE_PRIVATE).edit();
+        editor.clear();
+        editor.apply();
+        System.out.println("Auth Token:"+getAuthToken());
+        redirectToAccueil();
+    }
     public void configureOnTouchLister(){
         final DrawerLayout  drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         final View decoview=findViewById(R.id.logout_view);
@@ -296,6 +306,7 @@ public class ActivityWithNavigation extends LocalAuthState {
         display.getSize(size);
         final float decoX=decoview.getX();
         final float decoY=decoview.getY();
+        final ActivityWithNavigation activity = this;
 
         drawerLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -310,7 +321,8 @@ public class ActivityWithNavigation extends LocalAuthState {
                         if(x>=decoX &&x<=decoX+decoview.getWidth()&& y>=decoY && y<=decoY+decoview.getHeight() ){
                            // System.out.println("deco");
                             stop=true;
-                            logout();
+                            System.out.println("Logout");
+                            activity.logout2();
 
                         }else{
                          //   System.out.println("click not good");

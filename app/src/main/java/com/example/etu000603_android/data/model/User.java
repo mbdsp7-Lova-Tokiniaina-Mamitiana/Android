@@ -1,8 +1,16 @@
 package com.example.etu000603_android.data.model;
 
 public class User {
-    private String id,email,password,nom,prenom;
+    private String id,email,password,nom,prenom,username;
     private double solde;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getId() {
         return id;

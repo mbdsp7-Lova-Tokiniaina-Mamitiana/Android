@@ -12,11 +12,19 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 
 public class AuthService {
 
@@ -99,68 +107,50 @@ public class AuthService {
                                    @Nullable final Method errorCallback) throws JSONException {
         SharedPreferences sharedPreferences = context.getSharedPreferences("AuthSharedPref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(context);
-        JSONObject jsonBody = new JSONObject();
-        jsonBody.put("id", iduser);
-        jsonBody.put("nom", name);
-        jsonBody.put("prenom", firstname);
-        jsonBody.put("role", "client");
-        final String requestBody = jsonBody.toString();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .build();
+        RequestBody formBody = new FormBody.Builder()
+                .add("nom", name)
+                .add("prenom", firstname)
+                .add("id",iduser)
+                .build();
+        okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(Constant.API_GRAILS+"profils")
+                .addHeader("Accept","application/json")
+                .post(formBody)
+                .build();
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Constant.API_GRAILS + "profils",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        try {
-                            Map<String, Object> responseMap = new Gson().fromJson(
-                                    response, new TypeToken<HashMap<String, Object>>() {}.getType()
-                            );
-
-
-                            successCallback.invoke(context);
-                        } catch (IllegalAccessException | InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (errorCallback != null) {
-                            try {
-                                errorCallback.invoke(context);
-                            } catch (IllegalAccessException | InvocationTargetException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }) {
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public String getBodyContentType() {
-                return "application/json; charset=utf-8";
+            public void onFailure(Call call, IOException e) {
+                System.out.println("response error");
+                call.cancel();
             }
 
             @Override
-            public byte[] getBody() {
-                return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
+            public void onResponse(Call call, okhttp3.Response response) throws IOException {
+
+                final String myResponse = response.body().string();
+                try {
+
+                    if(response.code()!=200 && response.code()!=401){
+                        errorCallback.invoke(context);
+                    }
+                    System.out.println("Json  save");
+                    successCallback.invoke(context);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                }
+
+
             }
+        });
 
-            /*@Override
-            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                String responseString = "";
-                // can get more details such as response.headers
-                if (response != null) responseString = String.valueOf(response.statusCode);
-                assert response != null;
-                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-            }*/
-        };
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
 
     }
     public static void inscription(String login, String email, final String name, final String firstname,

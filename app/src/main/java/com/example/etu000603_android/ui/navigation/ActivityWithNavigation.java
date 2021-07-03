@@ -19,10 +19,12 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,6 +35,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.data.model.User;
+import com.example.etu000603_android.data.repository.ProfilRepository;
 import com.example.etu000603_android.ui.authstate.AuthState;
 import com.example.etu000603_android.ui.authstate.LocalAuthState;
 import com.example.etu000603_android.ui.language.ActivityWithLanguage;
@@ -89,58 +93,70 @@ public class ActivityWithNavigation extends LocalAuthState {
         configureSpinnerLanguage();
         setOnclickListener();
     }
+    @Override
     public void configureDrawerInformation(){
-
-        /*TextView companyName=findViewById(R.id.company_name);
-        TextView companyAdress=findViewById(R.id.company_adress);
-        final ImageView imageView=findViewById(R.id.logo_company);
-
-        if(Session.selected_pari!=null) {
-            System.out.println("company selected:" + Session.selected_pari);
-            companyName.setText(Session.selected_pari.getName());
-            companyName.setTextIsSelectable(true);
-            companyAdress.setText(Session.selected_company.getAddress().toString());
-            companyAdress.setTextIsSelectable(true);
-            imageView.setAdjustViewBounds(true);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            if (Session.selected_company.getLogo_drawable() != null) {
-                imageView.setImageDrawable(Session.selected_company.getLogo_drawable());
-            } else {
-                Glide.with(getBaseContext())
-                        .asBitmap().centerCrop()
-                        .load(Session.selected_pari.get())
-                        .centerCrop()
-                        .into(new SimpleTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Drawable drawable = new BitmapDrawable(getResources(), resource);
-
-
-                                imageView.setAdjustViewBounds(true);
-                                imageView.setImageDrawable(drawable);
-
-                                Session.selected_pari.setLogo_drawable(drawable);
-
-
-                            }
-                        });
+        super.configureDrawerInformation();
+        User profil = Session.profil;
+        TextView name = findViewById(R.id.profil_name);
+        TextView firstname = findViewById(R.id.profil_firstname);
+        TextView solde = findViewById(R.id.profil_name);
+        TextView recharger = findViewById(R.id.btn_recharge);
+        if(profil!=null){
+            View logoutView =findViewById(R.id.logout_view);
+            if(logoutView!=null){
+                TextView textDeco = logoutView.findViewById(R.id.textdeco);
+                if(textDeco!=null){
+                    textDeco.setText(R.string.logout);
+                }
             }
-            imageView.setAdjustViewBounds(true);
-            // imageView.setBackgroundResource(R.drawable.img_rounded2);
-            Display display = getWindowManager().getDefaultDisplay();
+            if(name!=null)
+            name.setText(profil.getNom());
+            if(firstname!=null)
+            firstname.setText(profil.getPrenom());
+            if(name!=null)
+            name.setVisibility(View.VISIBLE);
+            if(firstname!=null)
 
-            Point size = new Point();
-            display.getSize(size);
-            int height = size.y;
-            int paddingImg = 25 * height / 1369;
-            imageView.setPadding(paddingImg, paddingImg, paddingImg, paddingImg);
+                firstname.setVisibility(View.VISIBLE);
+            if(solde!=null)
+                solde.setVisibility(View.VISIBLE);
+
 
         }else{
-            companyAdress.setVisibility(View.INVISIBLE);
-            companyName.setVisibility(View.INVISIBLE);
-            imageView.setVisibility(View.INVISIBLE);
+            View logoutView =findViewById(R.id.logout_view);
+            if(logoutView!=null){
+                TextView textDeco = logoutView.findViewById(R.id.textdeco);
+                if(textDeco!=null){
+                    textDeco.setText(R.string.action_sign_in_short);
+                }
+            }
+            if(name!=null)
+            name.setVisibility(View.INVISIBLE);
+            if(firstname!=null)
+            firstname.setVisibility(View.INVISIBLE);
+            if(solde!=null)
+            solde.setVisibility(View.INVISIBLE);
+            if(recharger!=null){
+
+                recharger.setText(R.string.action_sign_in_short);
+            }
         }
-        setOnclickListener();*/
+
+    }
+    public void updateSolde(double solde){
+        if(Session.profil!=null){
+            Session.profil.setSolde(Session.profil.getSolde()+solde);
+            TextView textSolde =findViewById(R.id.solde);
+            if(popUp!=null){
+                popUp.dismiss();
+                final Button boutonRecharge = popUp.getContentView().findViewById(R.id.btn_recharge);
+                if(boutonRecharge!=null){
+                    boutonRecharge.setEnabled(true);
+                }
+            }
+
+            ActivityFunction.startCountAnimation(textSolde,0,Session.profil.getSolde(),1500);
+        }
     }
     public void configureBottomNavigationView(final int id){
 
@@ -298,6 +314,11 @@ public class ActivityWithNavigation extends LocalAuthState {
         System.out.println("Auth Token:"+getAuthToken());
         redirectToAccueil();
     }
+    public void goToLogin(){
+
+            redirectToLogin();
+
+    }
     public void configureOnTouchLister(){
         final DrawerLayout  drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         final View decoview=findViewById(R.id.logout_view);
@@ -322,7 +343,12 @@ public class ActivityWithNavigation extends LocalAuthState {
                            // System.out.println("deco");
                             stop=true;
                             System.out.println("Logout");
-                            activity.logout2();
+                            if(Session.profil!=null) {
+                                activity.logout2();
+                            }else{
+                                activity.goToLogin();
+                            }
+
 
                         }else{
                          //   System.out.println("click not good");
@@ -350,7 +376,11 @@ public class ActivityWithNavigation extends LocalAuthState {
 
                 drawerLayout.openDrawer(GravityCompat.START,true);
                 TextView textSolde = findViewById(R.id.solde);
-                ActivityFunction.startCountAnimation(textSolde,0,200,1500);
+                double solde = 0;
+                if(Session.profil!=null){
+                    solde =Session.profil.getSolde();
+                }
+                ActivityFunction.startCountAnimation(textSolde,0,solde,1500);
 
 
             }
@@ -395,12 +425,41 @@ public class ActivityWithNavigation extends LocalAuthState {
             final ActivityWithNavigation activity = this;
             condition.setText(getBaseContext().getResources().getString(R.string.recharger_compte));
             View customView = getLayoutInflater().inflate(R.layout.popup_account, null);
-            ImageButton bouton = customView.findViewById(R.id.close_button);
-            Button boutonRecharge = customView.findViewById(R.id.btn_recharge);
+            final ImageButton bouton = customView.findViewById(R.id.close_button);
+            final Button boutonRecharge = customView.findViewById(R.id.btn_recharge);
+            final ProgressBar progressBar = customView.findViewById(R.id.progressBar);
+            final EditText value = customView.findViewById(R.id.value);
+            boutonRecharge.setEnabled(true);
+
             boutonRecharge.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     activity.checkAuthstate();
+                    progressBar.setVisibility(View.VISIBLE);
+                   boutonRecharge.setEnabled(false);
+                    ProfilRepository repository =new ProfilRepository();
+                    User user = Session.profil;
+                    if(user!=null){
+                        try {
+                            double solde = 0;
+                            try{
+
+                                solde = Double.parseDouble(value.getText().toString());
+                            }catch (Exception exc){
+                               ;
+                                throw new Exception("Montant invalide");
+
+                            }
+                            repository.ajouterSolde(user.getId(),solde,activity);
+                        }catch (Exception exc){
+                            showMessage(exc.getMessage(),true);
+                            boutonRecharge.setEnabled(true);
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                    }
+
+
                 }
             });
 
@@ -430,8 +489,9 @@ public class ActivityWithNavigation extends LocalAuthState {
                         //activity.enable(true);
 
                     } else {
-                        popUp.showAtLocation(back, Gravity.CENTER, 0, 0);
 
+                        popUp.showAtLocation(back, Gravity.CENTER, 0, 0);
+                        progressBar.setVisibility(View.GONE);
                         //back.setBackgroundColor(view.getResources().getColor(R.color.colorBlack));
                         back.setAlpha(0.8F);
                         Blurry.with(back.getContext()).onto((ViewGroup) back);
@@ -445,6 +505,7 @@ public class ActivityWithNavigation extends LocalAuthState {
             popUp.setElevation(0F);
             popUp.setContentView(customView);
             popUp.setOutsideTouchable(true);
+
 
             popUp.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
@@ -469,10 +530,7 @@ public class ActivityWithNavigation extends LocalAuthState {
         final BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);
 
         ImageView imageView=findViewById(R.id.image_tiers);
-        if(Session.selected_pari!=null) {
-           /* if (Session.selected_pari.getLogo_drawable() != null)
-                imageView.setImageDrawable(Session.selected_company.getLogo_drawable());*/
-        }
+
 
 
     }
@@ -555,6 +613,7 @@ public class ActivityWithNavigation extends LocalAuthState {
             anim.setDuration(300);
             anim.setInterpolator(new AccelerateInterpolator());
             final LinearLayout content = findViewById(R.id.drawer_menu);
+            languageSpinner.setVisibility(View.INVISIBLE);
             languageSpinner.setOnClickListener(new ImageButton.OnClickListener() {
 
                 @Override

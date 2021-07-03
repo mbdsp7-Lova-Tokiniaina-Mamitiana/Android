@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.data.model.Match;
 import com.example.etu000603_android.data.model.Pari;
 import com.example.etu000603_android.ui.pari.PariActvity;
 
@@ -28,9 +29,11 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import java.text.SimpleDateFormat;
+
 
 public class PagerFragment extends Fragment {
-    private Pari pari=new Pari();
+    private Match match=new Match();
     private int position=0;
     private int pageCount=0;
     private PariActvity activity;
@@ -39,8 +42,8 @@ public class PagerFragment extends Fragment {
 
     }
 
-    public PagerFragment(Pari pari, PariActvity activity, int position, int page) {
-        this.pari = pari;
+    public PagerFragment(Match m, PariActvity activity, int position, int page) {
+        this.match = m;
         this.position=position;
         this.pageCount=page;
         this.activity=activity;
@@ -56,22 +59,23 @@ public class PagerFragment extends Fragment {
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         float width = displayMetrics.widthPixels;
         float height= displayMetrics.heightPixels;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
 
       //  System.out.println("height screen:"+height+" vs "+content.getHeight()) ;
         TextView textEquipe1=view.findViewById(R.id.text_equipe1);
         TextView textEquipe2=view.findViewById(R.id.text_equipe2);
         TextView textDescription = view.findViewById(R.id.description_pari);
 
-        textEquipe1.setText(pari.getMatch().getDomicile().getName());
-        textEquipe2.setText(pari.getMatch().getExterieur().getName());
-        textDescription.setText(pari.getDescription());
+        textEquipe1.setText(match.getDomicile().getName());
+        textEquipe2.setText(match.getExterieur().getName());
+        textDescription.setText(dateFormat.format(match.getDate()));
 
 
         Button pariButton =view.findViewById(R.id.btn_pari);
         pariButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.parier(pari);
+                activity.infomatch(match);
             }
         });
 
@@ -128,15 +132,15 @@ public class PagerFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                activity.redirectToInfo(pari);
+                activity.redirectToInfo(match);
             }
         });
         final ImageView imageView1=view.findViewById(R.id.image_equipe1);
-        if(pari.getMatch().getDomicile().getUrl_image()!=null) {
-            if(!pari.getMatch().getDomicile().getUrl_image().isEmpty()&&!pari.getMatch().getDomicile().getUrl_image().equals("null")) {
+        if(match.getDomicile().getUrl_image()!=null) {
+            if(!match.getDomicile().getUrl_image().isEmpty()&&!match.getDomicile().getUrl_image().equals("null")) {
                 Glide.with(view.getContext())
                         .asBitmap().centerCrop()
-                        .load(pari.getMatch().getDomicile().getUrl_image())
+                        .load(match.getDomicile().getUrl_image())
                         .centerCrop()
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
@@ -148,7 +152,7 @@ public class PagerFragment extends Fragment {
                                 imageView1.setImageDrawable(drawable);
 
                                 imageView1.setPadding(28, 28, 28, 28);
-                                pari.getMatch().getDomicile().setLogo_drawable(drawable);
+                                match.getDomicile().setLogo_drawable(drawable);
 
 
                             }
@@ -156,11 +160,11 @@ public class PagerFragment extends Fragment {
             }
         }
         final ImageView imageView2=view.findViewById(R.id.image_equipe2);
-        if(pari.getMatch().getExterieur().getUrl_image()!=null) {
-            if(!pari.getMatch().getExterieur().getUrl_image().isEmpty()&&!pari.getMatch().getExterieur().getUrl_image().equals("null")) {
+        if(match.getExterieur().getUrl_image()!=null) {
+            if(!match.getExterieur().getUrl_image().isEmpty()&&!match.getExterieur().getUrl_image().equals("null")) {
                 Glide.with(view.getContext())
                         .asBitmap().centerCrop()
-                        .load(pari.getMatch().getExterieur().getUrl_image())
+                        .load(match.getExterieur().getUrl_image())
                         .centerCrop()
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
@@ -172,7 +176,7 @@ public class PagerFragment extends Fragment {
                                 imageView2.setImageDrawable(drawable);
 
                                 imageView2.setPadding(28, 28, 28, 28);
-                                pari.getMatch().getExterieur().setLogo_drawable(drawable);
+                                match.getExterieur().setLogo_drawable(drawable);
 
 
                             }
@@ -184,7 +188,7 @@ public class PagerFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                activity.redirectToInfo(pari);
+                activity.redirectToInfo(match);
 
             }
         });

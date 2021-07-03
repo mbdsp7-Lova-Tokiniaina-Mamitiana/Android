@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="@color/colorBlackNetwork"
+        app:cardCornerRadius="15dip"
+        android:id="@+id/networkbar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+
+            android:elevation="200dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+
+                >
+                <ImageView
+                    android:id="@+id/icon_message"
+                    android:src="@drawable/success"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
+
+                <TextView
+                    android:id="@+id/text_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Erreur"
+                    android:textColor="#d1d1d1"
+                    android:textColorLink="#b5c350"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                   android:paddingLeft="15dp"
+                    android:textSize="14sp"
+
+                    android:fontFamily="@font/open_sans"
+                    />
+            </LinearLayout>
+
+            <ImageButton
+                android:layout_alignParentRight="true"
+                android:layout_width="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:scaleType="fitXY"
+                android:id="@+id/close_button"
+                android:src="@drawable/close_button2"
+                android:background="@android:color/transparent"
+                android:layout_height="15dp"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

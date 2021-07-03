@@ -72,20 +72,28 @@ public class LocalAuthState extends ActivityWithLanguage {
         redirectToAccueil();
     }
     private void checkAuthToken(){
+
         String token = getAuthToken();
+        System.out.println("Check auth token:"+token);
         if(token != null){
+
             repository.getAuthInfo(token,this);
         }
     }
     public void checkProfil(User user){
         String token = getAuthToken();
+        System.out.println("Check profil");
         if(token != null){
             repository.getProfil(user,this);
         }
     }
+    public void configureDrawerInformation(){
+
+    }
     public void setSession(User user){
         System.out.println("Set session");
         Session.profil =user;
+        configureDrawerInformation();
     }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,6 +106,7 @@ public class LocalAuthState extends ActivityWithLanguage {
     @Override
     public void onStart() {
         super.onStart();
+
 
     }
 }

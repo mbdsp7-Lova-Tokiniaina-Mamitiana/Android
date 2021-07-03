@@ -110,7 +110,7 @@ public class LoginActivity extends ActivityWithLanguage {
 
     public void onLoginError() {
         progressBar.setVisibility(View.INVISIBLE);
-        errorMessage.setVisibility(View.VISIBLE);
+        showMessage("Informations invalides",true);
     }
 
     @Override

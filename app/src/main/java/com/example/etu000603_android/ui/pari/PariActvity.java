@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.data.model.Match;
 import com.example.etu000603_android.data.model.Pari;
 import com.example.etu000603_android.data.repository.PariRepository;
 import com.example.etu000603_android.ui.pari.fragment.PagerFragment;
@@ -51,7 +52,7 @@ public class PariActvity extends ActivityWithNavigation {
     private PariRepository repository=null;
     public Bundle instance=null;
     PariActvity activity=null;
-    private List<Pari> liste=null;
+    private List<Match> liste=null;
     private ProgressBar progressBar=null;
     private  ImageButton search_button;
 
@@ -99,8 +100,8 @@ public class PariActvity extends ActivityWithNavigation {
     }
 
 
-    public void parier(Pari pari){
-        Session.selected_pari=pari;
+    public void infomatch(Match match){
+        Session.selected_match=match;
         Intent intent=new Intent(getBaseContext(), PariFormActivity.class);
 
         startActivity(intent);
@@ -112,15 +113,15 @@ public class PariActvity extends ActivityWithNavigation {
 
 
 
-    public void redirectToInfo(Pari pari){
-        parier(pari);
+    public void redirectToInfo(Match match){
+        infomatch(match);
         //finish();
     }
     private void hideKeybaord(View v) {
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
     }
-    public void getPariDisponibles(final List<Pari> list) {
+    public void getPariDisponibles(final List<Match> list) {
         this.liste=list;
         getParis(list,true);
 
@@ -128,7 +129,7 @@ public class PariActvity extends ActivityWithNavigation {
 
 
 
-    private void getParis(List<Pari> list, boolean horizontal){
+    private void getParis(List<Match> list, boolean horizontal){
 
         content.removeAllViews();
         if(horizontal){
@@ -209,13 +210,13 @@ public class PariActvity extends ActivityWithNavigation {
     }
 
 
-    private List<Pari> getCompanyList(String companyName){
+    private List<Match> getCompanyList(String companyName){
         companyName=companyName.trim();
         if(companyName.isEmpty()){
             return liste;
         }
-        List<Pari> newList=new ArrayList<>();
-        for(Pari c:liste){
+        List<Match> newList=new ArrayList<>();
+        for(Match c:liste){
 
                 newList.add(c);
 
@@ -227,7 +228,7 @@ public class PariActvity extends ActivityWithNavigation {
 
 
       //  progressBar.setVisibility(View.VISIBLE);
-        List<Pari> list=getCompanyList(query);
+        List<Match> list=getCompanyList(query);
 
         if(query.trim().isEmpty()){
 
@@ -316,9 +317,9 @@ public class PariActvity extends ActivityWithNavigation {
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
-        private List<Pari> liste=null;
+        private List<Match> liste=null;
         private PariActvity activity;
-        public ScreenSlidePagerAdapter(PariActvity fa, List<Pari> liste) {
+        public ScreenSlidePagerAdapter(PariActvity fa, List<Match> liste) {
             super(fa);
             activity=fa;
             this.liste=liste;
@@ -335,8 +336,8 @@ public class PariActvity extends ActivityWithNavigation {
         }
     }
     private class ScreenVerticalPagerAdapter extends FragmentStateAdapter {
-        private List<Pari> liste=null;
-        public ScreenVerticalPagerAdapter(PariActvity fa, List<Pari> liste) {
+        private List<Match> liste=null;
+        public ScreenVerticalPagerAdapter(PariActvity fa, List<Match> liste) {
             super(fa);
             this.liste=liste;
         }
@@ -353,8 +354,8 @@ public class PariActvity extends ActivityWithNavigation {
         }
     }
     private class HorizontalAdapter extends FragmentStateAdapter {
-        private List<Pari> liste=null;
-        public HorizontalAdapter(PariActvity fa, List<Pari> liste) {
+        private List<Match> liste=null;
+        public HorizontalAdapter(PariActvity fa, List<Match> liste) {
             super(fa);
             this.liste=liste;
         }

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.etu000603_android.data.model.Match;
 import com.example.etu000603_android.data.model.Pari;
 import com.example.etu000603_android.ui.pari.PariActvity;
 
@@ -17,14 +18,14 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 
 public class VerticalPagerFragment  extends Fragment {
-    private List<Pari> liste=null;
+    private List<Match> liste=null;
     private int position=0;
     private PariActvity activity;
 
     public VerticalPagerFragment(){
 
     }
-    public VerticalPagerFragment(List<Pari> list, int position, PariActvity act){
+    public VerticalPagerFragment(List<Match> list, int position, PariActvity act){
         liste=list;
         this.position=position;
         activity=act;
@@ -59,7 +60,7 @@ public class VerticalPagerFragment  extends Fragment {
             if(i>=n){
                 break;
             }
-            Pari c=liste.get(i);
+            Match c=liste.get(i);
             VerticalPariFragment fragment=new VerticalPariFragment(c,activity);
           //  View view=fragment.onCreateView(getLayoutInflater(),linearLayout,activity.instance);
             LinearLayout.LayoutParams lp2=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

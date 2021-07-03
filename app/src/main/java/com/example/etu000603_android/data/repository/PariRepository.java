@@ -34,17 +34,19 @@ public class PariRepository {
 
     public void getPariDisponibles(PariActvity activity){
 
-        List<Pari> list=new ArrayList<>();
+        List<Match> list=new ArrayList<>();
         for(int i=0;i<50;i++){
             Match match =new Match();
             match.setDomicile(new Equipe("domicile"+i,"","https://logodownload.org/wp-content/uploads/2017/02/chelsea-fc-logo-1.png"));
             match.setExterieur(new Equipe("domicile"+i,"","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRARu6vDD55MzDzZh6CaANLfVnNBt4x1Gu4Lwh3ZvIzkb8jGvFZCWtMXTS8nD2drq3nnfM&usqp=CAU"));
+            match.setDate(new Timestamp(System.currentTimeMillis()));
             Pari pari =new Pari();
             pari.setMatch(match);
             pari.setDescription("Chelsea va gagner 2 - 0 ");
             pari.setCote(2.5);
+            match.getListPari().add(pari);
 
-            list.add(pari);
+            list.add(match);
 
         }
         activity.getPariDisponibles(list);

@@ -18,18 +18,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-  <ImageView
-      android:layout_marginLeft="15dp"
-      android:layout_gravity="left"
-        android:layout_marginTop="20dp"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:id="@+id/logo_company"
-      android:background="@drawable/img_rounded2"
-      />
+        <TextView
+
+            android:id="@+id/profil_firstname"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            android:text="Anarana"
+            android:fontFamily="@font/mosk_bold_700"
+            android:textColor="@android:color/white" />
     <TextView
 
-        android:id="@+id/company_name"
+        android:id="@+id/profil_name"
         android:layout_marginLeft="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

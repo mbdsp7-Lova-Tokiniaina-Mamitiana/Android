@@ -108,6 +108,7 @@ public class InscriptionActivity extends ActivityWithLanguage {
     public void onInscriptionError() {
         progressBar.setVisibility(View.INVISIBLE);
         inscription.setEnabled(true);
-        errorMessage.setVisibility(View.VISIBLE);
+        //errorMessage.setVisibility(View.VISIBLE);
+        showMessage("Informations invalides",true);
     }
 }

@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.etu000603_android.R;
+import com.example.etu000603_android.data.model.Match;
 import com.example.etu000603_android.data.model.Pari;
 import com.example.etu000603_android.ui.pari.PariActvity;
 
@@ -27,10 +28,12 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import java.text.SimpleDateFormat;
+
 
 public class VerticalPariFragment extends Fragment {
 
-    private Pari pari;
+    private Match match;
     private PariActvity activity;
     private int heigth;
     private int width;
@@ -38,9 +41,9 @@ public class VerticalPariFragment extends Fragment {
 
     }
 
-    public VerticalPariFragment(Pari pari, PariActvity activity) {
+    public VerticalPariFragment(Match m, PariActvity activity) {
 
-        this.pari = pari;
+        this.match = m;
         this.activity=activity;
         View content=activity.findViewById(R.id.content);
         heigth=content.getHeight();
@@ -197,14 +200,14 @@ public class VerticalPariFragment extends Fragment {
         TextView textEquipe1=view.findViewById(R.id.text_equipe1);
         TextView textEquipe2=view.findViewById(R.id.text_equipe2);
         TextView textDescription = view.findViewById(R.id.description_pari);
-        textEquipe1.setText(pari.getMatch().getDomicile().getName());
-        textEquipe2.setText(pari.getMatch().getExterieur().getName());
-        textDescription.setText(pari.getDescription());
+        textEquipe1.setText(match.getDomicile().getName());
+        textEquipe2.setText(match.getExterieur().getName());
+        textDescription.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(match.getDate()));
         Button pariButton =view.findViewById(R.id.btn_pari);
         pariButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.parier(pari);
+                activity.infomatch(match);
             }
         });
 
@@ -223,12 +226,12 @@ public class VerticalPariFragment extends Fragment {
 
 
 
-        if(pari.getMatch().getDomicile().getLogo_drawable()==null){
-            if(pari.getMatch().getDomicile().getUrl_image()!=null ) {
-                if( !pari.getMatch().getDomicile().getUrl_image().isEmpty()&&!pari.getMatch().getDomicile().getUrl_image().equals("null")) {
+        if(match.getDomicile().getLogo_drawable()==null){
+            if(match.getDomicile().getUrl_image()!=null ) {
+                if( !match.getDomicile().getUrl_image().isEmpty()&&!match.getDomicile().getUrl_image().equals("null")) {
                     Glide.with(view.getContext())
                             .asBitmap()
-                            .load(pari.getMatch().getDomicile().getUrl_image())
+                            .load(match.getDomicile().getUrl_image())
                             .into(new SimpleTarget<Bitmap>() {
                                 @Override
                                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -236,7 +239,7 @@ public class VerticalPariFragment extends Fragment {
 
 
                                     imageView1.setImageDrawable(drawable);
-                                    pari.getMatch().getDomicile().setLogo_drawable(drawable);
+                                    match.getDomicile().setLogo_drawable(drawable);
 
 
                                 }
@@ -244,14 +247,14 @@ public class VerticalPariFragment extends Fragment {
                 }
             }
         }else{
-            imageView1.setImageDrawable(pari.getMatch().getDomicile().getLogo_drawable());
+            imageView1.setImageDrawable(match.getDomicile().getLogo_drawable());
         }
-        if(pari.getMatch().getExterieur().getLogo_drawable()==null){
-            if(pari.getMatch().getExterieur().getUrl_image()!=null ) {
-                if( !pari.getMatch().getExterieur().getUrl_image().isEmpty()&&!pari.getMatch().getExterieur().getUrl_image().equals("null")) {
+        if(match.getExterieur().getLogo_drawable()==null){
+            if(match.getExterieur().getUrl_image()!=null ) {
+                if( !match.getExterieur().getUrl_image().isEmpty()&&!match.getExterieur().getUrl_image().equals("null")) {
                     Glide.with(view.getContext())
                             .asBitmap()
-                            .load(pari.getMatch().getExterieur().getUrl_image())
+                            .load(match.getExterieur().getUrl_image())
                             .into(new SimpleTarget<Bitmap>() {
                                 @Override
                                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -259,7 +262,7 @@ public class VerticalPariFragment extends Fragment {
 
 
                                     imageView2.setImageDrawable(drawable);
-                                    pari.getMatch().getExterieur().setLogo_drawable(drawable);
+                                    match.getExterieur().setLogo_drawable(drawable);
 
 
                                 }
@@ -267,7 +270,7 @@ public class VerticalPariFragment extends Fragment {
                 }
             }
         }else{
-            imageView2.setImageDrawable(pari.getMatch().getExterieur().getLogo_drawable());
+            imageView2.setImageDrawable(match.getExterieur().getLogo_drawable());
         }
 
 

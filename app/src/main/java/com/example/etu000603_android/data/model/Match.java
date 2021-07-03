@@ -1,6 +1,8 @@
 package com.example.etu000603_android.data.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Match {
 
@@ -9,6 +11,7 @@ public class Match {
     private double localistionX,localisationY;
     private  String description;
     private Timestamp date;
+    private List<Pari> listPari = new ArrayList<>();
 
     public Timestamp getDate() {
         return date;
@@ -38,6 +41,14 @@ public class Match {
 
     }
 
+    public List<Pari> getListPari() {
+        return listPari;
+    }
+
+    public void setListPari(List<Pari> listPari) {
+        this.listPari = listPari;
+    }
+    
     public Match(Equipe domicile, Equipe exterieur, double localistionX, double localisationY) {
         this.domicile = domicile;
         this.exterieur = exterieur;

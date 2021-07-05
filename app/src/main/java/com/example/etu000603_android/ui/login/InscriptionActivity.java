@@ -81,18 +81,16 @@ public class InscriptionActivity extends ActivityWithLanguage {
                 String password=textPassword.getText().toString();
                 String username =textUsername.getText().toString();
                 String firstname =textFirstName.getText().toString();
-                String name =textFirstName.getText().toString();
+                String name =textName.getText().toString();
                 progressBar.setVisibility(View.VISIBLE);
                 try {
                     inscription.setEnabled(false);
                     AuthService.inscription(username,email,name,firstname,
                             password,
-                            InscriptionActivity.this,
-                            InscriptionActivity.this.getClass().getMethod("onInscriptionSuccess"),
-                            InscriptionActivity.this.getClass().getMethod("onInscriptionError")
+                            InscriptionActivity.this
                     );
 
-                } catch (NoSuchMethodException | JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

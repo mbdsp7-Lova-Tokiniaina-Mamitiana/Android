@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -55,8 +56,27 @@ public class PariActvity extends ActivityWithNavigation {
     private List<Match> liste=null;
     private ProgressBar progressBar=null;
     private  ImageButton search_button;
+    private Button previousButton,nextButton;
+    private int page =1;
+    private int max =10;
+    private int nbpages=1;
+    private int totals=0;
 
+    public int getPage() {
+        return page;
+    }
 
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public void setNbpages(int nbpages) {
+        this.nbpages = nbpages;
+    }
+
+    public void setTotals(int totals) {
+        this.totals = totals;
+    }
 
     @Override
     protected void onResume() {
@@ -77,6 +97,22 @@ public class PariActvity extends ActivityWithNavigation {
         search_button=findViewById(R.id.search_button);
         content=this.findViewById(R.id.content);
         progressBar=findViewById(R.id.loading);
+        previousButton  = findViewById(R.id.previous_button);
+        nextButton = findViewById(R.id.next_button);
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.setPage(activity.getPage()-1);
+                activity.rechercher();
+            }
+        });
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.setPage(activity.getPage()+1);
+                activity.rechercher();
+            }
+        });
 
 
 
@@ -90,7 +126,7 @@ public class PariActvity extends ActivityWithNavigation {
         content.post(new Runnable() {
             @Override
             public void run() {
-                repository.getPariDisponibles(activity);
+                rechercher();
 
             }
         });
@@ -98,7 +134,10 @@ public class PariActvity extends ActivityWithNavigation {
         this.configureSearchView();
 
     }
-
+    private void rechercher(){
+        progressBar.setVisibility(View.VISIBLE);
+        repository.getMatchs(activity,page,max);
+    }
 
     public void infomatch(Match match){
         Session.selected_match=match;
@@ -123,6 +162,18 @@ public class PariActvity extends ActivityWithNavigation {
     }
     public void getPariDisponibles(final List<Match> list) {
         this.liste=list;
+        previousButton.setEnabled(true);
+        nextButton.setEnabled(true);
+        nextButton.setVisibility(View.VISIBLE);
+        previousButton.setVisibility(View.VISIBLE);
+        if(page == 1){
+            previousButton.setEnabled(false);
+            previousButton.setVisibility(View.INVISIBLE);
+        }
+        if(page == nbpages){
+            nextButton.setEnabled(false);
+            nextButton.setVisibility(View.INVISIBLE);
+        }
         getParis(list,true);
 
     }
@@ -152,7 +203,7 @@ public class PariActvity extends ActivityWithNavigation {
             RelativeLayout.LayoutParams lpViewPager=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
             lpViewPager.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 
-            FragmentStateAdapter  pagerAdapter = new ScreenSlidePagerAdapter(this,list);
+            FragmentStateAdapter  pagerAdapter = new ScreenSlidePagerAdapter(this,list,page,max,totals);
             viewPager.setAdapter(pagerAdapter);
 
             CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
@@ -190,7 +241,7 @@ public class PariActvity extends ActivityWithNavigation {
            // System.out.println("Content width:"+content.getWidth()+"Content height:"+content.getHeight());
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             scrollView.addView(linearLayout,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ScreenSlidePagerAdapter adapter =new ScreenSlidePagerAdapter(activity,liste);
+            ScreenSlidePagerAdapter adapter =new ScreenSlidePagerAdapter(activity,list,page,max,totals);
             int n = adapter.getItemCount();
             for(int i=0;i<n;i++){
 
@@ -319,15 +370,22 @@ public class PariActvity extends ActivityWithNavigation {
     private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         private List<Match> liste=null;
         private PariActvity activity;
-        public ScreenSlidePagerAdapter(PariActvity fa, List<Match> liste) {
+        private int results=0;
+        private int page = 1;
+        private int max =0;
+        public ScreenSlidePagerAdapter(PariActvity fa, List<Match> liste,int page,int max,int results) {
             super(fa);
             activity=fa;
             this.liste=liste;
+            this.results =results;
+            this.page = page;
+            this.max =max;
         }
 
         @Override
         public Fragment createFragment(int position) {
-            return new PagerFragment(liste.get(position),activity,position,getItemCount());
+            int offset = (page-1)*max+position;
+            return new PagerFragment(liste.get(position),activity,offset,results);
         }
 
         @Override

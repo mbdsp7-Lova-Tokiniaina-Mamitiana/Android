@@ -7,6 +7,8 @@ import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.etu000603_android.data.constants.Constant;
+import com.example.etu000603_android.ui.login.InscriptionActivity;
+import com.example.etu000603_android.ui.login.LoginActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
@@ -101,11 +103,8 @@ public class AuthService {
         queue.add(stringRequest);
 
     }
-    public static void inscriptionProfil(String name,String firstname,String iduser,
-                                   final Context context,
-                                   final Method successCallback,
-                                   @Nullable final Method errorCallback) throws JSONException {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("AuthSharedPref", Context.MODE_PRIVATE);
+    public static void inscriptionProfil(String name, String firstname, String iduser, final InscriptionActivity activity) throws JSONException {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("AuthSharedPref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -135,10 +134,22 @@ public class AuthService {
                 try {
 
                     if(response.code()!=200 && response.code()!=401){
-                        errorCallback.invoke(context);
+
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.onInscriptionError();
+                            }
+                        });
+                        return;
                     }
                     System.out.println("Json  save");
-                    successCallback.invoke(context);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            activity.onInscriptionSuccess();
+                        }
+                    });
 
 
                 } catch (Exception e) {
@@ -155,13 +166,11 @@ public class AuthService {
     }
     public static void inscription(String login, String email, final String name, final String firstname,
                                    String password,
-                                   final Context context,
-                                   final Method successCallback,
-                                   @Nullable final Method errorCallback) throws JSONException {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("AuthSharedPref", Context.MODE_PRIVATE);
+                                   final InscriptionActivity activity) throws JSONException {
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("AuthSharedPref", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(context);
+        RequestQueue queue = Volley.newRequestQueue(activity.getBaseContext());
         JSONObject jsonBody = new JSONObject();
         jsonBody.put("login", login);
         jsonBody.put("email", email);
@@ -184,7 +193,7 @@ public class AuthService {
                             // editor.putBoolean("IS_AUTH");
                             editor.apply();
 
-                            inscriptionProfil(name,firstname,responseMap.get("id").toString(),context,successCallback,errorCallback);
+                            inscriptionProfil(name,firstname,responseMap.get("id").toString(),activity);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -194,13 +203,7 @@ public class AuthService {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (errorCallback != null) {
-                            try {
-                                errorCallback.invoke(context);
-                            } catch (IllegalAccessException | InvocationTargetException e) {
-                                e.printStackTrace();
-                            }
-                        }
+
                     }
                 }) {
             @Override

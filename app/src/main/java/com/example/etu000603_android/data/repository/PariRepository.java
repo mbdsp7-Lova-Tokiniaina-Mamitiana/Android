@@ -75,6 +75,119 @@ public class PariRepository {
 
         activity.getPariDisponibles(list,PariStatut.TERMINEE);
     }
+    public void getMatchs(final PariActvity activity,int page ,int limit){
+        final List<Match> list=new ArrayList<>();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .readTimeout(Constant.TIMOUT, TimeUnit.SECONDS)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(Constant.API_NODE+"matchs?page="+page+"&&limit="+limit)
+                .addHeader("Accept","application/json")
+
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("response error");
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                final String myResponse = response.body().string();
+                try {
+
+                    if(response.code()!=200 && response.code()!=401){
+
+                    }
+                    System.out.println("Json matchs");
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    // you can change format of date
+
+
+                    JSONObject object =new JSONObject(myResponse);
+                    if(object!=null){
+                        activity.setNbpages(object.getInt("totalPages"));
+                        activity.setTotals(object.getInt("totalDocs"));
+                        JSONArray array =object.getJSONArray("docs");
+                        int n=0;
+                        if(array!=null){
+                            n = array.length();
+                        }
+                        for(int i=0;i<n;i++){
+                            Match m=new Match();
+                            JSONObject match = array.getJSONObject(i);
+                            try{
+                                m.setDate(new Timestamp(formatter.parse(match.getString("date_match")).getTime()));
+                            }catch (Exception exc){
+                                m.setDate(new Timestamp(System.currentTimeMillis()));
+                            }
+
+                            m.setId(match.getString("_id"));
+                            m.setTermine(match.getBoolean("etat"));
+                            m.setLocalistionX(match.getDouble("longitude"));
+                            m.setLocalisationY(match.getDouble("latitude"));
+                            JSONObject equipe1=match.getJSONObject("equipe1");
+                            JSONObject equipe2=match.getJSONObject("equipe2");
+                            Equipe e1 =new Equipe();
+                            e1.setId(equipe1.getString("_id"));
+                            e1.setUrl_image(Constant.BACKENDURL+equipe1.getString("avatar"));
+                            e1.setName(equipe1.getString("nom"));
+                            Equipe e2 = new Equipe();
+                            e2.setId(equipe2.getString("_id"));
+                            e2.setUrl_image(Constant.BACKENDURL+equipe2.getString("avatar"));
+                            e2.setName(equipe2.getString("nom"));
+                            m.setDomicile(e1);
+                            m.setExterieur(e2);
+
+                            int n2 = 0;
+
+                            JSONArray arrayPari = match.getJSONArray("pari");
+                            if(arrayPari!=null){
+                                n2 = arrayPari.length();
+                            }
+                            for(int j=0;j<n2;j++){
+                                JSONObject p = arrayPari.getJSONObject(j);
+                                Pari pari =new Pari();
+                                pari.setCote(p.getDouble("cote"));
+                                pari.setDescription(p.getString("description"));
+                                pari.setId(p.getString("_id"));
+                                m.getListPari().add(pari);
+
+                            }
+                            list.add(m);
+                        }
+                    }
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                          //  activity.getPariDisponibles(liste,statut);
+                            // getEvolution(id,activity,listeFinal);
+                            activity.getPariDisponibles(list);
+                        }
+                    });
+
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                }
+
+
+            }
+        });
+
+    }
 
     public void getPariEnCours(PariPersonelActivity activity){
         List<PariPersonnel> list=new ArrayList<>();
@@ -163,11 +276,11 @@ public class PariRepository {
                         match.setDate(new Timestamp(datematch.getTime()));
                         Equipe e1=new Equipe();
                         e1.setName(object.getString("nomEquipe1"));
-                        e1.setName(object.getString("avatarEquipe1"));
+                        e1.setUrl_image(object.getString("avatarEquipe1"));
                         match.setDomicile(e1);
                         Equipe e2=new Equipe();
                         e2.setName(object.getString("nomEquipe2"));
-                        e2.setName(object.getString("avatarEquipe2"));
+                        e2.setUrl_image(object.getString("avatarEquipe2"));
                         match.setExterieur(e2);
                         match.setId(object.getString("idMatch"));
 

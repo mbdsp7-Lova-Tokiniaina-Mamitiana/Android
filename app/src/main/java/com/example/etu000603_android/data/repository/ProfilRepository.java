@@ -3,12 +3,16 @@ package com.example.etu000603_android.data.repository;
 import com.example.etu000603_android.data.LoginDataSource;
 import com.example.etu000603_android.data.constants.Constant;
 import com.example.etu000603_android.data.model.LoggedInUser;
+import com.example.etu000603_android.data.model.Match;
+import com.example.etu000603_android.data.model.Pari;
 import com.example.etu000603_android.data.model.PariPersonnel;
 import com.example.etu000603_android.data.model.Result;
 import com.example.etu000603_android.data.model.User;
 import com.example.etu000603_android.ui.authstate.LocalAuthState;
 import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
+import com.example.etu000603_android.ui.pari.PariFormActivity;
 import com.example.etu000603_android.ui.pari.PariPersonelActivity;
+import com.example.etu000603_android.utils.Session;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -240,5 +244,77 @@ public class ProfilRepository {
         });
 
 
+    }
+
+    public void parier(final String iduser, Match match, final Pari pari, final double montant, final PariFormActivity activity){
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .readTimeout(Constant.TIMOUT, TimeUnit.SECONDS)
+                .build();
+        long time =System.currentTimeMillis();
+        RequestBody formBody = new FormBody.Builder()
+                .add("montant", ""+montant)
+                .add("idpari",pari.getId())
+                .add("idmatch", ""+match.getId())
+                .add("iduser",iduser)
+                .add("cote", ""+pari.getCote())
+                .add("equipe1",match.getDomicile().getName())
+                .add("equipe2", ""+match.getExterieur().getName())
+                .add("textpari",pari.getDescription())
+                .add("localisationx", ""+match.getLocalistionX())
+                .add("localisationy",""+match.getLocalisationY())
+                .add("avatar1", ""+match.getDomicile().getUrl_image())
+                .add("avatar2",match.getExterieur().getUrl_image())
+                .add("date",""+match.getDate().getTime())
+                .add("dateHisto",time+"")
+
+
+                .build();
+        Request request = new Request.Builder()
+                .url(Constant.API_GRAILS+"historiquepersonnels")
+                .addHeader("Accept","application/json")
+                .post(formBody)
+                .build();
+        System.out.println("Ito ny ajout historique personnels");
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("response error");
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                final String myResponse = response.body().string();
+                try {
+
+                    if(response.code()!=200){
+                        JSONObject object =new JSONObject(myResponse);
+                        activity.showMessage(object.getString("message"),true);
+                        activity.stop();
+                    }
+                    System.out.println("Parier");
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            activity.stop();
+                            Session.profil.setSolde(Session.profil.getSolde()-montant);
+                            activity.configureDrawerInformation();
+                            activity.showMessage("Votre pari sur '"+pari.getDescription()+"' a été envoyé",false);
+                        }
+                    });
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                }
+
+
+            }
+        });
     }
 }

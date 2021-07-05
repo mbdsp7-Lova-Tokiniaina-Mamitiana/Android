@@ -12,6 +12,15 @@ public class Match {
     private  String description;
     private Timestamp date;
     private List<Pari> listPari = new ArrayList<>();
+    private boolean termine;
+
+    public boolean isTermine() {
+        return termine;
+    }
+
+    public void setTermine(boolean termine) {
+        this.termine = termine;
+    }
 
     public Timestamp getDate() {
         return date;

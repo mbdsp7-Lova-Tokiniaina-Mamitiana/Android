@@ -3,6 +3,7 @@ package com.example.etu000603_android.data.model;
 import android.graphics.drawable.Drawable;
 
 public class Equipe {
+    private String id;
     private String name;
     private  String description;
     private  String  url_image;
@@ -42,6 +43,15 @@ public class Equipe {
     public Equipe(){
 
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Equipe(String name, String description, String url_image) {
         this.name = name;
         this.description = description;

@@ -37,9 +37,9 @@
                 <TextView
                     android:gravity="left"
                     android:id="@+id/text_equipe1"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
 
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/colorBlack2"
                     android:fontFamily="@font/mosk_bold_700"
                     android:layout_marginTop="20dp"
@@ -53,9 +53,9 @@
                 <TextView
                     android:gravity="right"
                     android:id="@+id/text_equipe2"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
 
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/colorBlack2"
                     android:fontFamily="@font/mosk_bold_700"
                     android:layout_marginTop="20dp"
@@ -79,12 +79,12 @@
 
                     <ImageView
                         android:id="@+id/image_equipe1"
-                        android:layout_margin="15dp"
+                        android:layout_margin="0dp"
 
 
 
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
+                        android:layout_width="62dp"
+                        android:layout_height="62dp"
                         android:background="@drawable/img_rounded"
 
 
@@ -111,12 +111,12 @@
 
                     <ImageView
                         android:id="@+id/image_equipe2"
-                        android:layout_margin="15dp"
+                        android:layout_margin="0dp"
 
 
 
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
+                        android:layout_width="62dp"
+                        android:layout_height="62dp"
                         android:background="@drawable/img_rounded"
 
 

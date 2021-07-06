@@ -54,7 +54,7 @@ public class PariFormActivity extends ActivityWithNavigation {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pari_form);
+        setContentView(R.layout.activity_pari_form_drawerr);
         final  PariFormActivity activity =this;
         this.match =Session.selected_match;
         textDate = findViewById(R.id.text_date);
@@ -65,10 +65,10 @@ public class PariFormActivity extends ActivityWithNavigation {
         img_qr = findViewById(R.id.img_qr);
         this.progressBar = findViewById(R.id.progressBar);
         this.view = findViewById(R.id.content_scroll);
-        this.cardView1= findViewById(R.id.card_equipe_1);
-        this.cardView2= findViewById(R.id.card_equipe_2);
+       /* this.cardView1= findViewById(R.id.card_equipe_1);
+       ////// this.cardView2= findViewById(R.id.card_equipe_2);
         this.cardView1.setBackgroundResource(R.drawable.circle_cardview);
-        this.cardView2.setBackgroundResource(R.drawable.circle_cardview);
+        this.cardView2.setBackgroundResource(R.drawable.circle_cardview);*/
         SimpleDateFormat dateFormat =new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         textEquipe1.setText(this.match.getDomicile().getName());
         textEquipe2.setText(this.match.getExterieur().getName());

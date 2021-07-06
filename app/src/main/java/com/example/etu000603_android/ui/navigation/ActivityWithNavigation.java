@@ -1,12 +1,17 @@
 package com.example.etu000603_android.ui.navigation;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Point;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -27,10 +32,13 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -48,6 +56,9 @@ import com.example.etu000603_android.utils.ActivityFunction;
 
 import com.example.etu000603_android.utils.Session;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import jp.wasabeef.blurry.Blurry;
 
 import java.util.ArrayList;
@@ -67,6 +78,7 @@ public class ActivityWithNavigation extends LocalAuthState {
     private PopupWindow popUp;
     private static boolean ondissmissclick =false;
     private int idPage =0;
+    private static final int PERMISSION_REQUEST_CODE = 205;
 
     public void setIdPage(int idPage) {
         this.idPage = idPage;
@@ -431,6 +443,7 @@ public class ActivityWithNavigation extends LocalAuthState {
             final EditText value = customView.findViewById(R.id.value);
             boutonRecharge.setEnabled(true);
 
+
             boutonRecharge.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -525,7 +538,81 @@ public class ActivityWithNavigation extends LocalAuthState {
             popUp.setFocusable(true);
             popUp.update();
         }
+        final ImageButton button = findViewById(R.id.qr);
+        final ActivityWithNavigation activity =this;
+        if(button!=null){
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkPermission()){
+                        Intent intent = new Intent(getBaseContext(), QrActivity.class);
+
+                        startActivity(intent);
+                    }else{
+                        requestPermission();
+                    }
+
+                }
+            });
+        }
+
     }
+    private boolean checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            return false;
+        }
+        return true;
+    }
+
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CAMERA},
+                PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                   Intent intent = new Intent(getBaseContext(), QrActivity.class);
+
+                    startActivity(intent);
+                    // main logic
+                } else {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                                != PackageManager.PERMISSION_GRANTED) {
+                            showMessageOKCancel("Vous devez autoriser l'acces à la camera",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                requestPermission();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                }
+                break;
+        }
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(ActivityWithNavigation.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Annuler", null)
+                .create()
+                .show();
+    }
+
+
     public   void changeLogo(){
         final BottomNavigationView navigationView = findViewById(R.id.bottomNavigationView);
 

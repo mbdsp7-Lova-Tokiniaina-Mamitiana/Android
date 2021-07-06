@@ -7,6 +7,7 @@ import com.example.etu000603_android.data.model.Match;
 import com.example.etu000603_android.data.model.Pari;
 import com.example.etu000603_android.data.model.PariPersonnel;
 import com.example.etu000603_android.data.model.PariStatut;
+import com.example.etu000603_android.ui.navigation.QrActivity;
 import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.pari.PariPersonelActivity;
 
@@ -50,6 +51,107 @@ public class PariRepository {
 
         }
         activity.getPariDisponibles(list);
+    }
+public void getMatchById(String id, final QrActivity activity){
+        final  Match m =new Match();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .readTimeout(Constant.TIMOUT, TimeUnit.SECONDS)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(Constant.API_NODE+"match/"+id)
+                .addHeader("Accept","application/json")
+
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println("response error");
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                final String myResponse = response.body().string();
+                try {
+
+                    if(response.code()!=200 && response.code()!=401){
+                        activity.showMessage("QR Code invalide",true);
+                    }
+
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    // you can change format of date
+
+
+                    JSONObject match =new JSONObject(myResponse);
+                    if(match!=null){
+                        try{
+                            m.setDate(new Timestamp(formatter.parse(match.getString("date_match")).getTime()));
+                        }catch (Exception exc){
+                            m.setDate(new Timestamp(System.currentTimeMillis()));
+                        }
+
+                        m.setId(match.getString("_id"));
+                        m.setTermine(match.getBoolean("etat"));
+                        m.setLocalistionX(match.getDouble("longitude"));
+                        m.setLocalisationY(match.getDouble("latitude"));
+                        JSONObject equipe1=match.getJSONObject("equipe1");
+                        JSONObject equipe2=match.getJSONObject("equipe2");
+                        Equipe e1 =new Equipe();
+                        e1.setId(equipe1.getString("_id"));
+                        e1.setUrl_image(Constant.BACKENDURL+equipe1.getString("avatar"));
+                        e1.setName(equipe1.getString("nom"));
+                        Equipe e2 = new Equipe();
+                        e2.setId(equipe2.getString("_id"));
+                        e2.setUrl_image(Constant.BACKENDURL+equipe2.getString("avatar"));
+                        e2.setName(equipe2.getString("nom"));
+                        m.setDomicile(e1);
+                        m.setExterieur(e2);
+
+                        int n2 = 0;
+
+                        JSONArray arrayPari = match.getJSONArray("pari");
+                        if(arrayPari!=null){
+                            n2 = arrayPari.length();
+                        }
+                        for(int j=0;j<n2;j++){
+                            JSONObject p = arrayPari.getJSONObject(j);
+                            Pari pari =new Pari();
+                            pari.setCote(p.getDouble("cote"));
+                            pari.setDescription(p.getString("description"));
+                            pari.setId(p.getString("_id"));
+                            m.getListPari().add(pari);
+
+                        }
+                    }
+
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                                activity.redirectToMatch(m);
+                            //  activity.getPariDisponibles(liste,statut);
+                            // getEvolution(id,activity,listeFinal);
+
+                        }
+                    });
+
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                }
+
+
+            }
+        });
     }
     public void getPariFini(PariPersonelActivity activity){
         List<PariPersonnel> list=new ArrayList<>();

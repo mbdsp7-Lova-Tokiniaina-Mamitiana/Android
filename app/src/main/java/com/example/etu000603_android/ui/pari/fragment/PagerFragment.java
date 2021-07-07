@@ -54,9 +54,17 @@ public class PagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view= (ViewGroup) inflater.inflate(
                 R.layout.pari_item, container, false);
-        View content= activity.findViewById(R.id.content);
+//        View content= activity.findViewById(R.id.content);
+        try{
+
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        try{
+
+            activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        }catch (Exception exc){
+
+        }
         float width = displayMetrics.widthPixels;
         float height= displayMetrics.heightPixels;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
@@ -192,6 +200,9 @@ public class PagerFragment extends Fragment {
 
             }
         });
+        }catch (Exception exc){
+            exc.printStackTrace();
+        }
         return view;
     }
 }

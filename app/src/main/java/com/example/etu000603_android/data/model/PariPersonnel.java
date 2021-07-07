@@ -8,7 +8,15 @@ public class PariPersonnel extends Pari {
     private double mise;
     private Timestamp date;
     private PariStatut statut;
+    private int gain =0;
 
+    public int getGain() {
+        return gain;
+    }
+
+    public void setGain(int gain) {
+        this.gain = gain;
+    }
 
     public String getUser() {
         return user;

@@ -108,7 +108,8 @@ public class ProfilRepository {
                 try {
 
                     if(response.code()!=200){
-                        authState.logout();
+                        System.out.println("response error get Auth2");
+                        authState.logout3();
                         return;
                     }
                     JSONObject json = new JSONObject(myResponse);
@@ -120,7 +121,7 @@ public class ProfilRepository {
                         user.setEmail(json.getString("email"));
                         authState.checkProfil(user);
                     }else{
-                        authState.logout();
+                        authState.logout3();
                     }
 
                 } catch (Exception e) {

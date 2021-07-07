@@ -64,12 +64,12 @@ public class LocalAuthState extends ActivityWithLanguage {
         return Session.profil != null;
     }
 
-    public void logout(){
+    public void logout3(){
         System.out.println("Tena logout");
         SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(AUTH_PREF, Context.MODE_PRIVATE).edit();
         editor.clear();
         editor.apply();
-        redirectToAccueil();
+       // redirectToAccueil();
     }
     private void checkAuthToken(){
 

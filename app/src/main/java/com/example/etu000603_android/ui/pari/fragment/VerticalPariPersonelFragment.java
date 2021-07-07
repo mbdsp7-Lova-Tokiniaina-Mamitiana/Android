@@ -21,6 +21,7 @@ import com.example.etu000603_android.R;
 import com.example.etu000603_android.data.model.Pari;
 import com.example.etu000603_android.data.model.PariPersonnel;
 import com.example.etu000603_android.data.model.PariStatut;
+import com.example.etu000603_android.data.repository.PariRepository;
 import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.pari.PariPersonelActivity;
 import com.example.etu000603_android.utils.ActivityFunction;
@@ -284,7 +285,13 @@ public class VerticalPariPersonelFragment extends Fragment {
         }else{
             imageView2.setImageDrawable(pari.getMatch().getExterieur().getLogo_drawable());
         }
-
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PariRepository repository =new PariRepository();
+                repository.getMatchById(pari.getMatch().getId(),activity);
+            }
+        });
        // view.setScaleX(scale);
        // view.setScaleY(scale);
 
@@ -305,14 +312,16 @@ public class VerticalPariPersonelFragment extends Fragment {
         textEquipe1.setText(pari.getMatch().getDomicile().getName());
         textEquipe2.setText(pari.getMatch().getExterieur().getName());
         textDescription.setText(pari.getDescription());
-        //textMise.setText(""+pari.getMise());
+        textMise.setText(""+pari.getMise());
         double total =pari.getMise();
-        if(pari.getMise()<0){
+        if(pari.getGain()==0){
             textMise.setTextColor(view.getResources().getColor(R.color.colorRed));
+            total = pari.getMise();
 
         }else{
 
             textMise.setTextColor(view.getResources().getColor(R.color.colorGreen));
+            total = pari.getMise()*pari.getCote();
         }
         textDate.setText(formattedDate.format(pari.getDate()));
         Button pariButton =view.findViewById(R.id.btn_pari);
@@ -335,7 +344,7 @@ public class VerticalPariPersonelFragment extends Fragment {
         final ImageView imageView2=view.findViewById(R.id.image_equipe2);
 
 
-        ActivityFunction.startCountAnimationWithPlus(textMise,0,pari.getMise(),1500);
+        ActivityFunction.startCountAnimationWithPlus(textMise,0,total,1500);
 
 
         if(pari.getMatch().getDomicile().getLogo_drawable()==null){
@@ -384,7 +393,13 @@ public class VerticalPariPersonelFragment extends Fragment {
         }else{
             imageView2.setImageDrawable(pari.getMatch().getExterieur().getLogo_drawable());
         }
-
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PariRepository repository =new PariRepository();
+                repository.getMatchById(pari.getMatch().getId(),activity);
+            }
+        });
         //view.setScaleX(scale);
         //view.setScaleY(scale);
 

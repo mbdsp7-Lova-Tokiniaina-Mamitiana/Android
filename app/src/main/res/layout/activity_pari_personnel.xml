@@ -103,6 +103,30 @@
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <RelativeLayout
+            android:layout_weight="0.01"
+            android:layout_width="match_parent"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/previous_button"
+                android:layout_width="100dp" android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/radius2" android:visibility="invisible" android:text="Precedent">
+
+            </Button>
+            <Button
+                android:id="@+id/next_button"
+                android:visibility="invisible"
+                android:layout_width="100dp" android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/radius" android:text="Suivant">
+
+            </Button>
+
+            />
+        </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             app:cardBackgroundColor="@android:color/transparent"

@@ -58,7 +58,7 @@ public class PariActvity extends ActivityWithNavigation {
     private  ImageButton search_button;
     private Button previousButton,nextButton;
     private int page =1;
-    private int max =10;
+    private int max =2;
     private int nbpages=1;
     private int totals=0;
 

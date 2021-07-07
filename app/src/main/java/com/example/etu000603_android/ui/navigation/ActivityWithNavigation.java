@@ -324,6 +324,7 @@ public class ActivityWithNavigation extends LocalAuthState {
         editor.clear();
         editor.apply();
         System.out.println("Auth Token:"+getAuthToken());
+        Session.profil = null;
         redirectToAccueil();
     }
     public void goToLogin(){

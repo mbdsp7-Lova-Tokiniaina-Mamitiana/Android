@@ -1,5 +1,6 @@
 package com.example.etu000603_android.ui.pari;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -33,7 +36,11 @@ import com.example.etu000603_android.ui.pari.fragment.VerticalPagerFragment;
 import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.utils.Session;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import androidx.cardview.widget.CardView;
@@ -49,7 +56,7 @@ import androidx.viewpager2.widget.ViewPager2;
 public class PariActvity extends ActivityWithNavigation {
 
     private CardView content=null;
-    private EditText searchView=null;
+    private EditText searchView,datedebut,datefin;
     private PariRepository repository=null;
     public Bundle instance=null;
     PariActvity activity=null;
@@ -57,10 +64,12 @@ public class PariActvity extends ActivityWithNavigation {
     private ProgressBar progressBar=null;
     private  ImageButton search_button;
     private Button previousButton,nextButton;
+    private AlertDialog dialog1,dialog2;
     private int page =1;
     private int max =2;
     private int nbpages=1;
     private int totals=0;
+    private CheckBox term_checkbox,today_checkbox;
 
     public int getPage() {
         return page;
@@ -97,8 +106,13 @@ public class PariActvity extends ActivityWithNavigation {
         search_button=findViewById(R.id.search_button);
         content=this.findViewById(R.id.content);
         progressBar=findViewById(R.id.loading);
+        this.datedebut = findViewById(R.id.date_debut);
+        this.datefin = findViewById(R.id.date_fin);
+        this.term_checkbox = findViewById(R.id.finished_checkbox);
+        this.today_checkbox = findViewById(R.id.today_checkbox);
         previousButton  = findViewById(R.id.previous_button);
         nextButton = findViewById(R.id.next_button);
+
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +130,7 @@ public class PariActvity extends ActivityWithNavigation {
 
 
 
-
+        setupDialog();
 
         CardView cardTrame=findViewById(R.id.card_trame);
         cardTrame.setBackgroundResource(R.drawable.trame);
@@ -132,6 +146,63 @@ public class PariActvity extends ActivityWithNavigation {
         });
 
         this.configureSearchView();
+
+    }
+    private void setupDialog(){
+        final View dialogView = View.inflate(activity, R.layout.datetimepicker, null);
+        dialog1 = new AlertDialog.Builder(activity).create();
+
+        dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
+
+                Calendar calendar = new GregorianCalendar(datePicker.getYear(),
+                        datePicker.getMonth(),
+                        datePicker.getDayOfMonth(),
+                        0,
+                        0);
+
+                long time = calendar.getTimeInMillis();
+                datedebut.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(time)));
+                dialog1.dismiss();
+            }});
+        dialog1.setView(dialogView);
+        this.datedebut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Focusable");
+                dialog1.show();
+            }
+        });
+        final View dialogView2 = View.inflate(activity, R.layout.datetimepicker, null);
+        dialog2 = new AlertDialog.Builder(activity).create();
+
+        dialogView2.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatePicker datePicker = (DatePicker) dialogView2.findViewById(R.id.date_picker);
+
+                Calendar calendar = new GregorianCalendar(datePicker.getYear(),
+                        datePicker.getMonth(),
+                        datePicker.getDayOfMonth(),
+                        0,
+                        0);
+
+                long time = calendar.getTimeInMillis();
+                datefin.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(time)));
+                dialog2.dismiss();
+            }});
+        dialog2.setView(dialogView2);
+        this.datefin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Focusable1");
+                dialog2.show();
+            }
+        });
 
     }
     private void rechercher(){

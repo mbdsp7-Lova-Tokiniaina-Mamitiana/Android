@@ -36,7 +36,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/mosk_medium_500"
@@ -79,7 +79,8 @@
 
 
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:background="@android:color/transparent"
 
                         android:layout_marginTop="15dp"
@@ -124,15 +125,62 @@
 
 
                         </RelativeLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <CheckBox
+                                android:id="@+id/finished_checkbox"
+                                android:layout_marginLeft="35dp"
+                                android:layout_gravity="left"
+                                android:text="Terminés"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <CheckBox
+                                android:id="@+id/today_checkbox"
+                                android:layout_marginLeft="35dp"
+                                android:layout_gravity="left"
+                                android:text="Aujourd'hui"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/date_debut"
+                                android:layout_marginLeft="35dp"
+                                android:layout_gravity="left"
+                                android:focusable="false"
+                                android:text="dd/MM/yyyy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
 
-                    </RelativeLayout>
+                                android:layout_width="wrap_content"
+                                android:layout_marginLeft="35dp"
+                                android:textSize="18dp"
+                                android:text="à" android:textColor="@color/colorBlack"
+                                android:layout_height="wrap_content"/>
+                            <EditText
+                                android:layout_marginLeft="35dp"
+                                android:id="@+id/date_fin"
+                                android:text="dd/MM/yyyy"
+                                android:focusable="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/content"
                         app:cardBackgroundColor="@android:color/transparent"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="0dp"
                         android:layout_weight="1"
                         app:cardElevation="0dp"
                         app:cardPreventCornerOverlap="false">

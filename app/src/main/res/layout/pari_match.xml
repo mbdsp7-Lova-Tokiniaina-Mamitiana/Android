@@ -25,19 +25,35 @@
             android:layout_height="match_parent"
 
             >
-
-            <TextView
+            <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:textSize="19dp"
-                android:id="@+id/description_pari"
-                android:gravity="center"
-                android:fontFamily="@font/mosk_bold_700"
-                android:textColor="#1457c4"
-                android:text="Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum"
-                android:textStyle="bold"
-                />
+                android:layout_height="wrap_content" android:orientation="horizontal">
+                <ImageView
+                    android:layout_marginLeft="15dp"
+
+                    android:layout_width="46dp"
+                    android:src="@drawable/flag"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="46dp"/>
+                <TextView
+
+
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:textSize="19dp"
+                    android:id="@+id/description_pari"
+
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/mosk_bold_700"
+                    android:textColor="#1457c4"
+                    android:text="Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
             <TextView
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"

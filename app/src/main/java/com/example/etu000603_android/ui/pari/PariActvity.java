@@ -66,7 +66,7 @@ public class PariActvity extends ActivityWithNavigation {
     private Button previousButton,nextButton;
     private AlertDialog dialog1,dialog2;
     private int page =1;
-    private int max =2;
+    private int max =10;
     private int nbpages=1;
     private int totals=0;
     private CheckBox term_checkbox,today_checkbox;

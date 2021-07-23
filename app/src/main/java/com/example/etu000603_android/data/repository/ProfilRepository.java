@@ -18,6 +18,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -253,6 +255,7 @@ public class ProfilRepository {
                 .readTimeout(Constant.TIMOUT, TimeUnit.SECONDS)
                 .build();
         long time =System.currentTimeMillis();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         RequestBody formBody = new FormBody.Builder()
                 .add("montant", ""+montant)
                 .add("idpari",pari.getId())
@@ -266,10 +269,8 @@ public class ProfilRepository {
                 .add("localisationy",""+match.getLocalisationY())
                 .add("avatar1", ""+match.getDomicile().getUrl_image())
                 .add("avatar2",match.getExterieur().getUrl_image())
-                .add("date",""+match.getDate().getTime())
-                .add("dateHisto",time+"")
-
-
+                .add("date",""+format.format(match.getDate()))
+                .add("dateHisto",format.format(new Timestamp(time)))
                 .build();
         Request request = new Request.Builder()
                 .url(Constant.API_GRAILS+"historiquepersonnels")

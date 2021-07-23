@@ -144,7 +144,7 @@
                 <ImageView
                     android:layout_marginLeft="20dp"
                     android:layout_width="30dp"
-                    android:layout_height="20dp" android:src="@drawable/coin"/>
+                    android:layout_height="20dp" android:src="@drawable/token"/>
 
                 <TextView
                     android:id="@+id/mise"
@@ -159,14 +159,36 @@
                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginLeft="15dp"
 
-                    android:id="@+id/date"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_width="wrap_content"
-                    android:fontFamily="@font/mosk_normal_400"
-                    android:layout_height="wrap_content" android:text="11/09/05"/>
+                        android:layout_width="26dp"
+                        android:src="@drawable/clock"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="26dp"/>
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_alignParentRight="true"
+                        android:text="(0.5)"
+
+                        android:textColor="@color/colorBlack2"
+                        android:textSize="15dp"
+                        android:textStyle="italic">
+
+                    </TextView>
+
+                </LinearLayout>
 
 
             </RelativeLayout>

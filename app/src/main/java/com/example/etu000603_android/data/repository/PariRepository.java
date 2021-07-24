@@ -18,9 +18,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -184,14 +186,14 @@ public class PariRepository {
                     }
 
 
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                     // you can change format of date
 
 
                     JSONObject match =new JSONObject(myResponse);
                     if(match!=null){
                         try{
-                            m.setDate(new Timestamp(formatter.parse(match.getString("date_match")).getTime()));
+                            m.setDate(new Timestamp(formatter.parse(match.getString("date_match")).getTime()+3*3600*1000));
                         }catch (Exception exc){
                             m.setDate(new Timestamp(System.currentTimeMillis()));
                         }
@@ -325,7 +327,11 @@ public class PariRepository {
                     }
                     System.out.println("Json matchs2");
 
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+
+
+
                     // you can change format of date
 
 
@@ -341,8 +347,11 @@ public class PariRepository {
                             Match m=new Match();
                             JSONObject match = array.getJSONObject(i);
                             try{
-                                m.setDate(new Timestamp(formatter.parse(match.getString("date_match")).getTime()));
+
+                                m.setDate(new Timestamp(formatter.parse(match.getString("date_match")).getTime()+3*3600*1000));
+
                             }catch (Exception exc){
+                                exc.printStackTrace();
                                 m.setDate(new Timestamp(System.currentTimeMillis()));
                             }
 
@@ -457,7 +466,7 @@ public class PariRepository {
                     }
                     System.out.println("Json matchs");
 
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                     // you can change format of date
 
 
@@ -474,7 +483,7 @@ public class PariRepository {
                             Match m=new Match();
                             JSONObject match = array.getJSONObject(i);
                             try{
-                                m.setDate(new Timestamp(formatter.parse(match.getString("date_match")).getTime()));
+                                m.setDate(new Timestamp(formatter.parse(match.getString("date_match")).getTime()+3*3600*1000));
                             }catch (Exception exc){
                                 m.setDate(new Timestamp(System.currentTimeMillis()));
                             }

@@ -67,7 +67,7 @@ public class PagerFragment extends Fragment {
         }
         float width = displayMetrics.widthPixels;
         float height= displayMetrics.heightPixels;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm");
 
       //  System.out.println("height screen:"+height+" vs "+content.getHeight()) ;
         TextView textEquipe1=view.findViewById(R.id.text_equipe1);
@@ -76,6 +76,7 @@ public class PagerFragment extends Fragment {
 
         textEquipe1.setText(match.getDomicile().getName());
         textEquipe2.setText(match.getExterieur().getName());
+        System.out.println("Date match:"+match.getDate().toString());
         textDescription.setText(dateFormat.format(match.getDate()));
 
 

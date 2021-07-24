@@ -60,7 +60,8 @@ public  class CouchbaseService {
     public static void insertMatch(Match match,Context context){
         try {
             Document doc = retrieveDocument(match.getId(),context);
-            if(doc!=null){
+            System.out.println("Insertion doc:"+doc);
+            if(doc==null){
                 checkcount(context);
 
                 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -82,6 +83,7 @@ public  class CouchbaseService {
     public static void  checkcount(Context context){
         count = listMatchs.size();
         if(count>100){
+            System.out.println("Suppression doc");
             deleteAllDocuments(context);
         }
     }

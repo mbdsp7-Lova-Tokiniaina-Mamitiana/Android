@@ -141,6 +141,7 @@ public class PariActvity extends ActivityWithNavigation {
         content.post(new Runnable() {
             @Override
             public void run() {
+                repository.getMatchs2(activity,1,100);
                 rechercher();
 
             }

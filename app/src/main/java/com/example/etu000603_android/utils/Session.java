@@ -8,4 +8,5 @@ import com.example.etu000603_android.data.model.User;
 public class Session {
     public static Match selected_match=null;
     public static User profil =null;
+    public static boolean isOnline = true;
 }

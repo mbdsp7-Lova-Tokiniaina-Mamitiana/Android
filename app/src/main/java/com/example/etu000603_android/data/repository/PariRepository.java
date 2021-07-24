@@ -10,6 +10,7 @@ import com.example.etu000603_android.data.model.PariStatut;
 import com.example.etu000603_android.ui.navigation.QrActivity;
 import com.example.etu000603_android.ui.pari.PariActvity;
 import com.example.etu000603_android.ui.pari.PariPersonelActivity;
+import com.example.etu000603_android.utils.Session;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -278,12 +279,15 @@ public class PariRepository {
 
         activity.getPariDisponibles(list,PariStatut.TERMINEE);
     }
+    public void insererMatchOffline(Match match){
+
+    }
     public void getMatchs(final PariActvity activity,int page ,int limit){
-        final List<Match> list=new ArrayList<>();
+        final List<Match>[] list = new List[]{new ArrayList<>()};
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(Constant.TIMOUT, TimeUnit.SECONDS)
                 .build();
-
+        CouchbaseService.getListMatch(activity.getApplicationContext());
         Request request = new Request.Builder()
                 .url(Constant.API_NODE+"matchs?page="+page+"&&limit="+limit)
                 .addHeader("Accept","application/json")
@@ -294,6 +298,21 @@ public class PariRepository {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println("response error");
+
+                list[0] = CouchbaseService.listMatchs;
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                        //  activity.getPariDisponibles(liste,statut);
+                        // getEvolution(id,activity,listeFinal);
+                        Session.isOnline = false;
+                        activity.getPariDisponibles(list[0]);
+
+                    }
+                });
+
                 call.cancel();
             }
 
@@ -304,6 +323,8 @@ public class PariRepository {
                 try {
 
                     if(response.code()!=200 && response.code()!=401){
+                         Session.isOnline = false;
+                         list[0] = CouchbaseService.listMatchs;
 
                     }
                     System.out.println("Json matchs");
@@ -362,8 +383,11 @@ public class PariRepository {
                                 m.getListPari().add(pari);
 
                             }
-                            list.add(m);
+                            list[0].add(m);
+                            CouchbaseService.insertMatch(m,activity.getApplicationContext());
+//                            CouchbaseService.retrieveDocument(m.getId(),activity.getApplicationContext());
                         }
+                        Session.isOnline = true;
                     }
 
                     activity.runOnUiThread(new Runnable() {
@@ -373,7 +397,7 @@ public class PariRepository {
 
                           //  activity.getPariDisponibles(liste,statut);
                             // getEvolution(id,activity,listeFinal);
-                            activity.getPariDisponibles(list);
+                            activity.getPariDisponibles(list[0]);
                         }
                     });
 

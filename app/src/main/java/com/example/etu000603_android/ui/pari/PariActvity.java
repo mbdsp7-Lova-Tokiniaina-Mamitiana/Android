@@ -69,6 +69,7 @@ public class PariActvity extends ActivityWithNavigation {
     private int max =10;
     private int nbpages=1;
     private int totals=0;
+
     private CheckBox term_checkbox,today_checkbox;
 
     public int getPage() {
@@ -244,6 +245,12 @@ public class PariActvity extends ActivityWithNavigation {
         if(page == nbpages){
             nextButton.setEnabled(false);
             nextButton.setVisibility(View.INVISIBLE);
+        }
+        if(!Session.isOnline){
+            totals = list.size();
+            previousButton.setVisibility(View.INVISIBLE);
+            nextButton.setVisibility(View.INVISIBLE);
+            showMessage("Vous êtest actuellement déconnété.L'application utilisera le mode offline",true);
         }
         getParis(list,true);
 

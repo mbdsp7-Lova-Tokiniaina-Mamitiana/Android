@@ -91,7 +91,7 @@ public  class CouchbaseService {
             List<Match> list =new ArrayList<>();
             try{
                 Query query = QueryBuilder.select(SelectResult.all())
-                        .from(DataSource.database(getDatabase(context))).orderBy(Ordering.property("date").descending());
+                        .from(DataSource.database(getDatabase(context))).orderBy(Ordering.property("date").ascending());
 
                 ResultSet result = query.execute();
                 List<Result> lr =result.allResults();

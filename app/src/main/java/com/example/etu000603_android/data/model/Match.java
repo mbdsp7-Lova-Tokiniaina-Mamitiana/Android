@@ -96,4 +96,6 @@ public class Match {
     public void setLocalisationY(double localisationY) {
         this.localisationY = localisationY;
     }
+
+
 }

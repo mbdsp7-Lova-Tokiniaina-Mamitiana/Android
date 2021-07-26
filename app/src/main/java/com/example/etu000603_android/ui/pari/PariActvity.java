@@ -36,6 +36,7 @@ import com.example.etu000603_android.ui.pari.fragment.VerticalPagerFragment;
 import com.example.etu000603_android.ui.navigation.ActivityWithNavigation;
 import com.example.etu000603_android.utils.Session;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -209,7 +210,7 @@ public class PariActvity extends ActivityWithNavigation {
     }
     private void rechercher(){
         progressBar.setVisibility(View.VISIBLE);
-        repository.getMatchs(activity,page,max);
+        repository.getMatchs(activity,page,max,searchView.getText().toString(),this.term_checkbox.isChecked(),this.today_checkbox.isChecked(),this.datedebut.getText().toString(),this.datefin.getText().toString());
     }
 
     public void infomatch(Match match){
@@ -339,34 +340,101 @@ public class PariActvity extends ActivityWithNavigation {
 
     }
 
-
-    private List<Match> getCompanyList(String companyName){
-        companyName=companyName.trim();
-        if(companyName.isEmpty()){
-            return liste;
-        }
+    private List<Match> getMatchsByDates(List<Match> l){
         List<Match> newList=new ArrayList<>();
-        for(Match c:liste){
+        String search = searchView.getText().toString();
 
-                newList.add(c);
+        for(Match c:l){
+             long dateavant =0;
+             long dateapres=Long.MAX_VALUE;
+             if(today_checkbox.isChecked()){
+                Date avant =new Date(System.currentTimeMillis());
+                avant.setHours(0);
+                avant.setMinutes(0);
+                dateavant =avant.getTime();
+                Date apres =new Date(System.currentTimeMillis());
+                avant.setHours(23);
+                avant.setMinutes(59);
+                dateapres =avant.getTime();
+
+             }else{
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                 try{
+                     Date avant = dateFormat.parse(this.datedebut.getText().toString());
+                     dateavant =avant.getTime();
+                 }catch (Exception exc){
+
+                 }
+                 try{
+                     Date fin = dateFormat.parse(this.datefin.getText().toString());
+                     dateapres =fin.getTime();
+                 }catch (Exception exc){
+
+                 }
+             }
+             if(c.getDate().getTime()<=dateapres && c.getDate().getTime()>=dateavant){
+                 newList.add(c);
+             }
+
 
         }
+
+
         return  newList;
+    }
+
+    private List<Match> getMatchsBySearch(List<Match> l){
+        List<Match> newList=new ArrayList<>();
+        String search = searchView.getText().toString();
+        if(search!=null && search!=""){
+            for(Match c:l){
+                if(c.getDomicile().getName().toLowerCase().contains(search.toLowerCase())){
+                    newList.add(c);
+                    continue;
+                }
+                if(c.getExterieur().getName().toLowerCase().contains(search.toLowerCase())){
+                    newList.add(c);
+                    continue;
+                }
+
+                for(Pari p : c.getListPari()){
+                        if(p.getDescription().toLowerCase().contains(search.toLowerCase())){
+                            newList.add(c);
+
+                            break;
+                        }
+                }
+
+
+            }
+        }else{
+            return  l;
+        }
+
+        return  newList;
+    }
+    private List<Match> getCompanyList(String companyName){
+
+        List<Match> newList=new ArrayList<>();
+        List<Match> matchesSearch = getMatchsBySearch(liste);
+        List<Match> matchesDates =getMatchsByDates(matchesSearch);
+
+        return  matchesDates;
     }
     private void makeSearch(String query){
        // progressBar.setVisibility(View.VISIBLE);
 
-
+            rechercher();
       //  progressBar.setVisibility(View.VISIBLE);
-        List<Match> list=getCompanyList(query);
+        if(!Session.isOnline){
+            List<Match> list=getCompanyList(query);
 
-        if(query.trim().isEmpty()){
+
 
             getParis(list,true);
-        }else{
-
-            getParis(list,false);
         }
+
+
     }
     private void configureSearchView(){
         this.searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -380,7 +448,7 @@ public class PariActvity extends ActivityWithNavigation {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if(s.length()>=2||s.length()==0){
-                    makeSearch(s.toString());
+                    //makeSearch(s.toString());
                 }
             }
 

@@ -21,14 +21,18 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
@@ -288,12 +292,18 @@ public class PariRepository {
                 .readTimeout(Constant.TIMOUT, TimeUnit.SECONDS)
                 .build();
         CouchbaseService.getListMatch(activity.getApplicationContext());
-        Request request = new Request.Builder()
-                .url(Constant.API_NODE+"matchs?page="+page+"&&limit="+limit)
-                .addHeader("Accept","application/json")
+        FormBody.Builder builder =new FormBody.Builder()  .add("page", ""+page)
+                .add("limit",""+limit).add("etat","false");
 
+
+
+        RequestBody formBody =builder
                 .build();
-
+        Request request = new Request.Builder()
+                .url(Constant.API_NODE+"matchs/search")
+                .addHeader("Accept","application/json")
+                .post(formBody)
+                .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -419,16 +429,52 @@ public class PariRepository {
         });
 
     }
-    public void getMatchs(final PariActvity activity,int page ,int limit){
+    public void getMatchs(final PariActvity activity,int page ,int limit,String search,boolean etat,boolean isToday,String dateDebut,String dateFin){
         final List<Match>[] list = new List[]{new ArrayList<>()};
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(Constant.TIMOUT, TimeUnit.SECONDS)
                 .build();
         CouchbaseService.getListMatch(activity.getApplicationContext());
-        Request request = new Request.Builder()
-                .url(Constant.API_NODE+"matchs?page="+page+"&&limit="+limit)
-                .addHeader("Accept","application/json")
+        FormBody.Builder builder =new FormBody.Builder()  .add("page", ""+page)
+                .add("limit",""+limit).add("etat",""+etat);
+        if(search!="" || search !=null){
+            builder = builder.add("pari",search);
+            builder = builder.add("equipe",search);
+        }
+        if(isToday){
+            builder = builder.add("isToday",""+isToday);
+        }
+        Map<String,String> map =new HashMap<>();
+        try{
+            SimpleDateFormat d1 =new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat d2 =new SimpleDateFormat("yyyy-MM-dd");
+            Date date =d1.parse(dateDebut);
+            map.put("date_debut",d2.format(date));
+            builder =builder.add("date_debut",d2.format(date));
+        }catch (Exception exc){
 
+        }
+        try{
+            SimpleDateFormat d1 =new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat d2 =new SimpleDateFormat("yyyy-MM-dd");
+            Date date =d1.parse(dateFin);
+            map.put("date_fin",d2.format(date));
+            builder =builder.add("date_fin",d2.format(date));
+        }catch (Exception exc){
+
+        }
+        if(!map.isEmpty()){
+          //  builder =builder.add("periode",new JSONObject(map).toString());
+
+        }
+
+
+        RequestBody formBody =builder
+                .build();
+        Request request = new Request.Builder()
+                .url(Constant.API_NODE+"matchs/search")
+                .addHeader("Accept","application/json")
+                .post(formBody)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {

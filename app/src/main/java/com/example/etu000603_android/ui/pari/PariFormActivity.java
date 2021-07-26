@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -58,6 +59,7 @@ public class PariFormActivity extends ActivityWithNavigation {
         final  PariFormActivity activity =this;
         this.match =Session.selected_match;
         textDate = findViewById(R.id.text_date);
+        TextView termine =findViewById(R.id.label_termine);
         textEquipe1 = findViewById(R.id.text_equipe1);
         textEquipe2 = findViewById(R.id.text_equipe2);
         imageView1 = findViewById(R.id.image_equipe1);
@@ -69,7 +71,7 @@ public class PariFormActivity extends ActivityWithNavigation {
        ////// this.cardView2= findViewById(R.id.card_equipe_2);
         this.cardView1.setBackgroundResource(R.drawable.circle_cardview);
         this.cardView2.setBackgroundResource(R.drawable.circle_cardview);*/
-        SimpleDateFormat dateFormat =new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat dateFormat =new SimpleDateFormat("dd/MM/yyyy HH:mm");
         textEquipe1.setText(this.match.getDomicile().getName());
         textEquipe2.setText(this.match.getExterieur().getName());
         if(match.getDomicile().getUrl_image()!=null) {
@@ -119,7 +121,7 @@ public class PariFormActivity extends ActivityWithNavigation {
                         });
             }
         }
-        textDate.setText(dateFormat.format(this.match.getDate()));
+        textDate.setText(dateFormat.format(this.match.getDate())+" ");
          qrgEncoder =new QRGEncoder(
                  match.getId(), null,
                  QRGContents.Type.TEXT,
@@ -131,9 +133,22 @@ public class PariFormActivity extends ActivityWithNavigation {
             e.printStackTrace();
         }
         final  LinearLayout listePari = findViewById(R.id.pari_list);
+
+        if(match.isTermine()){
+            termine.setVisibility(View.VISIBLE);
+            listePari.setEnabled(false);
+        }
         for(Pari p:match.getListPari()){
             PariMatchFragment fragment =new PariMatchFragment(p,activity);
             View view =fragment.onCreateView(getLayoutInflater(),listePari,savedInstanceState);
+            final EditText editText = view.findViewById(R.id.value);
+            final Button btn_pari = view.findViewById(R.id.btn_pari);
+            if(match.isTermine()){
+                view.setEnabled(false);
+                editText.setVisibility(View.GONE);
+                btn_pari.setVisibility(View.GONE);
+                view.setAlpha(0.8F);
+            }
             listePari.addView(view);
         }
 

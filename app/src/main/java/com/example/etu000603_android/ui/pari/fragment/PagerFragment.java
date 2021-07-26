@@ -73,6 +73,7 @@ public class PagerFragment extends Fragment {
         TextView textEquipe1=view.findViewById(R.id.text_equipe1);
         TextView textEquipe2=view.findViewById(R.id.text_equipe2);
         TextView textDescription = view.findViewById(R.id.description_pari);
+        TextView termine =view.findViewById(R.id.label_termine);
 
         textEquipe1.setText(match.getDomicile().getName());
         textEquipe2.setText(match.getExterieur().getName());
@@ -81,6 +82,11 @@ public class PagerFragment extends Fragment {
 
 
         Button pariButton =view.findViewById(R.id.btn_pari);
+            if(match.isTermine()){
+                termine.setVisibility(View.VISIBLE);
+
+                pariButton.setVisibility(View.INVISIBLE);
+            }
         pariButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

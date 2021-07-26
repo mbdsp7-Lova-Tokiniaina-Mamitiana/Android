@@ -75,6 +75,13 @@ public class PariRepository {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println("response error");
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.showMessage("Impossible de se connecter au serveur.Essayer ulterieurement",true);
+
+                    }
+                });
                 call.cancel();
             }
 
@@ -85,7 +92,7 @@ public class PariRepository {
                 try {
 
                     if(response.code()!=200 && response.code()!=401){
-                        activity.showMessage("QR Code invalide",true);
+                        activity.showMessage("QR Code invalide ou ce match n'existe plus",true);
                     }
 
 
@@ -177,6 +184,14 @@ public class PariRepository {
             public void onFailure(Call call, IOException e) {
                 System.out.println("response error");
                 call.cancel();
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.showMessage("Impossible de se connecter au serveur.Essayer ulterieurement",true);
+                        activity.redirectToAccueil();
+                    }
+                });
+
             }
 
             @Override
@@ -443,30 +458,32 @@ public class PariRepository {
         }
         if(isToday){
             builder = builder.add("isToday",""+isToday);
-        }
-        Map<String,String> map =new HashMap<>();
-        try{
-            SimpleDateFormat d1 =new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat d2 =new SimpleDateFormat("yyyy-MM-dd");
-            Date date =d1.parse(dateDebut);
-            map.put("date_debut",d2.format(date));
-            builder =builder.add("date_debut",d2.format(date));
-        }catch (Exception exc){
+        }else{
+            Map<String,String> map =new HashMap<>();
+            try{
+                SimpleDateFormat d1 =new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat d2 =new SimpleDateFormat("yyyy-MM-dd");
+                Date date =d1.parse(dateDebut);
+                map.put("date_debut",d2.format(date));
+                builder =builder.add("date_debut",d2.format(date));
+            }catch (Exception exc){
 
-        }
-        try{
-            SimpleDateFormat d1 =new SimpleDateFormat("dd/MM/yyyy");
-            SimpleDateFormat d2 =new SimpleDateFormat("yyyy-MM-dd");
-            Date date =d1.parse(dateFin);
-            map.put("date_fin",d2.format(date));
-            builder =builder.add("date_fin",d2.format(date));
-        }catch (Exception exc){
+            }
+            try{
+                SimpleDateFormat d1 =new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat d2 =new SimpleDateFormat("yyyy-MM-dd");
+                Date date =d1.parse(dateFin);
+                map.put("date_fin",d2.format(date));
+                builder =builder.add("date_fin",d2.format(date));
+            }catch (Exception exc){
 
-        }
-        if(!map.isEmpty()){
-          //  builder =builder.add("periode",new JSONObject(map).toString());
+            }
+            if(!map.isEmpty()){
+                //  builder =builder.add("periode",new JSONObject(map).toString());
 
+            }
         }
+
 
 
         RequestBody formBody =builder

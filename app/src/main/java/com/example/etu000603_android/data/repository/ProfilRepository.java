@@ -213,7 +213,7 @@ public class ProfilRepository {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println("response error");
-                activity.showMessage("Impossible de se connecter.Reessayer ulterieurement",true);
+                activity.runOnUiThread(() -> activity.showMessage("Impossible de se connecter au serveur.Essayer ulterieurement",true));
                 call.cancel();
             }
 
@@ -283,7 +283,7 @@ public class ProfilRepository {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println("response error");
-                activity.showMessage("Impossible de se connecter.Reessayer ulterieurement",true);
+                activity.runOnUiThread(() -> activity.showMessage("Impossible de se connecter au serveur.Essayer ulterieurement",true));
                 call.cancel();
             }
 

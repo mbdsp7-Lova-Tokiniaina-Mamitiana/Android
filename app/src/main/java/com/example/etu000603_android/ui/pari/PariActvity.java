@@ -153,6 +153,7 @@ public class PariActvity extends ActivityWithNavigation {
     }
     private void setupDialog(){
         final View dialogView = View.inflate(activity, R.layout.datetimepicker, null);
+
         dialog1 = new AlertDialog.Builder(activity).create();
 
         dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
@@ -169,6 +170,14 @@ public class PariActvity extends ActivityWithNavigation {
 
                 long time = calendar.getTimeInMillis();
                 datedebut.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(time)));
+                dialog1.dismiss();
+            }});
+        dialogView.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                datedebut.setText("dd/MM/yyyy");
                 dialog1.dismiss();
             }});
         dialog1.setView(dialogView);
@@ -196,6 +205,14 @@ public class PariActvity extends ActivityWithNavigation {
 
                 long time = calendar.getTimeInMillis();
                 datefin.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(time)));
+                dialog2.dismiss();
+            }});
+        dialogView2.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                datefin.setText("dd/MM/yyyy");
                 dialog2.dismiss();
             }});
         dialog2.setView(dialogView2);
@@ -424,7 +441,7 @@ public class PariActvity extends ActivityWithNavigation {
     private void makeSearch(String query){
        // progressBar.setVisibility(View.VISIBLE);
 
-            rechercher();
+        rechercher();
       //  progressBar.setVisibility(View.VISIBLE);
         if(!Session.isOnline){
             List<Match> list=getCompanyList(query);
@@ -433,6 +450,7 @@ public class PariActvity extends ActivityWithNavigation {
 
             getParis(list,true);
         }
+
 
 
     }

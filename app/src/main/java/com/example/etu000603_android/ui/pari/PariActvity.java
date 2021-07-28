@@ -278,7 +278,12 @@ public class PariActvity extends ActivityWithNavigation {
 
 
     private void getParis(List<Match> list, boolean horizontal){
+        if(Session.isOnline){
+            this.term_checkbox.setEnabled(true);
+        }else{
 
+            this.term_checkbox.setEnabled(false);
+        }
         content.removeAllViews();
         if(horizontal){
 
@@ -344,7 +349,7 @@ public class PariActvity extends ActivityWithNavigation {
 
                 RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 lp.bottomMargin = 50;
-                VerticalPariFragment pariFragment =new VerticalPariFragment(liste.get(i),activity);
+                VerticalPariFragment pariFragment =new VerticalPariFragment(list.get(i),activity);
                 linearLayout.addView(pariFragment.onCreateView(getLayoutInflater(),linearLayout,null),lp);
             }
 
@@ -370,20 +375,24 @@ public class PariActvity extends ActivityWithNavigation {
                 avant.setMinutes(0);
                 dateavant =avant.getTime();
                 Date apres =new Date(System.currentTimeMillis());
-                avant.setHours(23);
-                avant.setMinutes(59);
-                dateapres =avant.getTime();
+                apres.setHours(23);
+                apres.setMinutes(59);
+                dateapres =apres.getTime();
 
              }else{
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                  try{
                      Date avant = dateFormat.parse(this.datedebut.getText().toString());
+                     avant.setHours(0);
+                     avant.setMinutes(0);
                      dateavant =avant.getTime();
                  }catch (Exception exc){
 
                  }
                  try{
                      Date fin = dateFormat.parse(this.datefin.getText().toString());
+                     fin.setHours(23);
+                     fin.setMinutes(59);
                      dateapres =fin.getTime();
                  }catch (Exception exc){
 
@@ -435,13 +444,15 @@ public class PariActvity extends ActivityWithNavigation {
         List<Match> newList=new ArrayList<>();
         List<Match> matchesSearch = getMatchsBySearch(liste);
         List<Match> matchesDates =getMatchsByDates(matchesSearch);
-
+        totals = matchesDates.size();
         return  matchesDates;
     }
     private void makeSearch(String query){
        // progressBar.setVisibility(View.VISIBLE);
+        if(Session.isOnline){
+            rechercher();
+        }
 
-        rechercher();
       //  progressBar.setVisibility(View.VISIBLE);
         if(!Session.isOnline){
             List<Match> list=getCompanyList(query);

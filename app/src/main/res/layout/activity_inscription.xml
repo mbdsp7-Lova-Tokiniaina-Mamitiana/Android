@@ -15,11 +15,13 @@
 
             tools:context=".ui.login.LoginActivity">
             <ImageView
+
                 android:layout_marginTop="20dp"
-                android:layout_width="100dp"
+                android:layout_width="150dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/logo"
-                android:layout_height="100dp"/>
+                android:src="@drawable/logo_transparent"
+                android:scaleType="fitXY"
+                android:layout_height="150dp"/>
             <TextView
                 android:id="@+id/welcome"
 

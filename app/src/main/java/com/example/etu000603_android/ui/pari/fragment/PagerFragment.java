@@ -77,7 +77,7 @@ public class PagerFragment extends Fragment {
 
         textEquipe1.setText(match.getDomicile().getName());
         textEquipe2.setText(match.getExterieur().getName());
-        System.out.println("Date match:"+match.getDate().toString());
+       // System.out.println("Date match:"+match.getDate().toString());
         textDescription.setText(dateFormat.format(match.getDate()));
 
 

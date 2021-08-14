@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,6 +41,10 @@ public class InscriptionActivity extends ActivityWithLanguage {
         errorMessage = findViewById(R.id.error_message);
         loginButton = findViewById(R.id.login);
         setOnclickListener();
+    }
+    private void hideKeybaord(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
     }
     public void ShowHidePass(View view){
 

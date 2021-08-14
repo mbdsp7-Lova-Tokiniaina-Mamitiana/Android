@@ -149,6 +149,7 @@ public class ProfilRepository {
                 .addHeader("Accept","application/json")
 
                 .build();
+        System.out.println(Constant.API_GRAILS+"profil?id="+user.getId());
 
         client.newCall(request).enqueue(new Callback() {
             @Override

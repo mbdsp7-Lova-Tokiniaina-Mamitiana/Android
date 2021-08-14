@@ -196,7 +196,10 @@ public class PariPersonelActivity extends ActivityWithNavigation {
         lp1.topMargin = 50;
         scrollView.addView(linearLayout,lp1);
         //ScreenVerticalPagerAdapter adapter =new ScreenVerticalPagerAdapter(activity,liste,type);
-        int n = list.size();
+        int n = 0;
+        if(list!=null){
+            n = list.size();
+        }
         for(int i=0;i<n;i++){
 
             RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);

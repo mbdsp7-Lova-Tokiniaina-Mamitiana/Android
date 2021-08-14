@@ -60,7 +60,7 @@ public  class CouchbaseService {
     public static void insertMatch(Match match,Context context){
         try {
             Document doc = retrieveDocument(match.getId(),context);
-            System.out.println("Insertion doc:"+doc);
+            //System.out.println("Insertion doc:"+doc);
             if(doc==null){
                 checkcount(context);
 

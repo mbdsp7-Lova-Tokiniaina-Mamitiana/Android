@@ -662,7 +662,7 @@ public class PariRepository {
                 .addHeader("Accept","application/json")
 
                 .build();
-
+        System.out.println(Constant.API_GRAILS+"historiquepersonnels?id="+iduser+"&&statut="+stat+"&&offset="+offset+"&&max="+max);
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

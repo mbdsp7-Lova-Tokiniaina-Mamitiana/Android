@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import com.example.etu000603_android.R;
@@ -39,6 +41,10 @@ public class LoginActivity extends ActivityWithLanguage {
         progressBar=findViewById(R.id.progressBar);
         errorMessage=findViewById(R.id.error_message);
         inscription = findViewById(R.id.inscription);
+        textUsername.setSingleLine(true);
+        textPassword.setSingleLine(true);
+        textUsername.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        textPassword.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         setOnclickListener();
     }
     private void checkUser(){
@@ -100,7 +106,10 @@ public class LoginActivity extends ActivityWithLanguage {
             }
         });
     }
-
+    private void hideKeybaord(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+    }
     public void onLoginSuccess() {
         progressBar.setVisibility(View.INVISIBLE);
         //Check profil
